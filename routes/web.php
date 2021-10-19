@@ -22,13 +22,19 @@ Route::get('/', function () {
  * ------------------- ADMIN ----------------------------
  */
 Route::group(["prefix" => 'admin', 'middleware' => ['admin:admin']], function () {
+    // Login
     Route::get("/login", [AdminController::class, 'loginForm']);
     Route::post("/login", [AdminController::class, 'store'])->name("admin.login");
 });
 
+// Dashboard
 Route::middleware(['auth:sanctum,admin', 'verified'])->get('/admin/dashboard', function () {
-    return view('dashboard');
+    return view('admin.index');
 })->name('dashboard');
+
+// Logout
+Route::get('/admin/logout', [AdminController::class, 'destroy'])->name('admin.logout');
+
 
 
 /**
