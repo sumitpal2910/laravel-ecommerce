@@ -13,10 +13,13 @@
 
     <!-- Vendors Style-->
     <link rel="stylesheet" href=" {{ asset('backend/css/vendors_css.css') }}">
-
     <!-- Style-->
     <link rel="stylesheet" href=" {{ asset('backend/css/style.css') }}">
     <link rel="stylesheet" href=" {{ asset('backend/css/skin_color.css') }}">
+    <!-- Toastr css-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" />
+
+
 
 </head>
 
@@ -53,15 +56,51 @@
 
 
     <!-- Vendor JS -->
-    <script src="{{ asset('backend/js/vendors.min.js') }}"></script>
-    <script src="{{ asset('../assets/icons/feather-icons/feather.min.js') }}"></script>
-    <script src="{{ asset('../assets/vendor_components/easypiechart/dist/jquery.easypiechart.js') }}"></script>
-    <script src="{{ asset('../assets/vendor_components/apexcharts-bundle/irregular-data-series.js') }}"></script>
-    <script src="{{ asset('../assets/vendor_components/apexcharts-bundle/dist/apexcharts.js') }}"></script>
+    <script src="{{ asset('backend/js/vendors.min.js') }}" defer></script>
+    <script src="{{ asset('../assets/icons/feather-icons/feather.min.js') }}" defer></script>
+    <script src="{{ asset('../assets/vendor_components/easypiechart/dist/jquery.easypiechart.js') }}" defer></script>
+    <script src="{{ asset('../assets/vendor_components/apexcharts-bundle/irregular-data-series.js') }}" defer></script>
+    {{-- <script src="{{ asset('../assets/vendor_components/apexcharts-bundle/dist/apexcharts.js') }}" defer></script> --}}
+
+    <!-- Jquery -->
+    <script src="{{ asset('../assets/vendor_components/jquery-3.3.1/jquery-3.3.1.min.js') }}"></script>
+
 
     <!-- Sunny Admin App -->
-    <script src="{{ asset('backend/js/template.js') }}"></script>
-    <script src="{{ asset('backend/js/pages/dashboard.js') }}"></script>
+    <script src="{{ asset('backend/js/template.js') }}" defer></script>
+    <script src="{{ asset('backend/js/pages/dashboard.js') }}" defer></script>
+
+    <!-- Toastr -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" defer>
+    </script>
+
+    <script>
+        $(document).ready(function() {
+            
+            @if (Session::has('message'))
+                let type = "{{ Session::get('alert-type', 'info') }}";
+            
+                switch (type) {
+                case 'info':
+                toastr.info("{{ Session::get('message') }}");
+                break;
+            
+                case 'success':
+                toastr.success(" {{ session('message') }}");
+                break;
+            
+                case 'warning':
+                toastr.warning("{{ Session::get('message') }}");
+                break;
+            
+                case 'error':
+                toastr.error("{{ Session::get('message') }}");
+                break;
+                }
+            @endif
+        })
+    </script>
+
 
 
 </body>

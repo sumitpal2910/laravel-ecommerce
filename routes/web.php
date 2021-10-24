@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\Backend\AdminProfileController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,8 +20,11 @@ Route::get('/', function () {
 });
 
 /**
- * ------------------- ADMIN ----------------------------
+ * ------------------------------------------------------
+ *    ----           ADMIN          ----
+ * ------------------------------------------------------
  */
+
 Route::group(["prefix" => 'admin', 'middleware' => ['admin:admin']], function () {
     // Login
     Route::get("/login", [AdminController::class, 'loginForm']);
@@ -34,6 +38,24 @@ Route::middleware(['auth:sanctum,admin', 'verified'])->get('/admin/dashboard', f
 
 // Logout
 Route::get('/admin/logout', [AdminController::class, 'destroy'])->name('admin.logout');
+
+
+// ------- PROFILE -------
+
+// Show
+Route::get('/admin/profile', [AdminProfileController::class, 'adminProfile'])->name('admin.profile');
+
+// Edit
+Route::get('/admin/profile/edit', [AdminProfileController::class, 'adminProfileEdit'])->name('admin.profile.edit');
+
+// Update
+Route::post('/admin/profile/edit', [AdminProfileController::class, 'adminProfileUpdate'])->name('admin.profile.update');
+
+// Change Password
+Route::get("/admin/change/password", [AdminProfileController::class, 'adminChangePassword'])->name('admin.change.password');
+
+// Update Password
+Route::post("/update/change/password", [AdminProfileController::class, 'adminUpdateChangePassword'])->name('update.change.password');
 
 
 
