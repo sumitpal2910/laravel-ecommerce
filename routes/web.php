@@ -15,9 +15,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+
 
 /**
  * ------------------------------------------------------
@@ -25,8 +23,8 @@ Route::get('/', function () {
  * ------------------------------------------------------
  */
 
+// Login
 Route::group(["prefix" => 'admin', 'middleware' => ['admin:admin']], function () {
-    // Login
     Route::get("/login", [AdminController::class, 'loginForm']);
     Route::post("/login", [AdminController::class, 'store'])->name("admin.login");
 });
@@ -34,14 +32,13 @@ Route::group(["prefix" => 'admin', 'middleware' => ['admin:admin']], function ()
 // Dashboard
 Route::middleware(['auth:sanctum,admin', 'verified'])->get('/admin/dashboard', function () {
     return view('admin.index');
-})->name('dashboard');
+})->name('admin.dashboard');
 
 // Logout
 Route::get('/admin/logout', [AdminController::class, 'destroy'])->name('admin.logout');
 
 
 // ------- PROFILE -------
-
 // Show
 Route::get('/admin/profile', [AdminProfileController::class, 'adminProfile'])->name('admin.profile');
 
@@ -51,6 +48,8 @@ Route::get('/admin/profile/edit', [AdminProfileController::class, 'adminProfileE
 // Update
 Route::post('/admin/profile/edit', [AdminProfileController::class, 'adminProfileUpdate'])->name('admin.profile.update');
 
+
+// -------  PASSWORD-------
 // Change Password
 Route::get("/admin/change/password", [AdminProfileController::class, 'adminChangePassword'])->name('admin.change.password');
 
@@ -60,8 +59,15 @@ Route::post("/update/change/password", [AdminProfileController::class, 'adminUpd
 
 
 /**
- * ----------------------- USER --------------------------------------------
+ * ------------------------------------------------------
+ *    ----           USER          ----
+ * ------------------------------------------------------
  */
+
+//  Dashboard
 Route::middleware(['auth:sanctum,web', 'verified'])->get('/dashboard', function () {
     return view('dashboard');
 })->name('dashboard');
+
+// Home
+Route::get("/", [IndexController::class, 'index']);
