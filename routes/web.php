@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Backend\AdminProfileController;
+use App\Http\Controllers\Frontend\IndexController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -70,4 +71,4 @@ Route::middleware(['auth:sanctum,web', 'verified'])->get('/dashboard', function 
 })->name('dashboard');
 
 // Home
-Route::get("/", [IndexController::class, 'index']);
+Route::get("/", [IndexController::class, 'index'])->name('index');
