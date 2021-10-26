@@ -3,7 +3,9 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Backend\AdminProfileController;
 use App\Http\Controllers\Frontend\IndexController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use Laravel\Jetstream\Rules\Role;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,9 +21,9 @@ use Illuminate\Support\Facades\Route;
 
 
 /**
- * ------------------------------------------------------
+ * =========================================================
  *    ----           ADMIN          ----
- * ------------------------------------------------------
+ * =========================================================
  */
 
 // Login
@@ -60,15 +62,35 @@ Route::post("/update/change/password", [AdminProfileController::class, 'adminUpd
 
 
 /**
- * ------------------------------------------------------
+ * ========================================================
  *    ----           USER          ----
- * ------------------------------------------------------
+ * ========================================================
  */
+
+//  ---- Jetstream ----
+require_once __DIR__ . '/jetstream.php';
+
 
 //  Dashboard
 Route::middleware(['auth:sanctum,web', 'verified'])->get('/dashboard', function () {
-    return view('dashboard');
+    $user = Auth::user();
+    return view('dashboard', compact('user'));
 })->name('dashboard');
 
 // Home
 Route::get("/", [IndexController::class, 'index'])->name('index');
+
+// Logout
+Route::get("/user/logout", [IndexController::class, 'userLogout'])->name('user.logout');
+
+// User Profile Show
+Route::get("/user/profile", [IndexController::class, 'userProfile'])->name('user.profile');
+
+// User Profile Update
+Route::post("/user/profile/store", [IndexController::class, 'userProfileStore'])->name('user.profile.store');
+
+// Change Password
+Route::get("/user/change/password", [IndexController::class, 'userChangePassword'])->name('change.password');
+
+// Update Password
+Route::post("/user/password/update", [IndexController::class, 'userPasswordUpdate'])->name('user.password.update');

@@ -34,7 +34,7 @@
                             <div class="form-group">
                                 <label class="info-title" for="email">Email Address <span>*</span></label>
                                 <input type="email" class="form-control unicase-form-control text-input" id="email"
-                                    name="email" required autofocus>
+                                    name="email" required autofocus value="{{ old('email') }}">
                             </div>
                             <div class="form-group">
                                 <label class="info-title" for="password">Password <span>*</span></label>
