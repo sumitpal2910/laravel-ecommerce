@@ -5,9 +5,9 @@
                 <a class="nav-link" href="javascript:void(0)">FAQ</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">www.laravelecommerce.com</a>
+                <a class="nav-link" href="{{ route('admin.dashboard') }}">www.laravelecommerce.com</a>
             </li>
         </ul>
     </div>
-    &copy; 2021 <a href="{{ url('/admin/dashboard') }}">Laravel Ecommerce</a>. All Rights Reserved.
+    &copy; 2021 <a href="{{ route('admin.dashboard') }}">Laravel Ecommerce</a>. All Rights Reserved.
 </footer>

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Backend\AdminProfileController;
+use App\Http\Controllers\Backend\BrandController;
 use App\Http\Controllers\Frontend\IndexController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -41,7 +42,11 @@ Route::middleware(['auth:sanctum,admin', 'verified'])->get('/admin/dashboard', f
 Route::get('/admin/logout', [AdminController::class, 'destroy'])->name('admin.logout');
 
 
-// ------- PROFILE -------
+/**
+ * ---------------------------------------------------
+ *  ----         PROFILE       ---- 
+ * ---------------------------------------------------
+ */
 // Show
 Route::get('/admin/profile', [AdminProfileController::class, 'adminProfile'])->name('admin.profile');
 
@@ -52,13 +57,43 @@ Route::get('/admin/profile/edit', [AdminProfileController::class, 'adminProfileE
 Route::post('/admin/profile/edit', [AdminProfileController::class, 'adminProfileUpdate'])->name('admin.profile.update');
 
 
-// -------  PASSWORD-------
+/**
+ * ---------------------------------------------------
+ *  ----         PASSWORD        ---- 
+ * ---------------------------------------------------
+ */
 // Change Password
 Route::get("/admin/change/password", [AdminProfileController::class, 'adminChangePassword'])->name('admin.change.password');
 
 // Update Password
 Route::post("/update/change/password", [AdminProfileController::class, 'adminUpdateChangePassword'])->name('update.change.password');
 
+
+/**
+ * ---------------------------------------------------
+ *  ----         BRANDS        ---- 
+ * ---------------------------------------------------
+ */
+Route::prefix('brand')->group(function () {
+    // view all brands
+    Route::get('/view', [BrandController::class, 'viewBrand'])->name('all.brand');
+
+    // Add new Brand
+    Route::post("/store", [BrandController::class, 'storeBrand'])->name('brand.store');
+
+    // Edit Brand
+    Route::get("/edit/{id}", [BrandController::class, 'editBrand'])->name('brand.edit');
+
+    // Update Brand
+    Route::post("/update", [BrandController::class, 'updateBrand'])->name('brand.update');
+
+    // Delete Brand
+    Route::get("/delete/{id}", [BrandController::class, 'deleteBrand'])->name('brand.delete');
+});
+
+
+
+// -----------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
 /**
@@ -80,6 +115,9 @@ Route::middleware(['auth:sanctum,web', 'verified'])->get('/dashboard', function 
 // Home
 Route::get("/", [IndexController::class, 'index'])->name('index');
 
+
+// ---- Profile ----
+
 // Logout
 Route::get("/user/logout", [IndexController::class, 'userLogout'])->name('user.logout');
 
@@ -88,6 +126,9 @@ Route::get("/user/profile", [IndexController::class, 'userProfile'])->name('user
 
 // User Profile Update
 Route::post("/user/profile/store", [IndexController::class, 'userProfileStore'])->name('user.profile.store');
+
+
+// -------  PASSWORD-------
 
 // Change Password
 Route::get("/user/change/password", [IndexController::class, 'userChangePassword'])->name('change.password');

@@ -82,7 +82,7 @@
                                     </div>
                                 </div>
                                 <div class="text-xs-right">
-                                    <button type="submit" class="btn btn-rounded btn-primary">Update</button>
+                                    <input type="submit" class="btn btn-rounded btn-primary" value="Update">
                                 </div>
                             </form>
 
