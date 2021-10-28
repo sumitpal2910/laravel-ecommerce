@@ -22,6 +22,8 @@ $route = Route::current()->getName();
         <!-- sidebar menu-->
         <ul class="sidebar-menu" data-widget="tree" id="sidebar-menu">
 
+
+            <!-- dashboard -->
             <li class="{{ $route === 'admin.dashboard' ? 'active' : '' }}">
                 <a href="{{ route('admin.dashboard') }}">
                     <i data-feather="pie-chart"></i>
@@ -29,31 +31,38 @@ $route = Route::current()->getName();
                 </a>
             </li>
 
-            <li class="treeview {{$prefix === '/brand' ? 'active':''}}">
+            <!-- brands -->
+            <li class="treeview {{ $prefix === '/brand' ? 'active' : '' }}">
                 <a href="#">
                     <i data-feather="message-circle"></i>
-                    <span>Brands</span>
+                    <span>Brand</span>
                     <span class="pull-right-container">
                         <i class="fa fa-angle-right pull-right"></i>
                     </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li class="{{$route === 'all.brand' ? 'active' : ''}}"><a href="{{ route('all.brand') }}"><i class="ti-more"></i>All Brands</a></li>
-                    <li><a href="calendar.html"><i class="ti-more"></i>Calendar</a></li>
+                    <li class="{{ $route === 'all.brand' ? 'active' : '' }}"><a href="{{ route('all.brand') }}"><i
+                                class="ti-more"></i>All Brands</a></li>
                 </ul>
             </li>
 
-            <li class="treeview">
+            <!-- Category -->
+            <li class="treeview {{ $prefix === '/category' ? 'active' : '' }}">
                 <a href="#">
-                    <i data-feather="mail"></i> <span>Mailbox</span>
+                    <i data-feather="message-circle"></i>
+                    <span>Category</span>
                     <span class="pull-right-container">
                         <i class="fa fa-angle-right pull-right"></i>
                     </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="mailbox_inbox.html"><i class="ti-more"></i>Inbox</a></li>
-                    <li><a href="mailbox_compose.html"><i class="ti-more"></i>Compose</a></li>
-                    <li><a href="mailbox_read_mail.html"><i class="ti-more"></i>Read</a></li>
+                    <li class="{{ $route === 'all.category' ? 'active' : '' }}">
+                        <a href="{{ route('all.category') }}"><i class="ti-more"></i>All Categories</a>
+                    </li>
+                    <li class="{{ $route === 'all.subcategory' ? 'active' : '' }}">
+                        <a href="{{ route('all.subcategory') }}">
+                            <i class="ti-more"></i>All Sub Categories</a>
+                    </li>
                 </ul>
             </li>
 
