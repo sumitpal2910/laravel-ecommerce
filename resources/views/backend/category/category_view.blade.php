@@ -55,7 +55,14 @@
                                                         class="btn btn-info"> <i class="fa fa-pencil"></i> </a>
                                                     <a href="{{ route('category.delete', $item->id) }}"
                                                         title="Delete Data" class="btn btn-danger ml-2" id="delete"> <i
-                                                            class="fa fa-trash"></i> </a>
+                                                            class="fa fa-trash"></i>
+                                                    </a>
+                                                    <form id="deleteForm"
+                                                        action="{{ route('category.delete', $item->id) }}" method="post"
+                                                        style="display: none;">
+                                                        @method("DELETE")
+                                                        @csrf
+                                                    </form>
                                                 </td>
                                             </tr>
                                         @endforeach

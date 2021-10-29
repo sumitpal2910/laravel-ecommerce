@@ -1,7 +1,10 @@
 @extends('admin.admin_master')
-@section('title', 'All Sub Categories')
+@section('title', 'All Sub->Sub Categories')
 
 @section('content')
+    <!-- Jquery -->
+    <script src="{{ asset('../assets/vendor_components/jquery-3.3.1/jquery-3.3.1.min.js') }}"></script>
+
     <div class="container-full">
         <!-- Content Header (Page header) -->
         <div class="content-header">
@@ -25,12 +28,12 @@
         <section class="content">
             <div class="row">
 
-                <!-- ------------ VIEW ALL CATEGORIES ------------------------ -->
+                <!-- ------------ VIEW ALL SUB -> SUB CATEGORIES ------------------------ -->
                 <div class="col-8">
 
                     <div class="box">
                         <div class="box-header with-border">
-                            <h3 class="box-title">All Sub Categories</h3>
+                            <h3 class="box-title">All Sub-> Sub Categories</h3>
                         </div>
                         <!-- /.box-header -->
                         <div class="box-body">
@@ -39,26 +42,26 @@
                                     <thead>
                                         <tr>
                                             <th>Category </th>
-                                            <th>Sub Category English</th>
-                                            <th>Sub Category Hindi</th>
+                                            <th>Sub Category </th>
+                                            <th>Sub Sub Category</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($subCategories as $item)
+                                        @foreach ($subSubCategories as $item)
                                             <tr>
                                                 <td>{{ $item->category->name_en }}</td>
-                                                <td>{{ $item->name_en }}</td>
-                                                <td>{{ $item->name_hin }}</td>
+                                                <td>{{ $item->subCategory->name_en }}</td>
+                                                <td>{{ $item->name_en }} </td>
                                                 <td width="30%">
-                                                    <a href="{{ route('subcategory.edit', $item->id) }}" title="Edit Data"
-                                                        class="btn btn-info"> <i class="fa fa-pencil"></i> </a>
-                                                    <a href="{{ route('subcategory.delete', $item->id) }}"
+                                                    <a href="{{ route('subSubCategory.edit', $item->id) }}"
+                                                        title="Edit Data" class="btn btn-info"> <i
+                                                            class="fa fa-pencil"></i> </a>
+                                                    <a href="{{ route('subSubCategory.delete', $item->id) }}"
                                                         title="Delete Data" class="btn btn-danger ml-2" id="delete"> <i
-                                                            class="fa fa-trash"></i>
-                                                    </a>
+                                                            class="fa fa-trash"></i> </a>
                                                     <form id="deleteForm"
-                                                        action="{{ route('subcategory.delete', $item->id) }}"
+                                                        action="{{ route('subSubCategory.delete', $item->id) }}"
                                                         method="post" style="display: none;">
                                                         @method("DELETE")
                                                         @csrf
@@ -78,16 +81,16 @@
                 <!-- /.col-8 -->
 
 
-                <!-- ------------ ADD SUB CATEGORIES ------------------------ -->
+                <!-- ------------ ADD SUB SUB CATEGORIES ------------------------ -->
                 <div class="col-4">
                     <div class="box">
                         <div class="box-header with-border">
-                            <h3 class="box-title">Add Sub Category</h3>
+                            <h3 class="box-title">Add Sub Sub Category</h3>
                         </div>
                         <!-- /.box-header -->
                         <div class="box-body">
 
-                            <form action="{{ route('subcategory.store') }}" method="post">
+                            <form action="{{ route('subSubCategory.store') }}" method="post">
                                 @csrf
                                 <!-- Category -->
                                 <div class="form-group">
@@ -101,12 +104,29 @@
                                                 </option>
                                             @endforeach
                                         </select>
+                                        @error('category_id')
+                                            <span class="text-danger">{{ $message }}</span>
+                                        @enderror
                                     </div>
                                 </div>
 
-                                <!-- Sub Category Name English-->
+                                <!-- Sub Category -->
                                 <div class="form-group">
-                                    <h5>Sub Category Name English <span class="text-danger">*</span></h5>
+                                    <h5>Sub Category <span class="text-danger">*</span></h5>
+                                    <div class="controls">
+                                        <select name="subcategory_id" id="subcategory_id" class="form-control"
+                                            aria-invalid="false">
+                                            <option selected disabled value="">-- Select Sub Category --</option>
+                                        </select>
+                                        @error('subcategory_id')
+                                            <span class="text-danger">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                </div>
+
+                                <!-- Sub Sub Category Name English-->
+                                <div class="form-group">
+                                    <h5>Sub Sub Category Name English <span class="text-danger">*</span></h5>
                                     <div class="controls">
                                         <input type="text" name="name_en" class="form-control">
                                         @error('name_en')
@@ -115,9 +135,9 @@
                                     </div>
                                 </div>
 
-                                <!-- Sub Category Name Hindi-->
+                                <!-- Sub Sub Category Name Hindi-->
                                 <div class="form-group">
-                                    <h5>Sub Category Name Hindi <span class="text-danger">*</span></h5>
+                                    <h5>Sub Sub Category Name Hindi <span class="text-danger">*</span></h5>
                                     <div class="controls">
                                         <input type="text" name="name_hin" class="form-control">
                                         @error('name_hin')
@@ -140,4 +160,31 @@
         <!-- /.content -->
 
     </div>
+
+    <script>
+        $(document).ready(function() {
+            $('select[name="category_id"]').on('change', function() {
+                let category_id = $(this).val();
+
+                $.ajax({
+                    url: "{{ url('/category/sub/ajax') }}/" + category_id,
+                    type: "GET",
+                    dataType: 'json',
+                    success: function(data) {
+                        if (data) {
+                            let select = $("select[name='subcategory_id']").empty();
+                            $(data).each(function(key, value) {
+                                select.append(
+                                    `<option value="${value.id}">${value.name_en}</option>`
+                                );
+                            });
+                        } else {
+                            select.append(
+                                `<option value="">No Sub Category Available </option>`);
+                        }
+                    }
+                });
+            });
+        });
+    </script>
 @endsection

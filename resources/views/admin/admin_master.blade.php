@@ -116,7 +116,7 @@
             $(document).on('click', '#delete', function(event) {
                 event.preventDefault();
 
-                let link = $(this).attr('href');
+                let form = $(this).parent().children('#deleteForm');
 
                 Swal.fire({
                     title: 'Are you sure?',
@@ -128,7 +128,7 @@
                     confirmButtonText: 'Yes, delete it!'
                 }).then((result) => {
                     if (result.isConfirmed) {
-                        window.location.href = link;
+                        form.submit();
                         Swal.fire(
                             'Deleted!',
                             'Your file has been deleted.',
