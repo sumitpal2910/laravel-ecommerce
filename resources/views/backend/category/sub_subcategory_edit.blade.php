@@ -6,23 +6,6 @@
     <script src="{{ asset('../assets/vendor_components/jquery-3.3.1/jquery-3.3.1.min.js') }}"></script>
 
     <div class="container-full">
-        <!-- Content Header (Page header) -->
-        <div class="content-header">
-            <div class="d-flex align-items-center">
-                <div class="mr-auto">
-                    <h3 class="page-title">Data Tables</h3>
-                    <div class="d-inline-block align-items-center">
-                        <nav>
-                            <ol class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="#"><i class="mdi mdi-home-outline"></i></a></li>
-                                <li class="breadcrumb-item" aria-current="page">Tables</li>
-                                <li class="breadcrumb-item active" aria-current="page">Data Tables</li>
-                            </ol>
-                        </nav>
-                    </div>
-                </div>
-            </div>
-        </div>
 
         <!-- Main content -->
         <section class="content">
@@ -138,8 +121,8 @@
                     type: "GET",
                     dataType: 'json',
                     success: function(data) {
+                        let select = $("select[name='subcategory_id']").empty();
                         if (data) {
-                            let select = $("select[name='subcategory_id']").empty();
                             $(data).each(function(key, value) {
                                 select.append(
                                     `<option value="${value.id}">${value.name_en}</option>`

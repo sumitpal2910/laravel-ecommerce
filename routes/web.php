@@ -4,6 +4,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Backend\AdminProfileController;
 use App\Http\Controllers\Backend\BrandController;
 use App\Http\Controllers\Backend\CategoryController;
+use App\Http\Controllers\Backend\ProductController;
 use App\Http\Controllers\Backend\SubCategoryController;
 use App\Http\Controllers\Frontend\IndexController;
 use Illuminate\Support\Facades\Auth;
@@ -137,7 +138,6 @@ Route::prefix('category')->group(function () {
         Route::get("/ajax/{category_id}", [SubCategoryController::class, 'getSubCategory']);
 
 
-
         // ---- SUB SUB CATEGORY ----
         Route::prefix('sub')->group(function () {
             // view all sub sub Category
@@ -154,10 +154,53 @@ Route::prefix('category')->group(function () {
 
             // Delete sub sub Category
             Route::delete("/delete/{id}", [SubCategoryController::class, 'deleteSubSubCategory'])->name('subSubCategory.delete');
+
+            // get all sub Category in JSON
+            Route::get("/ajax/{subcategory_id}", [SubCategoryController::class, 'getSubSubCategory']);
         });
     });
 });
 
+
+/**
+ * ---------------------------------------------------
+ *  ----         PRODUCT       ---- 
+ * ---------------------------------------------------
+ */
+Route::prefix('product')->group(function () {
+    // view all Product
+    Route::get('/view', [ProductController::class, 'viewProduct'])->name('all.product');
+
+    // Add Product Page 
+    Route::get('/add', [ProductController::class, 'addProduct'])->name('product.add');
+
+    // Add new Product
+    Route::post("/store", [ProductController::class, 'storeProduct'])->name('product.store');
+
+    // Add new Product
+    Route::post("/store/img", [ProductController::class, 'storeProductImg'])->name('product.storeImg');
+
+    // Edit Product
+    Route::get("/edit/{id}", [ProductController::class, 'editProduct'])->name('product.edit');
+
+    // Update Product
+    Route::post("/update", [ProductController::class, 'updateProduct'])->name('product.update');
+
+    // Update Product Multipal Image
+    Route::post("/update/image", [ProductController::class, 'updateProductImg'])->name('product.updateImg');
+
+    // Update Product Thumbnail Image
+    Route::post("/update/thumb", [ProductController::class, 'updateProductThumb'])->name('product.updateThumb');
+
+    // Update Product Thumbnail Image
+    Route::get("/update/status/{id}", [ProductController::class, 'updateProductStatus'])->name('product.updateStatus');
+
+    // Delete Product Image
+    Route::get("/delete/img/{id}", [ProductController::class, 'deleteProductImg'])->name('product.delete.img');
+
+    // Delete Product
+    Route::delete("/delete/{id}", [ProductController::class, 'deleteProduct'])->name('product.delete');
+});
 
 
 // -----------------------------------------------------------------------------------------------------------------------------------------------------------

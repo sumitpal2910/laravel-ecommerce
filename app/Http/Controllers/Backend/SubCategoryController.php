@@ -293,4 +293,18 @@ class SubCategoryController extends Controller
         // redirect to view all category
         return redirect()->back()->with($notification);
     }
+
+    /**
+     * Return all sub-sub category in JSON
+     */
+    public function getSubSubCategory($subcategory_id)
+    {
+        // get all subcategoirs
+        $subSubCategories = SubSubCategory::where('subcategory_id', $subcategory_id)->orderBy('name_en', "ASC")->get();
+
+        // return json response
+        return response()->json($subSubCategories);
+    }
+
+   
 }

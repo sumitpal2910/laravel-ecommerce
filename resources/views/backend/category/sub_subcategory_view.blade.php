@@ -1,5 +1,5 @@
 @extends('admin.admin_master')
-@section('title', 'All Sub->Sub Categories')
+@section('title', 'All Sub-Sub Categories')
 
 @section('content')
     <!-- Jquery -->
@@ -33,7 +33,7 @@
 
                     <div class="box">
                         <div class="box-header with-border">
-                            <h3 class="box-title">All Sub-> Sub Categories</h3>
+                            <h3 class="box-title">All Sub-Sub Categories</h3>
                         </div>
                         <!-- /.box-header -->
                         <div class="box-body">

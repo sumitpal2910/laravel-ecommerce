@@ -19,6 +19,9 @@
     <!-- Toastr css-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" />
 
+    <!-- Jquery -->
+    <script src="{{ asset('../assets/vendor_components/jquery-3.3.1/jquery-3.3.1.min.js') }}"></script>
+
 
 
 </head>
@@ -62,12 +65,23 @@
     <script src="{{ asset('../assets/vendor_components/apexcharts-bundle/irregular-data-series.js') }}" defer></script>
     {{-- <script src="{{ asset('../assets/vendor_components/apexcharts-bundle/dist/apexcharts.js') }}" defer></script> --}}
 
-    <!-- Jquery -->
-    <script src="{{ asset('../assets/vendor_components/jquery-3.3.1/jquery-3.3.1.min.js') }}"></script>
+
+
+    <!-- Tags Input -->
+    <script src="{{ asset('../assets/vendor_components/bootstrap-tagsinput/dist/bootstrap-tagsinput.js') }}" defer>
+    </script>
+
+    <!-- CK Editor -->
+    <script src="{{ asset('../assets/vendor_components/ckeditor/ckeditor.js') }}" defer></script>
+    <script src="{{ asset('backend/js/pages/editor.js') }}" defer></script>
+
 
     <!-- Data Table -->
     <script src="{{ asset('../assets/vendor_components/datatable/datatables.min.js') }}" defer></script>
     <script src="{{ asset('backend/js/pages/data-table.js') }}"></script>
+
+
+
 
     <!-- Sunny Admin App -->
     <script src="{{ asset('backend/js/template.js') }}" defer></script>
