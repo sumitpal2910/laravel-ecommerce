@@ -1,5 +1,5 @@
 @extends('admin.admin_master')
-@section('title', 'All Brands')
+@section('title', 'Edit Slider')
 
 @section('content')
     <div class="container-full">
@@ -25,49 +25,43 @@
         <section class="content">
             <div class="row">
 
-                <!-- ------------ ADD BRANDS ------------------------ -->
+                <!-- ------------ EDIT SLIDER ------------------------ -->
                 <div class="col-12">
                     <div class="box">
                         <div class="box-header with-border">
-                            <h3 class="box-title">Edit Brands</h3>
+                            <h3 class="box-title">Edit Slider</h3>
                         </div>
                         <!-- /.box-header -->
                         <div class="box-body">
-                            <table class="table-responsive">
 
-                                <form action="{{ route('brand.update', $brand->id) }}" method="post" enctype="multipart/form-data">
+                                <form action="{{ route('slider.update', $slider->id) }}" method="post"
+                                    enctype="multipart/form-data">
                                     @csrf
+                                    <!-- ID-->
+                                    <input type="hidden" name="id" value="{{ $slider->id }}">
 
-                                    <!-- Brand id and old image-->
-                                    <input type="hidden" name="id" value="{{ $brand->id }}">
-                                    <input type="hidden" name="oldImage" value="{{ $brand->image }}">
+                                    <!-- Old Image-->
+                                    <input type="hidden" name="oldImg" value="{{ $slider->image }}">
 
-
-                                    <!-- Brand Name English-->
+                                    <!-- Slider Title-->
                                     <div class="form-group">
-                                        <h5>Brand Name English <span class="text-danger">*</span></h5>
+                                        <h5>Title</h5>
                                         <div class="controls">
-                                            <input type="text" name="name_en" class="form-control"
-                                                value="{{ $brand->name_en }}">
-                                            @error('name_en')
-                                                <span class="text-danger">{{ $message }}</span>
-                                            @enderror
+                                            <input type="text" name="title" class="form-control"
+                                                value="{{ $slider->title }}">
                                         </div>
                                     </div>
 
-                                    <!-- Brand Name Hindi-->
+                                    <!-- Slider Description-->
                                     <div class="form-group">
-                                        <h5>Brand Name Hindi <span class="text-danger">*</span></h5>
+                                        <h5>Description </h5>
                                         <div class="controls">
-                                            <input type="text" name="name_hin" class="form-control"
-                                                value="{{ $brand->name_hin }}">
-                                            @error('name_hin')
-                                                <span class="text-danger">{{ $message }}</span>
-                                            @enderror
+                                            <input type="text" name="description" class="form-control"
+                                                value="{{ $slider->description }}">
                                         </div>
                                     </div>
 
-                                    <!-- Brand Image -->
+                                    <!-- Slider Image -->
                                     <div class="form-group">
                                         <h5>Image </h5>
                                         <div class="controls">
@@ -83,7 +77,6 @@
                                         <input type="submit" value="Update" class="btn btn-primary">
                                     </div>
                                 </form>
-                            </table>
                         </div>
                     </div>
                     <!-- /.col-8 -->

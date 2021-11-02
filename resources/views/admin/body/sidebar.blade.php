@@ -90,6 +90,23 @@ $route = Route::current()->getName();
                 </ul>
             </li>
 
+            <!-- Slider -->
+            <li class="treeview {{ $prefix === '/slider' ? 'active' : '' }}">
+                <a href="#">
+                    <i data-feather="message-circle"></i>
+                    <span>Slider</span>
+                    <span class="pull-right-container">
+                        <i class="fa fa-angle-right pull-right"></i>
+                    </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li class="{{ $route === 'all.slider' ? 'active' : '' }}">
+                        <a href="{{ route('all.slider') }}"><i class="ti-more"></i>Manage Slider</a>
+                    </li>
+                   
+                </ul>
+            </li>
+
             <li class="treeview">
                 <a href="#">
                     <i data-feather="file"></i>

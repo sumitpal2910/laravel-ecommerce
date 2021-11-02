@@ -5,6 +5,7 @@ use App\Http\Controllers\Backend\AdminProfileController;
 use App\Http\Controllers\Backend\BrandController;
 use App\Http\Controllers\Backend\CategoryController;
 use App\Http\Controllers\Backend\ProductController;
+use App\Http\Controllers\Backend\SliderController;
 use App\Http\Controllers\Backend\SubCategoryController;
 use App\Http\Controllers\Frontend\IndexController;
 use Illuminate\Support\Facades\Auth;
@@ -39,7 +40,7 @@ Route::group(["prefix" => 'admin', 'middleware' => ['admin:admin']], function ()
 // Dashboard
 Route::middleware(['auth:sanctum,admin', 'verified'])->get('/admin/dashboard', function () {
     return view('admin.index');
-})->name('admin.dashboard');
+})->name('admin.dashboard')->middleware('auth:admin');
 
 // Logout
 Route::get('/admin/logout', [AdminController::class, 'destroy'])->name('admin.logout');
@@ -203,6 +204,30 @@ Route::prefix('product')->group(function () {
 });
 
 
+/**
+ * ---------------------------------------------------
+ *  ----         SLIDER       ---- 
+ * ---------------------------------------------------
+ */
+Route::prefix('slider')->group(function () {
+    // view all Slider
+    Route::get('/view', [SliderController::class, 'viewSlider'])->name('all.slider');
+
+    // Add new Slider
+    Route::post("/store", [SliderController::class, 'storeSlider'])->name('slider.store');
+
+    // Edit Slider
+    Route::get("/edit/{id}", [SliderController::class, 'editSlider'])->name('slider.edit');
+
+    // Update Status
+    Route::get("/update/status/{id}", [SliderController::class, 'updateSliderStatus'])->name('slider.updateStatus');
+
+    // Update Slider
+    Route::post("/update/{id}", [SliderController::class, 'updateSlider'])->name('slider.update');
+
+    // Delete Slider
+    Route::delete("/delete/{id}", [SliderController::class, 'deleteSlider'])->name('slider.delete');
+});
 // -----------------------------------------------------------------------------------------------------------------------------------------------------------
 
 

@@ -11,7 +11,7 @@ class BrandController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth:sanctum,admin');
+        $this->middleware(['auth:sanctum,admin', 'auth:admin']);
     }
     /**
      * view all brand
@@ -44,7 +44,7 @@ class BrandController extends Controller
         Image::make($image)->resize(300, 300)->save($fileUrl);
 
         // insert data
-        Brand::insert([
+        Brand::create([
             'name_en' => $request->input('name_en'),
             'name_hin' => $request->input('name_hin'),
             'slug_en' => strtolower(str_replace(' ', '-', $request->name_en)),
