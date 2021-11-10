@@ -33,15 +33,22 @@ class SubCategory extends Model
      */
     public function category()
     {
-        return $this->belongsTo('App\Models\Category', 'category_id', 'id');
+        return $this->belongsTo('App\Models\Category');
     }
-
 
     /**
      * Sub Sub Category
      */
     public function subSubCategory()
     {
-        return $this->hasMany('App\Models\SubSubCategory');
+        return $this->hasMany('App\Models\SubSubCategory', 'subcategory_id', 'id')->orderBy('name_en', 'asc');
+    }
+
+    /**
+     * Sub Sub Category
+     */
+    public function products()
+    {
+        return $this->hasMany('App\Models\Product', 'subcategory_id', 'id')->where('status', 1)->orderBy('name_en', 'asc');
     }
 }

@@ -8,6 +8,7 @@ use App\Http\Controllers\Backend\ProductController;
 use App\Http\Controllers\Backend\SliderController;
 use App\Http\Controllers\Backend\SubCategoryController;
 use App\Http\Controllers\Frontend\IndexController;
+use App\Http\Controllers\Frontend\LanguageController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Laravel\Jetstream\Rules\Role;
@@ -27,10 +28,15 @@ use Laravel\Jetstream\Rules\Role;
 
 /**
  * =========================================================
- *    ----           ADMIN          ----
+ *    ----           BACKEND          ----
  * =========================================================
  */
 
+/**
+ * ---------------------------------------------------
+ *  ----         USER       ---- 
+ * ---------------------------------------------------
+ */
 // Login
 Route::group(["prefix" => 'admin', 'middleware' => ['admin:admin']], function () {
     Route::get("/login", [AdminController::class, 'loginForm']);
@@ -46,11 +52,7 @@ Route::middleware(['auth:sanctum,admin', 'verified'])->get('/admin/dashboard', f
 Route::get('/admin/logout', [AdminController::class, 'destroy'])->name('admin.logout');
 
 
-/**
- * ---------------------------------------------------
- *  ----         PROFILE       ---- 
- * ---------------------------------------------------
- */
+//   ----         PROFILE       ---- 
 // Show
 Route::get('/admin/profile', [AdminProfileController::class, 'adminProfile'])->name('admin.profile');
 
@@ -61,16 +63,13 @@ Route::get('/admin/profile/edit', [AdminProfileController::class, 'adminProfileE
 Route::post('/admin/profile/edit', [AdminProfileController::class, 'adminProfileUpdate'])->name('admin.profile.update');
 
 
-/**
- * ---------------------------------------------------
- *  ----         PASSWORD        ---- 
- * ---------------------------------------------------
- */
+//  ----         PASSWORD        ---- 
 // Change Password
 Route::get("/admin/change/password", [AdminProfileController::class, 'adminChangePassword'])->name('admin.change.password');
 
 // Update Password
 Route::post("/update/change/password", [AdminProfileController::class, 'adminUpdateChangePassword'])->name('update.change.password');
+
 
 
 /**
@@ -228,31 +227,35 @@ Route::prefix('slider')->group(function () {
     // Delete Slider
     Route::delete("/delete/{id}", [SliderController::class, 'deleteSlider'])->name('slider.delete');
 });
-// -----------------------------------------------------------------------------------------------------------------------------------------------------------
 
+
+// ====================================================================================================================================================================
+// ====================================================================================================================================================================
 
 /**
  * ========================================================
- *    ----           USER          ----
+ *    ----           FRONTEND          ----
  * ========================================================
  */
 
 //  ---- Jetstream ----
 require_once __DIR__ . '/jetstream.php';
 
+// Home
+Route::get("/", [IndexController::class, 'index'])->name('index');
 
-//  Dashboard
+/**
+ * ---------------------------------------------------
+ *  ----         USER       ---- 
+ * ---------------------------------------------------
+ */
 Route::middleware(['auth:sanctum,web', 'verified'])->get('/dashboard', function () {
     $user = Auth::user();
     return view('dashboard', compact('user'));
 })->name('dashboard');
 
-// Home
-Route::get("/", [IndexController::class, 'index'])->name('index');
 
-
-// ---- Profile ----
-
+//    ----         PROFILE       ---- 
 // Logout
 Route::get("/user/logout", [IndexController::class, 'userLogout'])->name('user.logout');
 
@@ -263,10 +266,23 @@ Route::get("/user/profile", [IndexController::class, 'userProfile'])->name('user
 Route::post("/user/profile/store", [IndexController::class, 'userProfileStore'])->name('user.profile.store');
 
 
-// -------  PASSWORD-------
-
+//   ----         PASSWORD       ---- 
 // Change Password
 Route::get("/user/change/password", [IndexController::class, 'userChangePassword'])->name('change.password');
 
 // Update Password
 Route::post("/user/password/update", [IndexController::class, 'userPasswordUpdate'])->name('user.password.update');
+
+
+/**
+ * ---------------------------------------------------
+ *  ----         LANGUAGE       ---- 
+ * ---------------------------------------------------
+ */
+Route::prefix('language')->name('language.')->group(function () {
+    // Hindi Language
+    Route::get("hindi", [LanguageController::class, 'hindi'])->name('hindi');
+    
+    // English Language
+        Route::get("english", [LanguageController::class, 'english'])->name('english');
+});

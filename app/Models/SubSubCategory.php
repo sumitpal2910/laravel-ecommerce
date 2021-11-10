@@ -44,4 +44,12 @@ class SubSubCategory extends Model
     {
         return $this->belongsTo('App\Models\SubCategory', 'subcategory_id', 'id');
     }
+
+    /**
+     * Product
+     */
+    public function products()
+    {
+        return $this->hasMany('App\Models\Product')->where('status', 1)->orderBy('name_en', 'asc');
+    }
 }

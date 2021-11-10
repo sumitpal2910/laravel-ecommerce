@@ -33,6 +33,22 @@ class Category extends Model
      */
     public function subCategory()
     {
-        return $this->hasMany('App\Models\SubCategory');
+        return $this->hasMany('App\Models\SubCategory', 'category_id', 'id')->orderBy('name_en', 'asc');
+    }
+
+    /**
+     * SubSubCategory
+     */
+    public function subSubCategory()
+    {
+        return $this->hasMany('App\Models\SubCategory', 'category_id', 'id')->orderBy('name_en', 'asc');
+    }
+
+    /** 
+     * Product
+     */
+    public function products()
+    {
+        return $this->hasMany('App\Models\Product')->where('status', 1)->orderBy('name_en', 'asc');
     }
 }

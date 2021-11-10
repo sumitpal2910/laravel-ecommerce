@@ -21,4 +21,19 @@ class Brand extends Model
         'slug_hin',
         'image'
     ];
+
+
+    /**
+     * -------------------------------------------------
+     *  ----    Relation    ----
+     * -------------------------------------------------
+     */
+
+    /**
+     * SubCategory
+     */
+    public function products()
+    {
+        return $this->hasMany('App\Models\Product')->where('status', 1)->orderBy('name_en', 'asc');
+    }
 }
