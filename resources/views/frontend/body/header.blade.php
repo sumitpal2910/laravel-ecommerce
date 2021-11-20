@@ -8,28 +8,28 @@
                     <ul class="list-unstyled">
                         <li>
                             <a href="#"><i class="icon fa fa-user"></i>
-                                @if (session()->get('language') === 'hindi')मेरी प्रोफाइल @else My Account @endif
+                                @if (session()->get('language') === 'hindi') मेरी प्रोफाइल @else My Account @endif
                             </a>
                         </li>
                         <li>
                             <a href="#"><i class="icon fa fa-heart"></i>
-                                @if (session()->get('language') === 'hindi')इच्छा-सूची @else Wishlist @endif
+                                @if (session()->get('language') === 'hindi') इच्छा-सूची @else Wishlist @endif
                             </a>
                         </li>
                         <li>
                             <a href="#"><i class="icon fa fa-shopping-cart"></i>
-                                @if (session()->get('language') === 'hindi')मेरी गाड़ी @else My Cart @endif
+                                @if (session()->get('language') === 'hindi') मेरी गाड़ी @else My Cart @endif
                             </a>
                         </li>
                         <li>
                             <a href="#"><i class="icon fa fa-check"></i>
-                                @if (session()->get('language') === 'hindi')चेक आउट @else Checkout @endif
+                                @if (session()->get('language') === 'hindi') चेक आउट @else Checkout @endif
                             </a>
                         </li>
                         @guest
                             <li>
                                 <a href="{{ route('login') }}"><i class="icon fa fa-lock"></i>
-                                    @if (session()->get('language') === 'hindi')लॉग इन/रजिस्टर @else  Login/Register @endif
+                                    @if (session()->get('language') === 'hindi') लॉग इन/रजिस्टर @else  Login/Register @endif
                                 </a>
                             </li>
                         @else
@@ -144,7 +144,7 @@
                                         <div class="col-xs-4">
                                             <div class="image"> <a href="detail.html"><img
                                                         src="{{ asset('frontend/assets/images/cart.jpg') }}"
-                                                        alt=""></a>
+                                                        alt=""/></a>
                                             </div>
                                         </div>
                                         <div class="col-xs-7">

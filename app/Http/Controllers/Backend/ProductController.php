@@ -48,7 +48,7 @@ class ProductController extends Controller
         $validate['status'] = 1;
 
         // set slug
-        $validate['slug_en'] = strtolower(str_replace(' ', '-', $request->input('name_en')));
+        $validate['slug_en'] = strtolower(preg_replace("/[^A-Za-z0-9\-]/", '', str_replace(' ', '-', $request->input('name_en'))));
         $validate['slug_hin'] = str_replace(' ', '-', $request->input('name_hin'));
 
         // set product code
@@ -176,7 +176,7 @@ class ProductController extends Controller
         $validate = $request->validated();
 
         // set slug
-        $validate['slug_en'] = strtolower(str_replace(' ', '-', $request->input('name_en')));
+        $validate['slug_en'] = strtolower(preg_replace("/[^A-Za-z0-9\-]/", '', str_replace(' ', '-', $request->input('name_en'))));
         $validate['slug_hin'] = str_replace(' ', '-', $request->input('name_hin'));
 
         // Update Product

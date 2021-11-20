@@ -282,7 +282,18 @@ Route::post("/user/password/update", [IndexController::class, 'userPasswordUpdat
 Route::prefix('language')->name('language.')->group(function () {
     // Hindi Language
     Route::get("hindi", [LanguageController::class, 'hindi'])->name('hindi');
-    
-    // English Language
-        Route::get("english", [LanguageController::class, 'english'])->name('english');
+
+    //  English Language
+    Route::get("english", [LanguageController::class, 'english'])->name('english');
+});
+
+
+/**
+ * ---------------------------------------------------
+ *  ----         PRODUCT       ---- 
+ * ---------------------------------------------------
+ */
+Route::prefix('product')->name('product.')->group(function () {
+    // Product Details page
+    Route::get('details/{id}/{slug}', [IndexController::class, 'productDetails'])->name('details');
 });
