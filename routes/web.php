@@ -7,8 +7,13 @@ use App\Http\Controllers\Backend\CategoryController;
 use App\Http\Controllers\Backend\ProductController;
 use App\Http\Controllers\Backend\SliderController;
 use App\Http\Controllers\Backend\SubCategoryController;
+
+// Frontend
+use App\Http\Controllers\Frontend\CartController;
 use App\Http\Controllers\Frontend\IndexController;
 use App\Http\Controllers\Frontend\LanguageController;
+use App\Http\Controllers\Frontend\ProductController as FrontendProductController;
+
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Laravel\Jetstream\Rules\Role;
@@ -295,5 +300,33 @@ Route::prefix('language')->name('language.')->group(function () {
  */
 Route::prefix('product')->name('product.')->group(function () {
     // Product Details page
-    Route::get('details/{id}/{slug}', [IndexController::class, 'productDetails'])->name('details');
+    Route::get('details/{id}/{slug}', [FrontendProductController::class, 'productDetails'])->name('details');
+
+    // Product Tag page
+    Route::get('tag/{tag}', [FrontendProductController::class, 'tagWiseProduct'])->name('tag');
+
+    // Product sub category wise data
+    Route::get('sub-cat/{subcat}/{slug}', [FrontendProductController::class, 'subCatWiseProduct'])->name('subCategory');
+
+    // Product sub sub category wise data
+    Route::get('sub-sub-cat/{sub_subcat}/{slug}', [FrontendProductController::class, 'subSubCatWiseProduct'])->name('subSubCategory');
+
+    // Product view modal ajax
+    Route::post('ajax', [FrontendProductController::class, 'productAjax']);
+});
+
+/**
+ * ---------------------------------------------------
+ *  ----         CART       ---- 
+ * ---------------------------------------------------
+ */
+Route::prefix('cart')->name('cart.')->group(function () {
+    // Add to cart using ajax
+    Route::post('store', [CartController::class, 'addToCart']);
+
+    // Get mini Cart data
+    Route::get('mini', [CartController::class, 'addMiniCart']);
+
+    // Get mini Cart data
+    Route::post('mini/delete', [CartController::class, 'deleteMiniCart']);
 });

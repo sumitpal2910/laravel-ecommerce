@@ -1,6 +1,6 @@
-@foreach ($products as $product)
+@forelse ($products as $product)
 
-    <div class="item item-carousel">
+    <div class="{{ $class ?? 'item item-carousel' }}">
         <div class="products">
             <div class="product">
                 <div class="product-image">
@@ -54,8 +54,9 @@
                     <div class="action">
                         <ul class="list-unstyled">
                             <li class="add-cart-button btn-group">
-                                <button class="btn btn-primary icon" data-toggle="dropdown" type="button"> <i
-                                        class="fa fa-shopping-cart"></i>
+                                <button class="btn btn-primary icon" data-toggle="modal" data-target="#modalViewProduct"
+                                    id="{{ $product->id }}" onclick="viewProduct(this.id)" type="button">
+                                    <i class="fa fa-shopping-cart"></i>
                                 </button>
                                 <button class="btn btn-primary cart-btn" type="button">Add to
                                     cart</button>
@@ -77,5 +78,6 @@
         <!-- /.products -->
     </div>
     <!-- /.item -->
-
-@endforeach
+@empty
+    <h5 class="text-danger">No Product Found</h5>
+@endforelse

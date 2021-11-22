@@ -6,14 +6,17 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="description" content="">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="author" content="">
     <meta name="keywords" content="MediaCenter, Template, eCommerce">
     <meta name="robots" content="all">
+    <meta name="session-language" content="{{ session()->get('language') }}">
     <title> @yield('title') Laravel Ecommerce</title>
+
+    <!-- =============================== CSS ============================================= -->
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="{{ asset('frontend/assets/css/bootstrap.min.css') }}">
-
     <!-- Customizable CSS -->
     <link rel="stylesheet" href="{{ asset('frontend/assets/css/main.css') }}">
     <link rel="stylesheet" href="{{ asset('frontend/assets/css/blue.css') }}">
@@ -22,13 +25,10 @@
     <link rel="stylesheet" href="{{ asset('frontend/assets/css/animate.min.css') }}">
     <link rel="stylesheet" href="{{ asset('frontend/assets/css/rateit.css') }}">
     <link rel="stylesheet" href="{{ asset('frontend/assets/css/bootstrap-select.min.css') }}">
-
     <!-- Icons/Glyphs -->
     <link rel="stylesheet" href="{{ asset('frontend/assets/css/font-awesome.css') }}">
-
     <!-- Toastr css-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" />
-
     <!-- Light box css-->
     <link href="{{ asset('frontend/assets/css/lightbox.css') }}" rel="stylesheet">
 
@@ -39,23 +39,52 @@
     <link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
 
 
+
+    <!-- =============================== JAVASCRIPT ============================================= -->
+
     <!-- Jquery -->
     <script src="{{ asset('frontend/assets/js/jquery-1.11.1.min.js') }}"></script>
 
 </head>
 
 <body class="cnt-home">
+
+
+
     <!-- ============================================== HEADER ============================================== -->
     @include('frontend.body.header')
 
     <!-- ============================================== HEADER : END ============================================== -->
-    
+
+
+
+
+
     @yield('content')
-    <!-- /#top-banner-and-menu -->
+
+
+
+
+
 
     <!-- ============================================================= FOOTER ============================================================= -->
     @include('frontend.body.footer')
+
     <!-- ============================================================= FOOTER : END============================================================= -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     <!-- JavaScripts placed at the end of the document so the pages load faster -->
@@ -70,12 +99,26 @@
     <script src="{{ asset('frontend/assets/js/bootstrap-select.min.js') }}" defer></script>
     <script src="{{ asset('frontend/assets/js/wow.min.js') }}" defer></script>
     <script src="{{ asset('frontend/assets/js/scripts.js') }}" defer></script>
-
     <!-- Toastr -->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" defer>
     </script>
 
+    <!-- ------------------- Custom  ---------------------------->
+    <!-- cart-modal-->
+    <script src="{{ asset('frontend/custom/js/cart.js') }}"></script>
+
+    <script src="{{ asset('js/app.js') }}" defer></script>
+
+
+
     <script>
+        let session = $('meta[name="session-language"]').attr('content');
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
         $(document).ready(function() {
 
             @if (Session::has('message'))
@@ -101,6 +144,9 @@
             @endif
         });
     </script>
+
+    <!-- Add to Cart Modal -->
+    @include('frontend.body.cart-modal')
 </body>
 
 </html>

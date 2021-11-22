@@ -33,13 +33,6 @@ class IndexController extends Controller
         # get featured products
         $featured = Product::where('status', 1)->where('featured', 1)->orderBy('id', 'desc')->limit(6)->get();
 
-        # get hot deals
-        $hotDeals = Product::where([
-            ['status', 1],
-            ['hot_deals', 1],
-            ['discount_price', '>', 0]
-        ])->orderBy('id', 'desc')->limit(3)->get();
-
         # get special offer
         $specialOffer = Product::where('status', 1)->where('special_offer', 1)->orderBy('id', 'desc')->limit(6)->get();
 
@@ -65,7 +58,6 @@ class IndexController extends Controller
             'sliders',
             'products',
             'featured',
-            'hotDeals',
             'specialOffer',
             'specialDeals',
             'skipCategory0',
@@ -92,8 +84,6 @@ class IndexController extends Controller
         $user = User::findOrFail($id);
         return view('frontend.profile.user_profile', compact('user'));
     }
-
-
 
     /**
      * Update user profile
@@ -168,18 +158,5 @@ class IndexController extends Controller
         }
     }
 
-    /**
-     * Show Product Details
-     */
-    public function productDetails($id, $slug)
-    {
-        # get product by id
-        $product = Product::with('multiImg')->findOrFail($id);
-
-        # get hot deals
-        $hotDeals = Product::where('status', 1)->where('hot_deals', 1)->orderBy('id', 'desc')->limit(3)->get();
-
-        # return to product details page
-        return view('frontend.product.details', compact('product', 'hotDeals'));
-    }
+  
 }

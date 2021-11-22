@@ -1,6 +1,6 @@
 @extends('frontend.main_master')
 
-@section('title', ' ')
+@section('title', '')
 
 
 @section('content')
@@ -11,75 +11,15 @@
                 <div class="col-xs-12 col-sm-12 col-md-3 sidebar">
 
                     <!-- ================================== TOP NAVIGATION ================================== -->
-                    <div class="side-menu animate-dropdown outer-bottom-xs">
-                        <div class="head"><i class="icon fa fa-align-justify fa-fw"></i> Categories</div>
-                        <nav class="yamm megamenu-horizontal">
-                            <ul class="nav">
 
-                                <!-- Categories-->
-                                @foreach ($categories as $category)
-                                    <li class="dropdown menu-item"> <a href="#" class="dropdown-toggle"
-                                            data-toggle="dropdown"><i class="icon {{ $category->icon }}"
-                                                aria-hidden="true"></i>
-                                            @if (session()->get('language') === 'hindi')
-                                                {{ $category->name_hin }}
-                                            @else
-                                                {{ $category->name_en }}
-                                            @endif
-                                        </a>
-                                        <ul class="dropdown-menu mega-menu">
-                                            <li class="yamm-content">
-                                                <div class="row">
-                                                    @foreach ($category->subCategory as $subCategory)
+                    <x-vertical-menu />
 
-                                                        <div class="col-sm-12 col-md-3">
-                                                            <h2 class="title">
-                                                                @if (session()->get('language') === 'hindi') {{ $subCategory->name_hin }}@else {{ $subCategory->name_en }}@endif
-                                                            </h2>
-                                                            <ul class="links list-unstyled">
-                                                                @foreach ($subCategory->subSubCategory as $subSub)
-                                                                    <li>
-                                                                        <a href="#">
-                                                                            @if (session()->get('language') === 'hindi')
-                                                                                {{ $subSub->name_hin }}
-                                                                            @else
-                                                                                {{ $subSub->name_en }}
-                                                                            @endif
-                                                                        </a>
-                                                                    </li>
-                                                                @endforeach
-                                                            </ul>
-                                                        </div>
-                                                        <!-- /.col -->
-                                                    @endforeach
-
-                                                </div>
-                                                <!-- /.row -->
-                                            </li>
-                                            <!-- /.yamm-content -->
-                                        </ul>
-                                        <!-- /.dropdown-menu -->
-                                    </li>
-                                    <!-- /.menu-item -->
-                                @endforeach
-
-                                <li class="dropdown menu-item"> <a href="#" class="dropdown-toggle"
-                                        data-toggle="dropdown"><i class="icon fa fa-envira"></i>Home and Garden</a>
-                                    <!-- /.dropdown-menu -->
-                                </li>
-                                <!-- /.menu-item -->
-
-                            </ul>
-                            <!-- /.nav -->
-                        </nav>
-                        <!-- /.megamenu-horizontal -->
-                    </div>
                     <!-- /.side-menu -->
                     <!-- ================================== TOP NAVIGATION : END ================================== -->
 
                     <!-- ============================================== HOT DEALS ============================================== -->
 
-                    <x-hot-deals :products="$hotDeals" />
+                    <x-hot-deals />
                     <!-- ============================================== HOT DEALS: END ============================================== -->
 
                     <!-- ============================================== SPECIAL OFFER ============================================== -->
@@ -88,26 +28,12 @@
                     <x-special-offer title="Special Offer" :products="$specialOffer" />
                     <!-- /.sidebar-widget -->
                     <!-- ============================================== SPECIAL OFFER : END ============================================== -->
+
                     <!-- ============================================== PRODUCT TAGS ============================================== -->
-                    <div class="sidebar-widget product-tag wow fadeInUp">
-                        <h3 class="section-title">Product tags</h3>
-                        <div class="sidebar-widget-body outer-top-xs">
-                            <div class="tag-list"> <a class="item" title="Phone"
-                                    href="category.html">Phone</a> <a class="item active" title="Vest"
-                                    href="category.html">Vest</a> <a class="item" title="Smartphone"
-                                    href="category.html">Smartphone</a> <a class="item" title="Furniture"
-                                    href="category.html">Furniture</a> <a class="item" title="T-shirt"
-                                    href="category.html">T-shirt</a> <a class="item" title="Sweatpants"
-                                    href="category.html">Sweatpants</a> <a class="item" title="Sneaker"
-                                    href="category.html">Sneaker</a> <a class="item" title="Toys"
-                                    href="category.html">Toys</a> <a class="item" title="Rose"
-                                    href="category.html">Rose</a> </div>
-                            <!-- /.tag-list -->
-                        </div>
-                        <!-- /.sidebar-widget-body -->
-                    </div>
-                    <!-- /.sidebar-widget -->
+                    <x-sidebar-product-tags />
+
                     <!-- ============================================== PRODUCT TAGS : END ============================================== -->
+
                     <!-- ============================================== SPECIAL DEALS ============================================== -->
                     <x-special-offer title="Special Deals" :products="$specialDeals" />
 
@@ -133,43 +59,7 @@
                     <!-- ============================================== NEWSLETTER: END ============================================== -->
 
                     <!-- ============================================== Testimonials============================================== -->
-                    <div class="sidebar-widget  wow fadeInUp outer-top-vs ">
-                        <div id="advertisement" class="advertisement">
-                            <div class="item">
-                                <div class="avatar"><img
-                                        src="{{ asset('frontend/assets/images/testimonials/member1.png') }}" alt="Image">
-                                </div>
-                                <div class="testimonials"><em>"</em> Vtae sodales aliq uam morbi non sem lacus port
-                                    mollis. Nunc condime tum metus eud molest sed consectetuer.<em>"</em></div>
-                                <div class="clients_author">John Doe <span>Abc Company</span> </div>
-                                <!-- /.container-fluid -->
-                            </div>
-                            <!-- /.item -->
-
-                            <div class="item">
-                                <div class="avatar"><img
-                                        src="{{ asset('frontend/assets/images/testimonials/member3.png') }}" alt="Image">
-                                </div>
-                                <div class="testimonials"><em>"</em>Vtae sodales aliq uam morbi non sem lacus port
-                                    mollis. Nunc condime tum metus eud molest sed consectetuer.<em>"</em></div>
-                                <div class="clients_author">Stephen Doe <span>Xperia Designs</span> </div>
-                            </div>
-                            <!-- /.item -->
-
-                            <div class="item">
-                                <div class="avatar"><img
-                                        src="{{ asset('frontend/assets/images/testimonials/member2.png') }}" alt="Image">
-                                </div>
-                                <div class="testimonials"><em>"</em> Vtae sodales aliq uam morbi non sem lacus port
-                                    mollis. Nunc condime tum metus eud molest sed consectetuer.<em>"</em></div>
-                                <div class="clients_author">Saraha Smith <span>Datsun &amp; Co</span> </div>
-                                <!-- /.container-fluid -->
-                            </div>
-                            <!-- /.item -->
-
-                        </div>
-                        <!-- /.owl-carousel -->
-                    </div>
+                    <x-sidebar-testimonial />
 
                     <!-- ============================================== Testimonials: END ============================================== -->
 
@@ -293,7 +183,7 @@
                                     <div class="owl-carousel home-owl-carousel custom-carousel owl-theme" data-item="4">
 
                                         <!-- PRODUCT COMPONENT -->
-                                        <x-product-tab :products="$products" />
+                                        <x-product-grid-view :products="$products" />
 
                                     </div>
                                     <!-- /.home-owl-carousel -->
@@ -308,97 +198,10 @@
                                     <div class="product-slider">
                                         <div class="owl-carousel home-owl-carousel custom-carousel owl-theme" data-item="4">
 
-                                            @forelse ($category->products as $product)
+                                            <!-- PRODUCT COMPONENT -->
+                                            <x-product-grid-view :products="$category->products" />
 
-                                                <div class="item item-carousel">
-                                                    <div class="products">
-                                                        <div class="product">
-                                                            <div class="product-image">
-                                                                <div class="image"> <a
-                                                                        href="{{ route('product.details', ['id' => $product->id, 'slug' => $product->slug_en]) }}">
-                                                                        <img src="{{ url($product->thumbnail) }}"
-                                                                            alt=""></a>
-                                                                </div>
-                                                                <!-- /.image -->
-                                                                @php
-                                                                    $amt = $product->selling_price - $product->discount_price;
-                                                                    $discount = round(($amt / $product->selling_price) * 100);
-                                                                @endphp
 
-                                                                @if ($product->discount_price == 0 || !$product->discount_price)
-                                                                    <div class="tag new"><span>new</span></div>
-                                                                @else
-                                                                    <div class="tag hot">
-                                                                        <span>{{ $discount }}%</span>
-                                                                    </div>
-                                                                @endif
-                                                            </div>
-                                                            <!-- /.product-image -->
-
-                                                            <div class="product-info text-left">
-                                                                <h3 class="name"><a
-                                                                        href="{{ route('product.details', ['id' => $product->id, 'slug' => $product->slug_en]) }}">
-                                                                        @if (session()->get('language') === 'hindi')
-                                                                            {{ $product->name_hin }}
-                                                                        @else
-                                                                            {{ $product->name_en }}
-                                                                        @endif
-                                                                    </a></h3>
-                                                                <div class="rating rateit-small"></div>
-                                                                <div class="description"></div>
-                                                                <div class="product-price">
-                                                                    @if ($product->discount_price)
-                                                                        <span class="price">
-                                                                            ${{ $product->discount_price }} </span>
-                                                                        <span class="price-before-discount">
-                                                                            ${{ $product->selling_price }}</span>
-                                                                    @else
-                                                                        <span class="price">
-                                                                            ${{ $product->selling_price }} </span>
-                                                                    @endif
-                                                                </div>
-                                                                <!-- /.product-price -->
-
-                                                            </div>
-                                                            <!-- /.product-info -->
-                                                            <div class="cart clearfix animate-effect">
-                                                                <div class="action">
-                                                                    <ul class="list-unstyled">
-                                                                        <li class="add-cart-button btn-group">
-                                                                            <button data-toggle="tooltip"
-                                                                                class="btn btn-primary icon" type="button"
-                                                                                title="Add Cart"> <i
-                                                                                    class="fa fa-shopping-cart"></i>
-                                                                            </button>
-                                                                            <button class="btn btn-primary cart-btn"
-                                                                                type="button">Add to cart</button>
-                                                                        </li>
-                                                                        <li class="lnk wishlist"> <a
-                                                                                data-toggle="tooltip"
-                                                                                class="add-to-cart" href="detail.html"
-                                                                                title="Wishlist"> <i
-                                                                                    class="icon fa fa-heart"></i>
-                                                                            </a> </li>
-                                                                        <li class="lnk"> <a
-                                                                                data-toggle="tooltip"
-                                                                                class="add-to-cart" href="detail.html"
-                                                                                title="Compare"> <i class="fa fa-signal"
-                                                                                    aria-hidden="true"></i> </a> </li>
-                                                                    </ul>
-                                                                </div>
-                                                                <!-- /.action -->
-                                                            </div>
-                                                            <!-- /.cart -->
-                                                        </div>
-                                                        <!-- /.product -->
-
-                                                    </div>
-                                                    <!-- /.products -->
-                                                </div>
-                                                <!-- /.item -->
-                                            @empty
-                                                <h5 class="text-danger">No Product Found</h5>
-                                            @endforelse
                                         </div>
                                         <!-- /.home-owl-carousel -->
                                     </div>
@@ -446,7 +249,7 @@
                         <div class="owl-carousel home-owl-carousel custom-carousel owl-theme outer-top-xs">
 
                             <!-- PRODUCT COMPONENT -->
-                            <x-product-tab :products="$featured" />
+                            <x-product-grid-view :products="$featured" />
 
                         </div>
                         <!-- /.home-owl-carousel -->
@@ -466,7 +269,7 @@
                         <div class="owl-carousel home-owl-carousel custom-carousel owl-theme outer-top-xs">
 
                             <!-- PRODUCT COMPONENT -->
-                            <x-product-tab :products="$skipCategory0->products" />
+                            <x-product-grid-view :products="$skipCategory0->products" />
 
                         </div>
                         <!-- /.home-owl-carousel -->
@@ -487,7 +290,7 @@
                         <div class="owl-carousel home-owl-carousel custom-carousel owl-theme outer-top-xs">
 
                             <!-- PRODUCT COMPONENT -->
-                            <x-product-tab :products="$skipCategory1->products" />
+                            <x-product-grid-view :products="$skipCategory1->products" />
 
                         </div>
                         <!-- /.home-owl-carousel -->
@@ -508,7 +311,7 @@
                         <div class="owl-carousel home-owl-carousel custom-carousel owl-theme outer-top-xs">
 
                             <!-- PRODUCT COMPONENT -->
-                            <x-product-tab :products="$skipBrand0->products" />
+                            <x-product-grid-view :products="$skipBrand0->products" />
 
                         </div>
                         <!-- /.home-owl-carousel -->

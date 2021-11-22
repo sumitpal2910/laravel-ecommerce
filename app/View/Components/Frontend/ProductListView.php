@@ -4,24 +4,22 @@ namespace App\View\Components\Frontend;
 
 use Illuminate\View\Component;
 
-class HotDeals extends Component
+class ProductListView extends Component
 {
     /**
      * set property
      */
-    public $class;
-    public $products;
-
+    public $product;
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct($class="", $products)
+    public function __construct($product)
     {
-        $this->class = $class;
-        $this->products = $products;
+        $this->product = $product;
     }
+
 
     /**
      * Get the view / contents that represent the component.
@@ -30,6 +28,6 @@ class HotDeals extends Component
      */
     public function render()
     {
-        return view('components.frontend.hot-deals');
+        return view('components.frontend.product-list-view');
     }
 }

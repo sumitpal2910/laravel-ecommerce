@@ -131,37 +131,26 @@
                             <div class="items-cart-inner">
                                 <div class="basket"> <i class="glyphicon glyphicon-shopping-cart"></i>
                                 </div>
-                                <div class="basket-item-count"><span class="count">2</span></div>
-                                <div class="total-price-basket"> <span class="lbl">cart -</span> <span
-                                        class="total-price"> <span class="sign">$</span><span
-                                            class="value">600.00</span> </span> </div>
+                                <div class="basket-item-count">
+                                    <span class="count" id="miniCartQty">0</span>
+                                </div>
+                                <div class="total-price-basket">
+                                    <span class="lbl">cart -</span>
+                                    <span class="total-price">
+                                        <span class="sign">$</span><span class="value"
+                                            id="miniCartTotal">0</span>
+                                    </span>
+                                </div>
                             </div>
                         </a>
                         <ul class="dropdown-menu">
                             <li>
-                                <div class="cart-item product-summary">
-                                    <div class="row">
-                                        <div class="col-xs-4">
-                                            <div class="image"> <a href="detail.html"><img
-                                                        src="{{ asset('frontend/assets/images/cart.jpg') }}"
-                                                        alt=""/></a>
-                                            </div>
-                                        </div>
-                                        <div class="col-xs-7">
-                                            <h3 class="name"><a href="index.php?page-detail">Simple
-                                                    Product</a></h3>
-                                            <div class="price">$600.00</div>
-                                        </div>
-                                        <div class="col-xs-1 action"> <a href="#"><i class="fa fa-trash"></i></a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- /.cart-item -->
-                                <div class="clearfix"></div>
+                                <div id="miniCart"></div>
+
                                 <hr>
                                 <div class="clearfix cart-total">
                                     <div class="pull-right"> <span class="text">Sub Total
-                                            :</span><span class='price'>$600.00</span> </div>
+                                            :</span><span class='price'>$ <span id="miniCartSubTotal">00.00</span> </span> </div>
                                     <div class="clearfix"></div>
                                     <a href="checkout.html"
                                         class="btn btn-upper btn-primary btn-block m-t-20">Checkout</a>
@@ -217,8 +206,8 @@
                                 <!-- Categories-->
                                 @foreach ($categories as $category)
 
-                                    <li class="dropdown yamm mega-menu"> <a href="home.html" data-hover="dropdown"
-                                            class="dropdown-toggle" data-toggle="dropdown">
+                                    <li class="dropdown yamm mega-menu"> <a href="{{ route('index') }}"
+                                            data-hover="dropdown" class="dropdown-toggle" data-toggle="dropdown">
                                             @if (session()->get('language') === 'hindi')
                                                 {{ $category->name_hin }}
                                             @else
@@ -235,18 +224,22 @@
 
                                                             <div class="col-xs-12 col-sm-6 col-md-2 col-menu">
                                                                 <h2 class="title">
-                                                                    @if (session()->get('language') === 'hindi')
-                                                                        {{ $subCategory->name_hin }}
-                                                                    @else
-                                                                        {{ $subCategory->name_en }}
-                                                                    @endif
+                                                                    <a
+                                                                        href="{{ route('product.subCategory', ['subcat' => $subCategory->id, 'slug' => $subCategory->slug_en]) }}">
+                                                                        @if (session()->get('language') === 'hindi')
+                                                                            {{ $subCategory->name_hin }}
+                                                                        @else
+                                                                            {{ $subCategory->name_en }}
+                                                                        @endif
+                                                                    </a>
                                                                 </h2>
                                                                 <ul class="links">
 
                                                                     <!-- Sub Sub Categories-->
                                                                     @foreach ($subCategory->subSubCategory as $subSub)
 
-                                                                        <li><a href="#">
+                                                                        <li> <a
+                                                                                href="{{ route('product.subSubCategory', ['sub_subcat' => $subSub->id, 'slug' => $subSub->slug_en]) }}">
                                                                                 @if (session()->get('language') === 'hindi')
                                                                                     {{ $subSub->name_hin }}
                                                                                 @else

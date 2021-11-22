@@ -4,23 +4,23 @@ namespace App\View\Components\Frontend;
 
 use Illuminate\View\Component;
 
-class SpecialOffer extends Component
+class ProductGridView extends Component
 {
     /**
      * set property
      */
     public $products;
-    public $title;
+    public $class;
 
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct($products, $title)
+    public function __construct($products, $class = "")
     {
         $this->products = $products;
-        $this->title = $title;
+        $this->class = $class;
     }
 
     /**
@@ -30,6 +30,6 @@ class SpecialOffer extends Component
      */
     public function render()
     {
-        return view('components.frontend.special-offer');
+        return view('components.frontend.product-grid-view');
     }
 }

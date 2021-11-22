@@ -1,23 +1,20 @@
 <?php
 
-namespace App\View\Components\Frontend;
+namespace App\View\Components\Frontend\Sidebar;
 
 use Illuminate\View\Component;
 
-class ProductTab extends Component
+class Category extends Component
 {
-    /**
-     * set property
-     */
-    public $products;
+    public $class;
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct($products)
+    public function __construct($class = "")
     {
-        $this->products = $products;
+        $this->class = $class;
     }
 
     /**
@@ -27,6 +24,6 @@ class ProductTab extends Component
      */
     public function render()
     {
-        return view('components.frontend.product-tab');
+        return view('components.frontend.sidebar.category');
     }
 }
