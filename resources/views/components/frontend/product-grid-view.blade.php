@@ -36,7 +36,7 @@
                     <div class="rating rateit-small"></div>
                     <div class="description"></div>
                     <div class="product-price">
-                        @if ($product->discount_price)
+                        @if ($product->discount_price > 0 )
                             <span class="price">
                                 ${{ $product->discount_price }} </span>
                             <span class="price-before-discount">
@@ -54,15 +54,21 @@
                     <div class="action">
                         <ul class="list-unstyled">
                             <li class="add-cart-button btn-group">
-                                <button class="btn btn-primary icon" data-toggle="modal" data-target="#modalViewProduct"
-                                    id="{{ $product->id }}" onclick="viewProduct(this.id)" type="button">
+                                <button class="btn btn-primary icon" title="Add to Cart" data-toggle="modal"
+                                    data-target="#modalViewProduct" id="{{ $product->id }}"
+                                    onclick="viewProduct(this.id)" type="button">
                                     <i class="fa fa-shopping-cart"></i>
                                 </button>
                                 <button class="btn btn-primary cart-btn" type="button">Add to
                                     cart</button>
                             </li>
-                            <li class="lnk wishlist"> <a class="add-to-cart" href="detail.html" title="Wishlist">
-                                    <i class="icon fa fa-heart"></i> </a> </li>
+                            <li class="wishlist add-cart-button">
+                                <button class="btn btn-primary" id="{{ $product->id }}"
+                                    onclick="addToWishList(this.id)" title="Wishlist">
+                                    <i class="icon fa fa-heart"></i>
+                                </button>
+                            </li>
+
                             <li class="lnk"> <a class="add-to-cart" href="detail.html" title="Compare"> <i
                                         class="fa fa-signal" aria-hidden="true"></i> </a>
                             </li>

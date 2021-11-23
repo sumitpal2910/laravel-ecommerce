@@ -39,7 +39,10 @@ class CartController extends Controller
         ]);
 
         # return message
-        return response()->json(['success' => 'Product Added to Cart']);
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Product Added to Cart'
+        ]);
     }
 
     /**
@@ -76,6 +79,9 @@ class CartController extends Controller
         Cart::remove($id);
 
         # return success message
-        return response()->json(['success' => 'Product Remove from Cart']);
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Product Remove from Cart'
+        ]);
     }
 }

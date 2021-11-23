@@ -12,7 +12,7 @@
                             </a>
                         </li>
                         <li>
-                            <a href="#"><i class="icon fa fa-heart"></i>
+                            <a href="{{ route('wishlist.index') }}"><i class="icon fa fa-heart"></i>
                                 @if (session()->get('language') === 'hindi') इच्छा-सूची @else Wishlist @endif
                             </a>
                         </li>
@@ -150,7 +150,8 @@
                                 <hr>
                                 <div class="clearfix cart-total">
                                     <div class="pull-right"> <span class="text">Sub Total
-                                            :</span><span class='price'>$ <span id="miniCartSubTotal">00.00</span> </span> </div>
+                                            :</span><span class='price'>$ <span id="miniCartSubTotal">00.00</span>
+                                        </span> </div>
                                     <div class="clearfix"></div>
                                     <a href="checkout.html"
                                         class="btn btn-upper btn-primary btn-block m-t-20">Checkout</a>

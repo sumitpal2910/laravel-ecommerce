@@ -1,28 +1,4 @@
 /**
- * Sweetalert2 Toast Meassage 
- */
-function sweetAlertToast(data, success = '', error = '') {
-	let Toast = Swal.mixin({
-		toast: true,
-		position: 'top-end',
-		showConfirmButton: false,
-		timer: 3000
-	});
-
-	if ($.isEmptyObject(data.error)) {
-		Toast.fire({
-			icon: 'success',
-			title: success ? success : data.success
-		});
-	} else {
-		Toast.fire({
-			icon: 'error',
-			title: error ? error : data.error
-		});
-	}
-}
-
-/**
  * View Product by ajax
  */
 function viewProduct(id) {
@@ -45,7 +21,7 @@ function viewProduct(id) {
 	selectSize.parent().hide();
 
 	$.ajax({
-		url: '/product/ajax',
+		url: url('product/ajax'),
 		method: 'POST',
 		data: {
 			id: id
@@ -59,7 +35,7 @@ function viewProduct(id) {
 			qty.val(1);
 
 			// display image
-			image.attr('src', `${window.location.origin}/${data.thumbnail}`);
+			image.attr('src', url(data.thumbnail));
 
 			// Price
 			if (data.discount_price > 0) {
@@ -148,7 +124,7 @@ function addToCart() {
 
 	// send ajax post request
 	$.ajax({
-		url: '/cart/store',
+		url: url('cart/store'),
 		method: 'POST',
 		data: {
 			size,
@@ -184,7 +160,7 @@ function miniCart() {
 
 	// get data by ajax
 	$.ajax({
-		url: '/cart/mini',
+		url: url('cart/mini'),
 		method: 'GET',
 		dataType: 'JSON',
 		success: function(data) {
@@ -195,7 +171,7 @@ function miniCart() {
 					<div class="row">
 						<div class="col-xs-4">
 							<div class="image"> 
-								<a href="#"><img src="${window.location.origin}/${cart.options.image}" alt="" /></a>
+								<a href="#"><img src="${url(cart.options.image)}" alt="" /></a>
 							</div>
 						</div>
 						<div class="col-xs-7">
@@ -229,7 +205,7 @@ miniCart();
  */
 function miniCartRemove(id) {
 	$.ajax({
-		url: '/cart/mini/delete',
+		url: url('cart/mini/delete'),
 		method: 'POST',
 		data: {
 			id: id

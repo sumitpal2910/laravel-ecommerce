@@ -13,7 +13,7 @@ use App\Http\Controllers\Frontend\CartController;
 use App\Http\Controllers\Frontend\IndexController;
 use App\Http\Controllers\Frontend\LanguageController;
 use App\Http\Controllers\Frontend\ProductController as FrontendProductController;
-
+use App\Http\Controllers\User\WishlistController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Laravel\Jetstream\Rules\Role;
@@ -329,4 +329,24 @@ Route::prefix('cart')->name('cart.')->group(function () {
 
     // Get mini Cart data
     Route::post('mini/delete', [CartController::class, 'deleteMiniCart']);
+});
+
+
+/**
+ * ---------------------------------------------------
+ *  ----         WISHLIST       ---- 
+ * ---------------------------------------------------
+ */
+Route::prefix('wishlist')->name('wishlist.')->group(function () {
+    // show wishlist page
+    Route::get('/', [WishlistController::class, 'index'])->name('index');
+
+    // get Wishlist using ajax
+    Route::get('/get', [WishlistController::class, 'getWishlistProduct']);
+
+    // Add to Wishlist using ajax
+    Route::post('add', [WishlistController::class, 'addToWishlist']);
+
+    // Remove from Wishlist using ajax
+    Route::post('delete', [WishlistController::class, 'removeWishlist']);
 });

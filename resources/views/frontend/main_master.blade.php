@@ -11,7 +11,7 @@
     <meta name="keywords" content="MediaCenter, Template, eCommerce">
     <meta name="robots" content="all">
     <meta name="session-language" content="{{ session()->get('language') }}">
-    <title> @yield('title') Laravel Ecommerce</title>
+    <title> @yield('title')  | Laravel Ecommerce</title>
 
     <!-- =============================== CSS ============================================= -->
 
@@ -44,6 +44,8 @@
 
     <!-- Jquery -->
     <script src="{{ asset('frontend/assets/js/jquery-1.11.1.min.js') }}"></script>
+    <!-- some default configration -->
+    <script src="{{ asset('frontend/custom/js/config.js') }}"></script>
 
 </head>
 
@@ -104,21 +106,18 @@
     </script>
 
     <!-- ------------------- Custom  ---------------------------->
-    <!-- cart-modal-->
-    <script src="{{ asset('frontend/custom/js/cart.js') }}"></script>
+
+    <!-- cart-->
+    <script src="{{ asset('frontend/custom/js/cart.js') }}" defer></script>
+    <!-- wishlist -->
+    <script src="{{ asset('frontend/custom/js/wishlist.js') }}" defer></script>
 
     <script src="{{ asset('js/app.js') }}" defer></script>
 
 
 
     <script>
-        let session = $('meta[name="session-language"]').attr('content');
-
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
+        
         $(document).ready(function() {
 
             @if (Session::has('message'))

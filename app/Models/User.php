@@ -59,4 +59,18 @@ class User extends Authenticatable
     protected $appends = [
         'profile_photo_url',
     ];
+
+    /**
+     * -------------------------------------------------
+     *  ----    Relation    ----
+     * -------------------------------------------------
+     */
+
+    /**
+     * User
+     */
+    public function wishlist()
+    {
+        return $this->hasMany("App\Models\Wishlist");
+    }
 }
