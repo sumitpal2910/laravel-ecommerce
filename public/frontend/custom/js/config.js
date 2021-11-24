@@ -1,7 +1,7 @@
 /**
  * Get session to a variable
  */
-const session = $('meta[name="session-language"]').attr('content');
+const sessionLanguage = $('meta[name="session-language"]').attr('content');
 
 /**
  * Get website address

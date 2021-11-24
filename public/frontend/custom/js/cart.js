@@ -62,7 +62,7 @@ function viewProduct(id) {
 			}
 
 			// Check session Language
-			if (session === 'hindi') {
+			if (sessionLanguage === 'hindi') {
 				// Show Title
 				title.text(data.name_hin);
 				// Show Category
@@ -85,7 +85,7 @@ function viewProduct(id) {
 				selectColor.parent().show();
 
 				// get color english or hindi
-				let colors = session === 'hindi' ? data.color_hin.split(',') : data.color_en.split(',');
+				let colors = sessionLanguage === 'hindi' ? data.color_hin.split(',') : data.color_en.split(',');
 
 				colors.forEach((color) => {
 					// append color option
@@ -99,7 +99,7 @@ function viewProduct(id) {
 				selectSize.parent().show();
 
 				// get size english or hindi
-				let sizes = session === 'hindi' ? data.size_hin.split(',') : data.size_en.split(',');
+				let sizes = sessionLanguage === 'hindi' ? data.size_hin.split(',') : data.size_en.split(',');
 
 				sizes.forEach((size) => {
 					// append size option
@@ -160,12 +160,12 @@ function miniCart() {
 
 	// get data by ajax
 	$.ajax({
-		url: url('cart/mini'),
+		url: url('cart/get-product'),
 		method: 'GET',
 		dataType: 'JSON',
 		success: function(data) {
 			let cartData = '';
-			$.each(data.carts, function(i, cart) {
+			$.each(data.carts, function(_i, cart) {
 				cartData += `
 				<div class="cart-item product-summary">
 					<div class="row">
@@ -178,7 +178,7 @@ function miniCart() {
 							<h3 class="name"><a href="#">${cart.name.substring(0, 20)}</a></h3>
 							<div class="price">$${cart.price} * ${cart.qty}</div>
 						</div>
-						<div class="col-xs-1 action"> <button class="btn btn-sm btn-danger" onclick="miniCartRemove(this.id)" id="${cart.rowId}"><i class="fa fa-trash"></i></button>
+						<div class="col-xs-1 action"> <button class="btn btn-sm btn-danger" onclick="cartRemove(this.id)" id="${cart.rowId}"><i class="fa fa-trash"></i></button>
 						</div>
 					</div>
 				</div>
@@ -201,22 +201,167 @@ function miniCart() {
 miniCart();
 
 /**
- * Mini Cart Remove Product
+ * Show all product in cart page
  */
-function miniCartRemove(id) {
+function cart() {
+	// get parent element
+	let parent = $('#cartPage').empty();
+
+	// ajax call to get all product
 	$.ajax({
-		url: url('cart/mini/delete'),
+		url: url('cart/get-product'),
+		method: 'GET',
+		dataType: 'JSON',
+		success: function(data) {
+			let rows = '';
+
+			$.each(data.carts, function(i, cart) {
+				// define color, size
+				let size = '',
+					color = '';
+
+				// show color
+				if (cart.options.color) {
+					color = `<div class="cart-product-info">
+								<span class="product-color">COLOR:<strong><span>${cart.options.color}</span></strong></span>
+							</div>`;
+				}
+				// show Size
+				if (cart.options.size) {
+					size = `<div class="cart-product-info">
+								<span class="product-color">SIZE:<strong><span>${cart.options.size}</span></strong></span>
+							</div>`;
+				}
+
+				// decrement button
+				let decrementBtn = `<button class="btn btn-danger btn-sm" id="${cart.rowId}" onclick="cartQtyDecrement(this.id)">-</button>`;
+				if (cart.qty <= 1) {
+					decrementBtn = `<button class="btn btn-danger btn-sm" disabled>-</button>`;
+				}
+
+				rows += `<tr>
+				
+				<td class="cart-image">
+					<a class="entry-thumbnail" href="">
+						<img src="${url(cart.options.image)}" alt="">
+					</a>
+				</td>
+
+				<td class="cart-product-name-info">
+					<h4 class='cart-product-description'>
+						<a href="#">${cart.name}</a>
+					</h4>
+					<div class="row">
+						<div class="col-sm-4">
+							<div class="rating rateit-small"></div>
+						</div>
+						<div class="col-sm-8">
+							<div class="reviews">
+								(06 Reviews)
+							</div>
+						</div>
+					</div><!-- /.row -->
+					<!-- size and color-->
+					<div>	${size}	${color}</div>		
+				</td>
+
+				<td class="cart-product-quantity">
+					<div class="row">
+						<div class="col-md-4">
+							${decrementBtn}
+						</div>
+						<div class="col-md-4">
+							<span class="btn btn-light btn-sm"><strong> ${cart.qty}</strong></span>
+						</div>
+						<div class="col-md-4">
+							<button class="btn btn-success btn-sm"  id="${cart.rowId}" onclick="cartQtyIncrement(this.id)">+</button>
+						</div>
+					</div>
+				</td>
+
+				<td class="cart-product-sub-total"><span class="cart-sub-total-price">$${cart.price}</span></td>
+
+				<td class="cart-product-grand-total"><span class="cart-grand-total-price" id="cartSubTotal">$${cart.subtotal}</span></td>
+
+				<td class="romove-item">
+					<button class="btn btn-danger btn-sm" type="submit" id="${cart.rowId}" onclick="cartRemove(this.id)">
+						<i class="fa fa-times"></i>
+					</button>
+				</td>
+			</tr>`;
+			});
+
+			// add html to parent
+			parent.html(rows);
+		}
+	});
+}
+cart();
+
+/**
+ * Remove Product from cart using ajax 
+ */
+function cartRemove(id) {
+	$.ajax({
+		url: url('cart/delete'),
 		method: 'POST',
 		data: {
 			id: id
 		},
 		dataType: 'JSON',
 		success: function(data) {
+			// call cart function
+			cart();
+
 			// call mini cart function
 			miniCart();
 
 			// call toast function
 			sweetAlertToast(data);
+		}
+	});
+}
+
+/**
+ * Cart Quantity Increment
+ */
+function cartQtyIncrement(rowId) {
+	// send ajax request
+	$.ajax({
+		url: url('cart/increment'),
+		method: 'POST',
+		data: {
+			id: rowId
+		},
+		dataType: 'JSON',
+		success: function(data) {
+			// call cart function
+			cart();
+
+			// call mini cart function
+			miniCart();
+		}
+	});
+}
+
+/**
+ * Cart Quantity Decrement
+ */
+function cartQtyDecrement(rowId) {
+	// send ajax request
+	$.ajax({
+		url: url('cart/decrement'),
+		method: 'POST',
+		data: {
+			id: rowId
+		},
+		dataType: 'JSON',
+		success: function(data) {
+			// call cart function
+			cart();
+
+			// call mini cart function
+			miniCart();
 		}
 	});
 }

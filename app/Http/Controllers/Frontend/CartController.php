@@ -10,6 +10,26 @@ use Illuminate\Http\Request;
 
 class CartController extends Controller
 {
+    public function __construct()
+    {
+        // 
+    }
+
+    /**
+     * show my cart page
+     */
+    public function index()
+    {
+        return view('frontend.cart.view');
+    }
+
+
+    /**
+     * --------------------------------------
+     *  Ajax Request
+     * --------------------------------------
+     */
+
     /**
      * Product Add to Cart
      */
@@ -46,9 +66,9 @@ class CartController extends Controller
     }
 
     /**
-     * Get Mini Cart data
+     * Get Cart data
      */
-    public function addMiniCart()
+    public function getCartProduct()
     {
         # get cart all data
         $carts = Cart::content();
@@ -68,9 +88,9 @@ class CartController extends Controller
     }
 
     /**
-     * Delete mini cart Product
+     * Delete Cart Product
      */
-    public function deleteMiniCart(Request $request)
+    public function deleteCart(Request $request)
     {
         # get id
         $id = $request->input('id');
@@ -82,6 +102,59 @@ class CartController extends Controller
         return response()->json([
             'status' => 'success',
             'message' => 'Product Remove from Cart'
+        ]);
+    }
+
+    /**
+     * Increment Quantity 
+     */
+    public function increment(Request $request)
+    {
+        # get id
+        $id = $request->input('id');
+
+        # get cart
+        $cart = Cart::get($id);
+
+        # update cart
+        $cartUpdate = Cart::update($id, $cart->qty + 1);
+
+        # return success message and data
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Increment Successful',
+            'data' => $cartUpdate
+        ]);
+    }
+    /**
+     * Decrement Quantity 
+     */
+    public function decrement(Request $request)
+    {
+        # get id
+        $id = $request->input('id');
+
+        # get cart
+        $cart = Cart::get($id);
+
+        if ($cart->qty > 1) {
+            # update cart
+            $cartUpdate = Cart::update($id, $cart->qty - 1);
+        } else {
+            # return success message and data
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Quantity is 1, can not Decrement',
+                'data' => $cart
+            ]);
+        }
+
+
+        # return success message and data
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Decrement Successful',
+            'data' => $cartUpdate
         ]);
     }
 }

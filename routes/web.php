@@ -321,14 +321,24 @@ Route::prefix('product')->name('product.')->group(function () {
  * ---------------------------------------------------
  */
 Route::prefix('cart')->name('cart.')->group(function () {
+    // Show my cart page
+    Route::get('/', [CartController::class, 'index'])->name('index');
+
+    // --- AJAX REQUEST ---
     // Add to cart using ajax
     Route::post('store', [CartController::class, 'addToCart']);
 
-    // Get mini Cart data
-    Route::get('mini', [CartController::class, 'addMiniCart']);
+    // Get mini Cart data using ajax 
+    Route::get('get-product', [CartController::class, 'getCartProduct']);
 
-    // Get mini Cart data
-    Route::post('mini/delete', [CartController::class, 'deleteMiniCart']);
+    // Delete mini Cart data using ajax 
+    Route::post('delete', [CartController::class, 'deleteCart']);
+
+    // Increament Quantity using ajax
+    Route::post('increment', [CartController::class, 'increment']);
+
+    // Decreament Quantity using ajax
+    Route::post('decrement', [CartController::class, 'decrement']);
 });
 
 
