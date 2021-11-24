@@ -1,5 +1,5 @@
 @extends('admin.admin_master')
-@section('title', 'All Categories')
+@section('title', 'Coupons')
 
 @section('content')
     <div class="container-full">
@@ -25,41 +25,52 @@
         <section class="content">
             <div class="row">
 
-                <!-- ------------ VIEW ALL CATEGORIES ------------------------ -->
+                <!-- ------------ VIEW ALL couponS ------------------------ -->
                 <div class="col-8">
 
                     <div class="box">
                         <div class="box-header with-border">
-                            <h3 class="box-title">All Categories</h3>
+                            <h3 class="box-title">All Coupons</h3>
                         </div>
                         <!-- /.box-header -->
                         <div class="box-body">
                             <div class="table-responsive">
-                                <table id="categoryTable" class="table table-bordered table-striped">
+                                <table id="couponTable" class="table table-bordered table-striped">
                                     <thead>
                                         <tr>
-                                            <th>Icon</th>
-                                            <th>Category English</th>
-                                            <th>Category Hindi</th>
+                                            <th>Name</th>
+                                            <th>Discount</th>
+                                            <th>Validity</th>
+                                            <th>Status</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($categories as $item)
+                                        @foreach ($coupons as $coupon)
                                             <tr>
-                                                <td><span><i class="{{ $item->icon }}"></i></span></td>
-                                                <td>{{ $item->name_en }}</td>
-                                                <td>{{ $item->name_hin }}</td>
+                                                <td>{{ $coupon->name }}</td>
+                                                <td>{{ $coupon->discount }}</td>
                                                 <td>
-                                                    <a href="{{ route('category.edit', $item->id) }}" title="Edit Data"
-                                                        class="btn btn-info"> <i class="fa fa-pencil"></i> </a>
-                                                    <a href="{{ route('category.delete', $item->id) }}"
+                                                    {{ Carbon\Carbon::parse($coupon->validity)->format('D, d F Y') }}
+                                                </td>
+                                                <td>
+                                                    @if ($coupon->validity < now())
+                                                        <x-badge class="danger" message="In Valid" />
+                                                    @else
+                                                        <x-badge message="Valid" />
+                                                    @endif
+                                                </td>
+                                                <td>
+                                                    <a href="{{ route('coupon.edit', ['id' => $coupon->id]) }}"
+                                                        title="Edit Data" class="btn btn-info"> <i
+                                                            class="fa fa-pencil"></i> </a>
+                                                    <a href="{{ route('coupon.delete', ['id' => $coupon->id]) }}"
                                                         title="Delete Data" class="btn btn-danger ml-2" id="delete"> <i
                                                             class="fa fa-trash"></i>
                                                     </a>
                                                     <form id="deleteForm"
-                                                        action="{{ route('category.delete', $item->id) }}" method="post"
-                                                        style="display: none;">
+                                                        action="{{ route('coupon.delete', ['id' => $coupon->id]) }}"
+                                                        method="post" style="display: none;">
                                                         @method("DELETE")
                                                         @csrf
                                                     </form>
@@ -78,42 +89,43 @@
                 <!-- /.col-8 -->
 
 
-                <!-- ------------ ADD CATEGORIES ------------------------ -->
+                <!-- ------------ ADD COUPONS ------------------------ -->
                 <div class="col-4">
                     <div class="box">
                         <div class="box-header with-border">
-                            <h3 class="box-title">Add Category</h3>
+                            <h3 class="box-title">Add Coupon</h3>
                         </div>
                         <!-- /.box-header -->
                         <div class="box-body">
                             <table class="table-responsive">
 
-                                <form action="{{ route('category.store') }}" method="post">
+                                <form action="{{ route('coupon.store') }}" method="post">
                                     @csrf
-                                    <!-- Categoryd Name English-->
+                                    <!-- coupon Name-->
                                     <div class="form-group">
-                                        <h5>Category Name English <span class="text-danger">*</span></h5>
+                                        <h5>Name <span class="text-danger">*</span></h5>
                                         <div class="controls">
-                                            <input type="text" name="name_en" class="form-control">
-                                            <x-error name="name_en" />
+                                            <input type="text" name="name" class="form-control">
+                                            <x-error name="name" />
                                         </div>
                                     </div>
 
-                                    <!-- Category Name Hindi-->
+                                    <!-- Discount -->
                                     <div class="form-group">
-                                        <h5>Category Name Hindi <span class="text-danger">*</span></h5>
+                                        <h5>Discount(%) <span class="text-danger">*</span></h5>
                                         <div class="controls">
-                                            <input type="text" name="name_hin" class="form-control">
-                                            <x-error name="name_hin" />
+                                            <input type="number" name="discount" class="form-control">
+                                            <x-error name="discount" />
                                         </div>
                                     </div>
 
-                                    <!-- Category Image -->
+                                    <!-- Validity -->
                                     <div class="form-group">
-                                        <h5>Icon <span class="text-danger">*</span></h5>
+                                        <h5>Validity Date <span class="text-danger">*</span></h5>
                                         <div class="controls">
-                                            <input type="text" name="icon" class="form-control">
-                                            <x-error name="icon" />
+                                            <input type="date" name="validity" class="form-control"
+                                                min="{{ date('Y-m-d') }}">
+                                            <x-error name="validity" />
                                         </div>
                                     </div>
 

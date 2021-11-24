@@ -35,12 +35,11 @@
                         <!-- /.box-header -->
                         <div class="box-body">
                             <div class="table-responsive">
-                                <table id="viewAllBrands" class="table table-bordered table-striped">
+                                <table id="productTable" class="table table-bordered table-striped">
                                     <thead>
                                         <tr>
                                             <th>Image</th>
                                             <th>Product English</th>
-                                            <th>Product Hindi</th>
                                             <th>Quantity</th>
                                             <th>Price</th>
                                             <th>Discount</th>
@@ -53,8 +52,7 @@
                                             <tr>
                                                 <td><img src="{{ url($item->thumbnail) }}" alt="" style="width: 40px;">
                                                 </td>
-                                                <td>{{ $item->name_en }}</td>
-                                                <td>{{ $item->name_hin }}</td>
+                                                <td>{{ substr($item->name_en, 0, 30) }}..</td>
                                                 <td>{{ $item->qty }} pics</td>
                                                 <td>&#36;{{ $item->selling_price }}</td>
                                                 <!-- Discount Price -->
@@ -63,22 +61,20 @@
                                                         @php
                                                             $sellPrice = $item->selling_price;
                                                             $amt = $sellPrice - $item->discount_price;
-                                                            $precent = round(($amt / $sellPrice) * 100);
+                                                            $percent = round(($amt / $sellPrice) * 100) . '%';
+                                                            $amt = '$' . $amt;
                                                         @endphp
-                                                        <span
-                                                            class="badge badge-pill badge-info">{{ $precent }}%</span>
-                                                        <br>
-                                                        <span
-                                                            class='badge badge-pill badge-primary badge-sm'>&#36;{{ $amt }}</span>
+                                                        <x-badge class="info" :message="$percent" />
+                                                        <x-badge class="primary" :message="$amt" />
                                                     @else
-                                                        <span class="badge badge-pill badge-danger">No Discount</span>
+                                                        <x-badge class="danger" message="No Discount" />
                                                     @endif
                                                 </td>
                                                 <td>
                                                     @if ($item->status)
-                                                        <span class="badge badge-pill badge-success">Active</span>
+                                                        <x-badge message="Active" />
                                                     @else
-                                                        <span class="badge badge-pill badge-danger">Inactive</span>
+                                                        <x-badge message="Inactive" class="danger" />
                                                     @endif
                                                 </td>
                                                 <td width="20%">

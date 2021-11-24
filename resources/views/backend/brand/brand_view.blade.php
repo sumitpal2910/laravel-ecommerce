@@ -35,7 +35,7 @@
                         <!-- /.box-header -->
                         <div class="box-body">
                             <div class="table-responsive">
-                                <table id="viewAllBrands" class="table table-bordered table-striped">
+                                <table id="brandTable" class="table table-bordered table-striped">
                                     <thead>
                                         <tr>
                                             <th>Brand En</th>

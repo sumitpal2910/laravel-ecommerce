@@ -1,5 +1,6 @@
 <?php
 
+// Backend
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Backend\AdminProfileController;
 use App\Http\Controllers\Backend\BrandController;
@@ -7,6 +8,7 @@ use App\Http\Controllers\Backend\CategoryController;
 use App\Http\Controllers\Backend\ProductController;
 use App\Http\Controllers\Backend\SliderController;
 use App\Http\Controllers\Backend\SubCategoryController;
+use App\Http\Controllers\Backend\CouponController;
 
 // Frontend
 use App\Http\Controllers\Frontend\CartController;
@@ -231,6 +233,29 @@ Route::prefix('slider')->group(function () {
 
     // Delete Slider
     Route::delete("/delete/{id}", [SliderController::class, 'deleteSlider'])->name('slider.delete');
+});
+
+
+/**
+ * ---------------------------------------------------
+ *  ----         COUPON       ---- 
+ * ---------------------------------------------------
+ */
+Route::prefix('coupon')->name('coupon.')->group(function () {
+    // view all Coupon
+    Route::get('/', [CouponController::class, 'index'])->name('index');
+
+    // Add new Coupon
+    Route::post("/store", [CouponController::class, 'store'])->name('store');
+
+    // Edit Coupon
+    Route::get("/edit/{id}", [CouponController::class, 'edit'])->name('edit');
+
+    // Update Coupon
+    Route::post("/update/{id}", [CouponController::class, 'update'])->name('update');
+
+    // Delete Coupon
+    Route::delete("/delete/{id}", [CouponController::class, 'delete'])->name('delete');
 });
 
 

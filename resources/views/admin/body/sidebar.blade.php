@@ -34,7 +34,7 @@ $route = Route::current()->getName();
             <!-- brands -->
             <li class="treeview {{ $prefix === '/brand' ? 'active' : '' }}">
                 <a href="#">
-                    <i data-feather="message-circle"></i>
+                    <i class="fa fa-tags"></i>
                     <span>Brand</span>
                     <span class="pull-right-container">
                         <i class="fa fa-angle-right pull-right"></i>
@@ -49,7 +49,7 @@ $route = Route::current()->getName();
             <!-- Category -->
             <li class="treeview {{ $prefix === '/category' ? 'active' : '' }}">
                 <a href="#">
-                    <i data-feather="message-circle"></i>
+                    <i class="fa fa-th"></i>
                     <span>Category</span>
                     <span class="pull-right-container">
                         <i class="fa fa-angle-right pull-right"></i>
@@ -73,7 +73,7 @@ $route = Route::current()->getName();
             <!-- Products -->
             <li class="treeview {{ $prefix === '/product' ? 'active' : '' }}">
                 <a href="#">
-                    <i data-feather="message-circle"></i>
+                    <i class="fa fa-dropbox"></i>
                     <span>Product</span>
                     <span class="pull-right-container">
                         <i class="fa fa-angle-right pull-right"></i>
@@ -93,7 +93,7 @@ $route = Route::current()->getName();
             <!-- Slider -->
             <li class="treeview {{ $prefix === '/slider' ? 'active' : '' }}">
                 <a href="#">
-                    <i data-feather="message-circle"></i>
+                    <i class="fa fa-sliders"></i>
                     <span>Slider</span>
                     <span class="pull-right-container">
                         <i class="fa fa-angle-right pull-right"></i>
@@ -103,26 +103,27 @@ $route = Route::current()->getName();
                     <li class="{{ $route === 'all.slider' ? 'active' : '' }}">
                         <a href="{{ route('all.slider') }}"><i class="ti-more"></i>Manage Slider</a>
                     </li>
-                   
+
                 </ul>
             </li>
 
-            <li class="treeview">
+            <!-- Coupon -->
+            <li class="treeview {{ $prefix === '/coupon' ? 'active' : '' }}">
                 <a href="#">
-                    <i data-feather="file"></i>
-                    <span>Pages</span>
+                    <i class="fa fa-tag"></i>
+                    <span>Coupon</span>
                     <span class="pull-right-container">
                         <i class="fa fa-angle-right pull-right"></i>
                     </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="profile.html"><i class="ti-more"></i>Profile</a></li>
-                    <li><a href="invoice.html"><i class="ti-more"></i>Invoice</a></li>
-                    <li><a href="gallery.html"><i class="ti-more"></i>Gallery</a></li>
-                    <li><a href="faq.html"><i class="ti-more"></i>FAQs</a></li>
-                    <li><a href="timeline.html"><i class="ti-more"></i>Timeline</a></li>
+                    <li class="{{ $route === 'coupon.index' ? 'active' : '' }}">
+                        <a href="{{ route('coupon.index') }}"><i class="ti-more"></i>Manage Coupon</a>
+                    </li>
+
                 </ul>
             </li>
+
 
             <li class="header nav-small-cap">User Interface</li>
 

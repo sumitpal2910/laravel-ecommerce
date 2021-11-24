@@ -2,6 +2,11 @@
 
 namespace App\Providers;
 
+// Backend
+use App\View\Components\Backend\Badge;
+use App\View\Components\Backend\Error;
+
+// Frontend
 use App\View\Components\Frontend\Sidebar\HotDeals;
 use App\View\Components\Frontend\ProductGridView;
 use App\View\Components\Frontend\ProductListView;
@@ -34,9 +39,9 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         /**
-         * ====================================
+         * ===================================================================
          *      FRONTEND
-         * ====================================
+         * ===================================================================
          */
         # product grid view
         Blade::component('product-grid-view', ProductGridView::class);
@@ -66,5 +71,20 @@ class AppServiceProvider extends ServiceProvider
 
         # testimoinal
         Blade::component('sidebar-testimonial', Testimonial::class);
+
+
+
+
+        /**
+         * ===================================================================
+         *      BACKEND
+         * ===================================================================
+         */
+
+        # status
+        Blade::component('badge', Badge::class);
+
+        # error
+        Blade::component('error', Error::class);
     }
 }

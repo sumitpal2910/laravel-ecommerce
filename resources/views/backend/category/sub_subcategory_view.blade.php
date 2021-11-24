@@ -38,7 +38,7 @@
                         <!-- /.box-header -->
                         <div class="box-body">
                             <div class="table-responsive">
-                                <table id="viewAllBrands" class="table table-bordered table-striped">
+                                <table id="subSubCategoryTable" class="table table-bordered table-striped">
                                     <thead>
                                         <tr>
                                             <th>Category </th>

@@ -6,9 +6,6 @@
 $(function() {
 	'use strict';
 
-	$('#viewAllBrands').DataTable({
-		ordering: false
-	});
 	$('#example2').DataTable({
 		paging: true,
 		lengthChange: false,
