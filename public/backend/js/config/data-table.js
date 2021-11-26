@@ -11,32 +11,72 @@ $(function() {
 	/**
      * Category Table
      */
-	$('#categoryTable').DataTable();
+	$('#categoryTable').DataTable({
+		ordering: false
+	});
 
 	/**
      * Sub Category Table
      */
-	$('#subCategoryTable').DataTable();
+	$('#subCategoryTable').DataTable({
+		ordering: false
+	});
 
 	/**
      * Sub Sub Category Table
      */
-	$('#subSubCategoryTable').DataTable();
+	$('#subSubCategoryTable').DataTable({
+		ordering: false
+	});
 
 	/**
      * Product Table
      */
-	$('#productTable').DataTable();
+	$('#productTable').DataTable({
+		ordering: false
+	});
 
 	/**
      * Slider Table
      */
-	$('#sliderTable').DataTable();
+	$('#sliderTable').DataTable({
+		ordering: false
+	});
 
 	/**
      * Coupon Table
      */
-	$('#couponTable').DataTable();
+	$('#couponTable').DataTable({
+		ordering: false
+	});
+
+	/**
+     * Shipping State Table
+     */
+	$('#shipStateTable').DataTable({
+		ordering: true
+	});
+
+	/**
+     * Shipping District Table
+     */
+	$('#shipDistrictTable').DataTable({
+		ordering: false
+	});
+
+	/**
+     * Shipping Sub District Table
+     */
+	$('#shipSubDistrictTable').DataTable({
+		ordering: false
+	});
+
+	/**
+     * Shipping Block Table
+     */
+	$('#shipBlockTable').DataTable({
+		ordering: false
+	});
 
 	$('#example2').DataTable({
 		paging: true,

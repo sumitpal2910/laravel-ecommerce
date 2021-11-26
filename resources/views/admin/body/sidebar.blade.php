@@ -124,6 +124,39 @@ $route = Route::current()->getName();
                 </ul>
             </li>
 
+            <!-- Shipping Area -->
+            <li class="treeview {{ $prefix === '/shipping' ? 'active' : '' }}">
+                <a href="#">
+                    <i class="fa fa-tag"></i>
+                    <span>Shipping Area</span>
+                    <span class="pull-right-container">
+                        <i class="fa fa-angle-right pull-right"></i>
+                    </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li class="{{ $route === 'ship.state.index' ? 'active' : '' }}">
+                        <a href="{{ route('ship.state.index') }}"><i class="ti-more"></i>Ship State</a>
+                    </li>
+
+                    <li class="{{ $route === 'ship.dist.index' ? 'active' : '' }}">
+                        <a href="{{ route('ship.dist.index') }}"><i class="ti-more"></i>Ship District</a>
+                    </li>
+
+                    <li class="{{ $route === 'ship.subdist.index' ? 'active' : '' }}">
+                        <a href="{{ route('ship.subdist.index') }}">
+                            <i class="ti-more"></i>Ship Sub District
+                        </a>
+                    </li>
+
+                    <li class="{{ $route === 'ship.block.index' ? 'active' : '' }}">
+                        <a href="{{ route('ship.block.index') }}">
+                            <i class="ti-more"></i>Ship Block
+                        </a>
+                    </li>
+
+                </ul>
+            </li>
+
 
             <li class="header nav-small-cap">User Interface</li>
 

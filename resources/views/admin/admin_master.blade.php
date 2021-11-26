@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="icon" href=" {{ asset('backend/images/favicon.ico') }}">
 
     <title>Laravel Ecommerce Admin - @yield('title')</title>
@@ -22,6 +23,8 @@
     <!-- Jquery -->
     <script src="{{ asset('../assets/vendor_components/jquery-3.3.1/jquery-3.3.1.min.js') }}"></script>
 
+    <!-- Config-->
+    <script src="{{ asset('backend/js/config/config.js') }}"></script>
 
 
 </head>
@@ -92,11 +95,18 @@
 
 
     <!-- ==================================
-        CONFIG
+        CUSTOM
     =========================================== -->
+
+    <!-- =============== CONFIG ====================== -->
     <!-- data table -->
     <script src="{{ asset('backend/js/config/data-table.js') }}"></script>
 
+    <!-- =============== PAGES ====================== -->
+    <!-- Sub District -->
+    <script src="{{ asset('backend/js/custom/pages/ship/sub-district.js') }}" defer></script>
+    <!-- Block -->
+    <script src="{{ asset('backend/js/custom/pages/ship/block.js') }}" defer></script>
 
     <!-- Toastr Notification -->
     <script>

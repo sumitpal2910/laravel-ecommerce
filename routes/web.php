@@ -9,6 +9,10 @@ use App\Http\Controllers\Backend\ProductController;
 use App\Http\Controllers\Backend\SliderController;
 use App\Http\Controllers\Backend\SubCategoryController;
 use App\Http\Controllers\Backend\CouponController;
+use App\Http\Controllers\Backend\ShipBlockController;
+use App\Http\Controllers\Backend\ShipDistrictController;
+use App\Http\Controllers\Backend\ShipStateController;
+use App\Http\Controllers\Backend\ShipSubDistrictController;
 
 // Frontend
 use App\Http\Controllers\Frontend\CartController;
@@ -16,6 +20,7 @@ use App\Http\Controllers\Frontend\IndexController;
 use App\Http\Controllers\Frontend\LanguageController;
 use App\Http\Controllers\Frontend\ProductController as FrontendProductController;
 use App\Http\Controllers\User\WishlistController;
+
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Laravel\Jetstream\Rules\Role;
@@ -256,6 +261,94 @@ Route::prefix('coupon')->name('coupon.')->group(function () {
 
     // Delete Coupon
     Route::delete("/delete/{id}", [CouponController::class, 'delete'])->name('delete');
+});
+
+
+/**
+ * ---------------------------------------------------
+ *  ----         SHIPPING       ---- 
+ * ---------------------------------------------------
+ */
+Route::prefix('shipping')->name('ship.')->group(function () {
+
+    // ========== DIVISION ===========
+    Route::prefix('state')->name('state.')->group(function () {
+        // View all 
+        Route::get('/', [ShipStateController::class, 'index'])->name('index');
+
+        // Add new 
+        Route::post("store", [ShipStateController::class, 'store'])->name('store');
+
+        // Edit 
+        Route::get("edit/{id}", [ShipStateController::class, 'edit'])->name('edit');
+
+        // Update 
+        Route::post("update/{id}", [ShipStateController::class, 'update'])->name('update');
+
+        // Delete 
+        Route::delete("delete/{id}", [ShipStateController::class, 'delete'])->name('delete');
+    });
+
+
+    // ========== DISTRICT ===========
+    Route::prefix('dist')->name('dist.')->group(function () {
+        // View all 
+        Route::get('/', [ShipDistrictController::class, 'index'])->name('index');
+
+        // Add new 
+        Route::post("store", [ShipDistrictController::class, 'store'])->name('store');
+
+        // Edit 
+        Route::get("edit/{id}", [ShipDistrictController::class, 'edit'])->name('edit');
+
+        // Update 
+        Route::post("update/{id}", [ShipDistrictController::class, 'update'])->name('update');
+
+        // Delete 
+        Route::delete("delete/{id}", [ShipDistrictController::class, 'delete'])->name('delete');
+
+        // Get District data according to state
+        Route::get("ajax/{id}", [ShipDistrictController::class, 'getDistrict']);
+    });
+
+    // ========== SUB DISTRICT ===========
+    Route::prefix('sub-dist')->name('subdist.')->group(function () {
+        // View all 
+        Route::get('/', [ShipSubDistrictController::class, 'index'])->name('index');
+
+        // Add new 
+        Route::post("store", [ShipSubDistrictController::class, 'store'])->name('store');
+
+        // Edit 
+        Route::get("edit/{id}", [ShipSubDistrictController::class, 'edit'])->name('edit');
+
+        // Update 
+        Route::post("update/{id}", [ShipSubDistrictController::class, 'update'])->name('update');
+
+        // Delete 
+        Route::delete("delete/{id}", [ShipSubDistrictController::class, 'delete'])->name('delete');
+
+        // Get District data according to state
+        Route::get("ajax/{id}", [ShipSubDistrictController::class, 'getSubDistrict']);
+    });
+
+    // ==========  BLOCK ===========
+    Route::prefix('block')->name('block.')->group(function () {
+        // View all 
+        Route::get('/', [ShipBlockController::class, 'index'])->name('index');
+
+        // Add new 
+        Route::post("store", [ShipBlockController::class, 'store'])->name('store');
+
+        // Edit 
+        Route::get("edit/{id}", [ShipBlockController::class, 'edit'])->name('edit');
+
+        // Update 
+        Route::post("update/{id}", [ShipBlockController::class, 'update'])->name('update');
+
+        // Delete 
+        Route::delete("delete/{id}", [ShipBlockController::class, 'delete'])->name('delete');
+    });
 });
 
 
