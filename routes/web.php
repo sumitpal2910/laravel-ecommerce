@@ -310,45 +310,6 @@ Route::prefix('shipping')->name('ship.')->group(function () {
         // Get District data according to state
         Route::get("ajax/{id}", [ShipDistrictController::class, 'getDistrict']);
     });
-
-    // ========== SUB DISTRICT ===========
-    Route::prefix('sub-dist')->name('subdist.')->group(function () {
-        // View all 
-        Route::get('/', [ShipSubDistrictController::class, 'index'])->name('index');
-
-        // Add new 
-        Route::post("store", [ShipSubDistrictController::class, 'store'])->name('store');
-
-        // Edit 
-        Route::get("edit/{id}", [ShipSubDistrictController::class, 'edit'])->name('edit');
-
-        // Update 
-        Route::post("update/{id}", [ShipSubDistrictController::class, 'update'])->name('update');
-
-        // Delete 
-        Route::delete("delete/{id}", [ShipSubDistrictController::class, 'delete'])->name('delete');
-
-        // Get District data according to state
-        Route::get("ajax/{id}", [ShipSubDistrictController::class, 'getSubDistrict']);
-    });
-
-    // ==========  BLOCK ===========
-    Route::prefix('block')->name('block.')->group(function () {
-        // View all 
-        Route::get('/', [ShipBlockController::class, 'index'])->name('index');
-
-        // Add new 
-        Route::post("store", [ShipBlockController::class, 'store'])->name('store');
-
-        // Edit 
-        Route::get("edit/{id}", [ShipBlockController::class, 'edit'])->name('edit');
-
-        // Update 
-        Route::post("update/{id}", [ShipBlockController::class, 'update'])->name('update');
-
-        // Delete 
-        Route::delete("delete/{id}", [ShipBlockController::class, 'delete'])->name('delete');
-    });
 });
 
 
@@ -457,6 +418,18 @@ Route::prefix('cart')->name('cart.')->group(function () {
 
     // Decreament Quantity using ajax
     Route::post('decrement', [CartController::class, 'decrement']);
+
+    // Apply Coupon
+    Route::post('coupon/apply', [CartController::class, 'couponApply']);
+
+    // Get Calculated price
+    Route::get('coupon/cal', [CartController::class, 'couponCalculation']);
+
+    // Remove Coupon
+    Route::get('coupon/remove', [CartController::class, 'couponRemove']);
+
+    // Coupon Update
+    Route::get('coupon/update', [CartController::class, 'couponUpdate']);
 });
 
 

@@ -141,19 +141,6 @@ $route = Route::current()->getName();
                     <li class="{{ $route === 'ship.dist.index' ? 'active' : '' }}">
                         <a href="{{ route('ship.dist.index') }}"><i class="ti-more"></i>Ship District</a>
                     </li>
-
-                    <li class="{{ $route === 'ship.subdist.index' ? 'active' : '' }}">
-                        <a href="{{ route('ship.subdist.index') }}">
-                            <i class="ti-more"></i>Ship Sub District
-                        </a>
-                    </li>
-
-                    <li class="{{ $route === 'ship.block.index' ? 'active' : '' }}">
-                        <a href="{{ route('ship.block.index') }}">
-                            <i class="ti-more"></i>Ship Block
-                        </a>
-                    </li>
-
                 </ul>
             </li>
 

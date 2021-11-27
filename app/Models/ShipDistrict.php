@@ -33,19 +33,4 @@ class ShipDistrict extends Model
         return $this->belongsTo(ShipState::class);
     }
 
-    /**
-     * Sub District
-     */
-    public function subDistrict()
-    {
-        return $this->hasMany(ShipSubDistrict::class);
-    }
-
-    /**
-     * Block
-     */
-    public function block()
-    {
-        return $this->hasMany(ShipBlock::class);
-    }
 }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Backend\ShipStateRequest;
+use App\Models\ShipDistrict;
 use App\Models\ShipState;
 use Illuminate\Http\Request;
 
@@ -22,7 +23,7 @@ class ShipStateController extends Controller
     public function index()
     {
         # get all division
-        $states = ShipState::latest()->get();
+        $states = ShipState::orderBy('name', 'asc')->get();
 
         # show view page
         return view('backend.ship.state.view', compact('states'));
@@ -110,4 +111,6 @@ class ShipStateController extends Controller
         # return back with notification
         return  redirect()->back()->with($notification);
     }
+
+ 
 }

@@ -136,6 +136,9 @@ function addToCart() {
 		},
 		dataType: 'JSON',
 		success: function(data) {
+			// call coupon update function to update price
+			couponUpdate();
+
 			// call miniCart function to update header mini cart
 			miniCart();
 
@@ -175,10 +178,10 @@ function miniCart() {
 							</div>
 						</div>
 						<div class="col-xs-7">
-							<h3 class="name"><a href="#">${cart.name.substring(0, 20)}</a></h3>
+							<h3 class="name"><a href="#">${cart.name.substring(0, 25)}..</a></h3>
 							<div class="price">$${cart.price} * ${cart.qty}</div>
 						</div>
-						<div class="col-xs-1 action"> <button class="btn btn-sm btn-danger" onclick="cartRemove(this.id)" id="${cart.rowId}"><i class="fa fa-trash"></i></button>
+						<div class="col-xs-1 action"><button class="btn btn-xs btn-danger" onclick="cartRemove(this.id)" id="${cart.rowId}"><i class="fa fa-trash"></i></button>
 						</div>
 					</div>
 				</div>
@@ -213,6 +216,9 @@ function cart() {
 		method: 'GET',
 		dataType: 'JSON',
 		success: function(data) {
+			// call coupon calculation function
+			couponCalculation();
+
 			let rows = '';
 
 			$.each(data.carts, function(i, cart) {
@@ -310,6 +316,7 @@ function cartRemove(id) {
 		},
 		dataType: 'JSON',
 		success: function(data) {
+			couponUpdate();
 			// call cart function
 			cart();
 
@@ -362,6 +369,132 @@ function cartQtyDecrement(rowId) {
 
 			// call mini cart function
 			miniCart();
+		}
+	});
+}
+
+/**
+ * Cart Apply coupon
+ */
+function applyCoupon() {
+	// get coupon
+	let coupon = $('#couponName').val();
+
+	// get coupon parent element
+	let ele = $('#applyCouponDiv');
+
+	// send ajax request
+	$.ajax({
+		url: url('cart/coupon/apply'),
+		method: 'POST',
+		data: {
+			coupon: coupon
+		},
+		dataType: 'JSON',
+		success: function(data) {
+			console.log(data);
+
+			if (data.status === 'success') {
+				// hide the coupon div
+				ele.hide();
+
+				// call coupon calculation function to show discount
+				couponCalculation();
+			}
+
+			// show sweetalert toast notification
+			sweetAlertToast(data);
+		}
+	});
+}
+
+/**
+ * Coupon Calculation 
+ */
+function couponCalculation() {
+	// get parent element
+	let element = $('#couponCalField').empty();
+
+	// send ajax request
+	$.ajax({
+		url: url('cart/coupon/cal'),
+		method: 'GET',
+		dataType: 'JSON',
+		success: function(data) {
+			console.log(data);
+			if (data.subTotal) {
+				element.html(`
+				<tr>
+					<th>
+						<div class="cart-sub-total text-muted">
+							Coupon<span class="inner-left-md">${data.coupon_name}</span>
+							<button type="button" onclick="removeCoupon()" class="btn btn-danger btn-xs"><i class="fa fa-times"></i></button>
+						</div>
+						<hr>
+						<div class="cart-sub-total">
+							Subtotal <span class="inner-left-md"> $${data.subTotal}</span>
+						</div>
+						<div class="cart-sub-total">
+							Discount<span class="inner-left-md"> &minus;$${data.discount_amount}</span>
+						</div>
+						<hr>
+						<div class="cart-grand-total">
+							Grand Total<span class="inner-left-md">$${data.total}</span>
+						</div>
+					</th>
+				</tr>`);
+			} else {
+				element.html(`
+				<tr>
+					<th>
+						<div class="cart-sub-total">
+							Subtotal<span class="inner-left-md">$${data.total}</span>
+						</div>
+						<div class="cart-grand-total">
+							Grand Total<span class="inner-left-md">$${data.total}</span>
+						</div>
+					</th>
+				</tr>`);
+			}
+		}
+	});
+}
+couponCalculation();
+
+/**
+ * Remove Coupon
+ */
+function removeCoupon() {
+	// send ajax request
+	$.ajax({
+		url: url('cart/coupon/remove'),
+		method: 'GET',
+		dataType: 'JSON',
+		success: function(data) {
+			console.log(data);
+			// call coupon calculation
+			couponCalculation();
+
+			// show apply coupon box
+			$('#applyCouponDiv').show();
+			$('#applyCouponDiv input').val('');
+
+			// show sweetalert toast notification
+			sweetAlertToast(data);
+		}
+	});
+}
+
+/**
+ * Cart Update - this function will update price after apply discount in session
+ */
+function couponUpdate() {
+	$.ajax({
+		url: url('cart/coupon/update'),
+		method: 'GET',
+		dataType: 'JSON',
+		success: function(data) {
+			console.log(data);
 		}
 	});
 }

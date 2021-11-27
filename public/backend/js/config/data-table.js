@@ -61,7 +61,7 @@ $(function() {
      * Shipping District Table
      */
 	$('#shipDistrictTable').DataTable({
-		ordering: false
+		ordering: true
 	});
 
 	/**

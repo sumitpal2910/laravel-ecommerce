@@ -49,7 +49,7 @@
                                         @foreach ($coupons as $coupon)
                                             <tr>
                                                 <td>{{ $coupon->name }}</td>
-                                                <td>{{ $coupon->discount }}</td>
+                                                <td>{{ $coupon->discount }}%</td>
                                                 <td>
                                                     {{ Carbon\Carbon::parse($coupon->validity)->format('D, d F Y') }}
                                                 </td>

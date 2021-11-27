@@ -4,8 +4,10 @@ namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Backend\ShipDistrictRequest;
+use App\Models\ShipBlock;
 use App\Models\ShipDistrict;
 use App\Models\ShipState;
+use App\Models\ShipSubDistrict;
 use Illuminate\Http\Request;
 
 class ShipDistrictController extends Controller
@@ -23,7 +25,7 @@ class ShipDistrictController extends Controller
     public function index()
     {
         # get all division
-        $districts = ShipDistrict::with('state')->latest()->get();
+        $districts = ShipDistrict::with('state')->orderBy("name", "asc")->get();
 
         # get all state
         $states = ShipState::orderBy('name', 'asc')->get();
