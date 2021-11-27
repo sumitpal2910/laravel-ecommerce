@@ -8,6 +8,7 @@ use Gloudemans\Shoppingcart\Facades\Cart;
 use App\Http\Controllers\Controller;
 use App\Models\Coupon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 
 class CartController extends Controller
@@ -287,4 +288,6 @@ class CartController extends Controller
 
         return Session::get('coupon');
     }
+
+    
 }

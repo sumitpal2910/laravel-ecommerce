@@ -5,7 +5,7 @@ namespace App\Providers;
 // Backend
 use App\View\Components\Backend\Badge;
 use App\View\Components\Backend\Error;
-
+use App\View\Components\Frontend\Error as FrontendError;
 // Frontend
 use App\View\Components\Frontend\Sidebar\HotDeals;
 use App\View\Components\Frontend\ProductGridView;
@@ -49,7 +49,8 @@ class AppServiceProvider extends ServiceProvider
         # product list view
         Blade::component('product-list-view', ProductListView::class);
 
-
+        # error
+        Blade::component('error', FrontendError::class);
 
 
 

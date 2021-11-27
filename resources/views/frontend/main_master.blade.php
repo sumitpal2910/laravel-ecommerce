@@ -111,6 +111,7 @@
     <script src="{{ asset('frontend/custom/js/cart.js') }}" defer></script>
     <!-- wishlist -->
     <script src="{{ asset('frontend/custom/js/wishlist.js') }}" defer></script>
+    <script src="{{ asset('frontend/custom/js/checkout.js') }}" defer></script>
 
     <script src="{{ asset('js/app.js') }}" defer></script>
 

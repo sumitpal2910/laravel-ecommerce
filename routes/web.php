@@ -16,6 +16,7 @@ use App\Http\Controllers\Backend\ShipSubDistrictController;
 
 // Frontend
 use App\Http\Controllers\Frontend\CartController;
+use App\Http\Controllers\Frontend\CheckoutController;
 use App\Http\Controllers\Frontend\IndexController;
 use App\Http\Controllers\Frontend\LanguageController;
 use App\Http\Controllers\Frontend\ProductController as FrontendProductController;
@@ -432,6 +433,21 @@ Route::prefix('cart')->name('cart.')->group(function () {
     Route::get('coupon/update', [CartController::class, 'couponUpdate']);
 });
 
+/**
+ * ---------------------------------------------------
+ *  ----         CHECKOUT       ---- 
+ * ---------------------------------------------------
+ */
+Route::prefix("checkout")->name("checkout.")->group(function () {
+    // Index page
+    Route::get("/", [CheckoutController::class, 'index'])->name("index");
+
+    // Store page
+    Route::post("store", [CheckoutController::class, 'store'])->name("store");
+
+    // Get District data according to state
+    Route::get("dist/ajax/{id}", [CheckoutController::class, 'getDistrict']);
+});
 
 /**
  * ---------------------------------------------------

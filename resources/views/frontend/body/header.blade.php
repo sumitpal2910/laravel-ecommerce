@@ -22,7 +22,7 @@
                             </a>
                         </li>
                         <li>
-                            <a href="#"><i class="icon fa fa-check"></i>
+                            <a href="{{ route('checkout.index') }}"><i class="icon fa fa-check"></i>
                                 @if (session()->get('language') === 'hindi') चेक आउट @else Checkout @endif
                             </a>
                         </li>
@@ -35,7 +35,7 @@
                         @else
                             <li>
                                 <a href="{{ route('dashboard') }}"><i class="icon fa fa-user"></i>
-                                    @if (session()->get('language') === 'hindi') उपयोगकर्ता प्रोफ़ाइल @else  User Profile @endif
+                                    {{ Auth::user()->name }}
                                 </a>
                             </li>
                         @endguest
@@ -153,7 +153,7 @@
                                             :</span><span class='price'>$ <span id="miniCartSubTotal">00.00</span>
                                         </span> </div>
                                     <div class="clearfix"></div>
-                                    <a href="checkout.html"
+                                    <a href="{{ route('checkout.index') }}"
                                         class="btn btn-upper btn-primary btn-block m-t-20">Checkout</a>
                                 </div>
                                 <!-- /.cart-total-->
