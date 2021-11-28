@@ -14,6 +14,11 @@ use Illuminate\Support\Facades\Hash;
 
 class IndexController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['auth', 'user'])->only(['userLogout', 'userProfile', 'userProfileStore', 'userChangePassword', 'userPasswordUpdate']);
+    }
+
     /**
      * Display index page
      */
@@ -71,7 +76,10 @@ class IndexController extends Controller
      */
     public function userLogout()
     {
+        # logout user
         Auth::logout();
+
+        # return to login page
         return redirect()->route('login');
     }
 
@@ -158,5 +166,5 @@ class IndexController extends Controller
         }
     }
 
-  
+    
 }

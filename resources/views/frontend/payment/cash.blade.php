@@ -1,6 +1,6 @@
 @extends('frontend.main_master')
 
-@section('title', 'Stripe')
+@section('title', 'Cash On Dalivery')
 
 @section('content')
     <div class="breadcrumb">
@@ -108,7 +108,8 @@
                                     <div class="panel-heading">
                                         <h4 class="unicase-checkout-title">Payment</h4>
                                     </div>
-                                    <form action="{{ route('payment.stripe') }}" method="post" id="payment-form">
+                                    <img src="{{asset("frontend/assets/images/payments/cash.png")}}" alt="">
+                                    <form action="{{ route('payment.cash') }}" method="post">
                                         @csrf
                                         <!-- user data -->
                                         <input type="hidden" name="name" value="{{ $data['name'] }}">
@@ -123,17 +124,6 @@
                                         <input type="hidden" name="state_id" value="{{ $data['state_id'] }}">
                                         <input type="hidden" name="district_id" value="{{ $data['district_id'] }}">
 
-                                        <div class="form-row">
-                                            <label for="card-element">
-                                                Credit or debit card
-                                            </label>
-
-                                            <div id="card-element">
-                                                <!-- A Stripe Element will be inserted here. -->
-                                            </div>
-                                            <!-- Used to display form errors. -->
-                                            <div id="card-errors" role="alert"></div>
-                                        </div>
                                         <br>
                                         <button class="btn btn-primary">Submit Payment</button>
                                     </form>

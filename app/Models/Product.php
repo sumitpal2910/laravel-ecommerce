@@ -61,12 +61,20 @@ class Product extends Model
     {
         return $this->belongsTo('App\Models\Brand');
     }
-    
+
     /**
      * Wishlist
      */
     public function wishlist()
     {
         return $this->hasOne('App\Models\Wishlist');
+    }
+
+    /**
+     * OrderItem
+     */
+    public function orderItem()
+    {
+        return $this->hasMany(OrderItem::class);
     }
 }

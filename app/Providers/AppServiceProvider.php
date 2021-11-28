@@ -5,11 +5,13 @@ namespace App\Providers;
 // Backend
 use App\View\Components\Backend\Badge;
 use App\View\Components\Backend\Error;
-use App\View\Components\Frontend\Error as FrontendError;
+use App\View\Components\Frontend\Badge as FrontendBadge;
 // Frontend
+use App\View\Components\Frontend\Error as FrontendError;
 use App\View\Components\Frontend\Sidebar\HotDeals;
 use App\View\Components\Frontend\ProductGridView;
 use App\View\Components\Frontend\ProductListView;
+use App\View\Components\Frontend\Profile\UserMenu;
 use App\View\Components\Frontend\Sidebar\ProductTags;
 use App\View\Components\Frontend\Sidebar\Category;
 use App\View\Components\Frontend\Sidebar\SpecialOffer;
@@ -52,6 +54,12 @@ class AppServiceProvider extends ServiceProvider
         # error
         Blade::component('error', FrontendError::class);
 
+        # dashboard user menu
+        Blade::component('user-menu', UserMenu::class);
+
+        # badge
+        Blade::component('f-badge', FrontendBadge::class);
+
 
 
         // ========= SIDEBAR ===========
@@ -82,7 +90,7 @@ class AppServiceProvider extends ServiceProvider
          * ===================================================================
          */
 
-        # status
+        # badge
         Blade::component('badge', Badge::class);
 
         # error

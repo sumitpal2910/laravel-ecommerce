@@ -96,7 +96,7 @@ class CheckoutController extends Controller
                 break;
 
             case "cash":
-                return "cash";
+                return view("frontend.payment.cash", compact("data", "cartTotal"));
                 break;
         }
     }

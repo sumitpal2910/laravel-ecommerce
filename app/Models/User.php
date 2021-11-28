@@ -67,10 +67,18 @@ class User extends Authenticatable
      */
 
     /**
-     * User
+     * Wishlist
      */
     public function wishlist()
     {
         return $this->hasMany("App\Models\Wishlist");
+    }
+
+    /**
+     * Order
+     */
+    public function order()
+    {
+        return $this->hasMany(Order::class);
     }
 }

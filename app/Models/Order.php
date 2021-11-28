@@ -58,7 +58,7 @@ class Order extends Model
      */
     public function state()
     {
-        return $this->hasOne(ShipState::class);
+        return $this->belongsTo(ShipState::class);
     }
 
     /**
@@ -66,6 +66,23 @@ class Order extends Model
      */
     public function district()
     {
-        return $this->hasOne(ShipDistrict::class);
+        return $this->belongsTo(ShipDistrict::class);
     }
+
+    /**
+     * OrderItem
+     */
+    public function orderItem()
+    {
+        return $this->hasMany(OrderItem::class);
+    }
+
+    /**
+     * User
+     */
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
 }

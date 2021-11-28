@@ -21,4 +21,28 @@ class OrderItem extends Model
         "qty",
         "price",
     ];
+
+
+    /**
+     * -------------------------------------------------
+     *  ----    Relation    ----
+     * -------------------------------------------------
+     */
+
+    /**
+     * Order
+     */
+    public function order()
+    {
+        return $this->belongsTo(Order::class);
+    }
+    
+    /**
+     * Product
+     */
+    
+    public function product()
+    {
+        return $this->belongsTo(Product::class);
+    }
 }

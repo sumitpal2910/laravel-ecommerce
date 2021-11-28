@@ -9,10 +9,8 @@ use App\Http\Controllers\Backend\ProductController;
 use App\Http\Controllers\Backend\SliderController;
 use App\Http\Controllers\Backend\SubCategoryController;
 use App\Http\Controllers\Backend\CouponController;
-use App\Http\Controllers\Backend\ShipBlockController;
 use App\Http\Controllers\Backend\ShipDistrictController;
 use App\Http\Controllers\Backend\ShipStateController;
-use App\Http\Controllers\Backend\ShipSubDistrictController;
 
 // Frontend
 use App\Http\Controllers\Frontend\CartController;
@@ -20,7 +18,8 @@ use App\Http\Controllers\Frontend\CheckoutController;
 use App\Http\Controllers\Frontend\IndexController;
 use App\Http\Controllers\Frontend\LanguageController;
 use App\Http\Controllers\Frontend\ProductController as FrontendProductController;
-use App\Http\Controllers\User\StripeController;
+use App\Http\Controllers\User\OrderController;
+use App\Http\Controllers\User\PaymentController;
 use App\Http\Controllers\User\WishlistController;
 
 use Illuminate\Support\Facades\Auth;
@@ -342,14 +341,16 @@ Route::middleware(['auth:sanctum,web', 'verified'])->get('/dashboard', function 
 
 
 //    ----         PROFILE       ---- 
-// Logout
-Route::get("/user/logout", [IndexController::class, 'userLogout'])->name('user.logout');
+Route::prefix("user")->name("user.")->group(function () {
+    // Logout
+    Route::get("logout", [IndexController::class, 'userLogout'])->name('logout');
 
-// User Profile Show
-Route::get("/user/profile", [IndexController::class, 'userProfile'])->name('user.profile');
+    // User Profile Show
+    Route::get("profile", [IndexController::class, 'userProfile'])->name('profile');
 
-// User Profile Update
-Route::post("/user/profile/store", [IndexController::class, 'userProfileStore'])->name('user.profile.store');
+    // User Profile Update
+    Route::post("profile/store", [IndexController::class, 'userProfileStore'])->name('profile.store');
+});
 
 
 //   ----         PASSWORD       ---- 
@@ -455,9 +456,12 @@ Route::prefix("checkout")->name("checkout.")->group(function () {
  *  ----         STRIPE       ---- 
  * ---------------------------------------------------
  */
-Route::prefix("stripe")->name("stripe.")->group(function () {
-    // Store page
-    Route::post("store", [StripeController::class, 'store'])->name("store");
+Route::prefix("payment")->name("payment.")->group(function () {
+    // Stripe
+    Route::post("stripe", [PaymentController::class, 'stripe'])->name("stripe");
+
+    // Cash
+    Route::post("cash", [PaymentController::class, 'cash'])->name("cash");
 });
 
 /**
@@ -477,4 +481,18 @@ Route::prefix('wishlist')->name('wishlist.')->group(function () {
 
     // Remove from Wishlist using ajax
     Route::post('delete', [WishlistController::class, 'removeWishlist']);
+});
+
+
+/**
+ * ---------------------------------------------------
+ *  ----         ORDER       ---- 
+ * ---------------------------------------------------
+ */
+Route::prefix("user/order")->name("user.order.")->group(function () {
+    // Index
+    Route::get("/", [OrderController::class, 'index'])->name("index");
+
+    // Index
+    Route::get("show/{id}", [OrderController::class, 'show'])->name("show");
 });

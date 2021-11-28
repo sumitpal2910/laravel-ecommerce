@@ -31,4 +31,12 @@ class ShipState extends Model
     {
         return $this->hasMany(ShipDistrict::class);
     }
+
+    /**
+     * Order
+     */
+    public function order()
+    {
+        return $this->hasMany(Order::class, "state_id", "id");
+    }
 }

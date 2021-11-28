@@ -26,11 +26,18 @@ class ShipDistrict extends Model
      */
 
     /**
-     * Division
+     * State
      */
     public function state()
     {
         return $this->belongsTo(ShipState::class);
     }
 
+    /**
+     * Order
+     */
+    public function order()
+    {
+        return $this->hasMany(Order::class, "district_id", "id");
+    }
 }
