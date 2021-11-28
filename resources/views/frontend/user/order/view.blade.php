@@ -43,8 +43,9 @@
                                             <a href="{{ route('user.order.show', ['id' => $order->id]) }}" title="View"
                                                 class="btn btn-primary btn-sm"><i class="fa fa-eye"></i>
                                             </a>
-                                            <a href="" title="Invoice" class="btn btn-info btn-sm"><i
-                                                    class="fa fa-download"></i>
+                                            <a target="_blank"
+                                                href="{{ route('user.order.invoice', ['id' => $order->id]) }}"
+                                                title="Invoice" class="btn btn-info btn-sm"><i class="fa fa-download"></i>
                                             </a>
                                         </td>
                                     </tr>

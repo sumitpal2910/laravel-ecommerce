@@ -493,6 +493,9 @@ Route::prefix("user/order")->name("user.order.")->group(function () {
     // Index
     Route::get("/", [OrderController::class, 'index'])->name("index");
 
-    // Index
+    // Show
     Route::get("show/{id}", [OrderController::class, 'show'])->name("show");
+
+    // Show
+    Route::get("invoice/{id}", [OrderController::class, 'invoice'])->name("invoice");
 });

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Order;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use PDF;
 
 class OrderController extends Controller
 {
@@ -75,5 +76,23 @@ class OrderController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    /**
+     * Dwnload Invoice
+     */
+    public function invoice($id)
+    {
+        # get order 
+        $order = Order::with("orderItem", "state", "district", "user", "orderItem.product")->where("user_id", Auth::id())->findOrFail($id);
+
+        # show order page
+        // return view("frontend.user.order.invoice", compact("order"));
+
+        $pdf = PDF::loadView("frontend.user.order.invoice", compact("order"))->setPaper("a4")->setOptions([
+            "tempDir" => public_path(),
+            'chroot' => public_path()
+        ]);
+        return $pdf->download('invoice.pdf');
     }
 }
