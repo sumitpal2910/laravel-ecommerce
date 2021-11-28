@@ -13,6 +13,7 @@ class WishlistController extends Controller
     {
         $this->middleware(['auth', 'user'])->except(['addToWishlist']);
     }
+    
     /**
      * index - show all wishlist product
      */

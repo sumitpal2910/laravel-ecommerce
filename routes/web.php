@@ -20,6 +20,7 @@ use App\Http\Controllers\Frontend\CheckoutController;
 use App\Http\Controllers\Frontend\IndexController;
 use App\Http\Controllers\Frontend\LanguageController;
 use App\Http\Controllers\Frontend\ProductController as FrontendProductController;
+use App\Http\Controllers\User\StripeController;
 use App\Http\Controllers\User\WishlistController;
 
 use Illuminate\Support\Facades\Auth;
@@ -447,6 +448,16 @@ Route::prefix("checkout")->name("checkout.")->group(function () {
 
     // Get District data according to state
     Route::get("dist/ajax/{id}", [CheckoutController::class, 'getDistrict']);
+});
+
+/**
+ * ---------------------------------------------------
+ *  ----         STRIPE       ---- 
+ * ---------------------------------------------------
+ */
+Route::prefix("stripe")->name("stripe.")->group(function () {
+    // Store page
+    Route::post("store", [StripeController::class, 'store'])->name("store");
 });
 
 /**

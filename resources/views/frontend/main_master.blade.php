@@ -11,7 +11,7 @@
     <meta name="keywords" content="MediaCenter, Template, eCommerce">
     <meta name="robots" content="all">
     <meta name="session-language" content="{{ session()->get('language') }}">
-    <title> @yield('title')  | Laravel Ecommerce</title>
+    <title> @yield('title') | Laravel Ecommerce</title>
 
     <!-- =============================== CSS ============================================= -->
 
@@ -46,6 +46,11 @@
     <script src="{{ asset('frontend/assets/js/jquery-1.11.1.min.js') }}"></script>
     <!-- some default configration -->
     <script src="{{ asset('frontend/custom/js/config.js') }}"></script>
+
+    <!-- stripe payment method -->
+    <link href="{{ asset('frontend/custom/css/stripe.css') }}" rel="stylesheet">
+    <script src="https://js.stripe.com/v3/"></script>
+
 
 </head>
 
@@ -88,7 +93,6 @@
 
 
 
-
     <!-- JavaScripts placed at the end of the document so the pages load faster -->
     <script src="{{ asset('frontend/assets/js/bootstrap.min.js') }}" defer></script>
     <script src="{{ asset('frontend/assets/js/bootstrap-hover-dropdown.min.js') }}" defer></script>
@@ -106,6 +110,8 @@
     </script>
 
     <!-- ------------------- Custom  ---------------------------->
+    <!-- stripe -->
+    <script src="{{ asset('frontend/custom/js/stripe.js') }}"></script>
 
     <!-- cart-->
     <script src="{{ asset('frontend/custom/js/cart.js') }}" defer></script>
@@ -118,7 +124,6 @@
 
 
     <script>
-        
         $(document).ready(function() {
 
             @if (Session::has('message'))

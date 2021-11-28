@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Frontend\ShippingRequest;
+use App\Http\Requests\Frontend\OrderRequest;
 use App\Models\ShipDistrict;
 use App\Models\ShipState;
 use Gloudemans\Shoppingcart\Facades\Cart;
@@ -12,6 +12,11 @@ use Illuminate\Support\Facades\Auth;
 
 class CheckoutController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['auth', 'user']);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -70,16 +75,20 @@ class CheckoutController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(ShippingRequest $request)
+    public function store(OrderRequest $request)
     {
         # get form data
         $data = $request->validated();
+
+        # get cart Total 
+        $cartTotal = Cart::total();
+
 
         # check payment method
         switch ($data['payment_method']) {
             case 'stripe':
                 # return to stripe payment method
-                return view("frontend.payment.stripe", compact("data"));
+                return view("frontend.payment.stripe", compact("data", "cartTotal"));
                 break;
 
             case "card":
@@ -121,7 +130,7 @@ class CheckoutController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(ShippingRequest $request, $id)
+    public function update(OrderRequest $request, $id)
     {
         //
     }
