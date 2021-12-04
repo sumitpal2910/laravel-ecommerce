@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
 use App\Models\Category;
+use App\Models\SubCategory;
+use App\Models\SubSubCategory;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller
@@ -122,4 +124,5 @@ class CategoryController extends Controller
         // redirect to view all category
         return redirect()->back()->with($notification);
     }
+
 }

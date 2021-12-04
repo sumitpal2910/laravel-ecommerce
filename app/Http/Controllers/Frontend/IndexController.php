@@ -8,6 +8,7 @@ use App\Models\Category;
 use App\Models\Product;
 use App\Models\Slider;
 use App\Models\User;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -17,6 +18,7 @@ class IndexController extends Controller
     public function __construct()
     {
         $this->middleware(['auth', 'user'])->only(['userLogout', 'userProfile', 'userProfileStore', 'userChangePassword', 'userPasswordUpdate']);
+        Session::put('language', 'hindi');
     }
 
     /**
@@ -33,7 +35,7 @@ class IndexController extends Controller
         $sliders = Slider::where('status', 1)->orderBy('id', 'desc')->limit(3)->get();
 
         # get products
-        $products = Product::where('status', 1)->orderBy('id', 'desc')->limit(6)->get();
+        $products = Product::where("status", 1)->limit(6)->get();
 
         # get featured products
         $featured = Product::where('status', 1)->where('featured', 1)->orderBy('id', 'desc')->limit(6)->get();
@@ -165,6 +167,4 @@ class IndexController extends Controller
             return redirect()->back();
         }
     }
-
-    
 }

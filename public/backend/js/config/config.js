@@ -6,6 +6,7 @@ function url(link) {
 	return `${window.location.origin}/${link}`;
 }
 
+const csrfToken =$('meta[name="csrf-token"]').attr('content');
 /**
  * Ajax Configration
  */

@@ -144,6 +144,41 @@ $route = Route::current()->getName();
                 </ul>
             </li>
 
+            <!-- Orders Area -->
+            <li class="treeview {{ $prefix === '/order' ? 'active' : '' }}">
+                <a href="#">
+                    <i class="fa fa-tag"></i>
+                    <span>Orders</span>
+                    <span class="pull-right-container">
+                        <i class="fa fa-angle-right pull-right"></i>
+                    </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li class="{{ $route === 'order.pending' ? 'active' : '' }}">
+                        <a href="{{ route('order.pending') }}"><i class="ti-more"></i>Pending Order</a>
+                    </li>
+                    <li class="{{ $route === 'order.confirmed' ? 'active' : '' }}">
+                        <a href="{{ route('order.confirmed') }}"><i class="ti-more"></i>Confirmed Order</a>
+                    </li>
+                    <li class="{{ $route === 'order.processing' ? 'active' : '' }}">
+                        <a href="{{ route('order.processing') }}"><i class="ti-more"></i>Processing Order</a>
+                    </li>
+                    <li class="{{ $route === 'order.picked' ? 'active' : '' }}">
+                        <a href="{{ route('order.picked') }}"><i class="ti-more"></i>Picked Order</a>
+                    </li>
+                    <li class="{{ $route === 'order.shipped' ? 'active' : '' }}">
+                        <a href="{{ route('order.shipped') }}"><i class="ti-more"></i>Shipped Order</a>
+                    </li>
+                    <li class="{{ $route === 'order.delivered' ? 'active' : '' }}">
+                        <a href="{{ route('order.delivered') }}"><i class="ti-more"></i>Delivered Order</a>
+                    </li>
+                    <li class="{{ $route === 'order.cancel' ? 'active' : '' }}">
+                        <a href="{{ route('order.cancel') }}"><i class="ti-more"></i>Cancel Order</a>
+                    </li>
+
+                </ul>
+            </li>
+
 
             <li class="header nav-small-cap">User Interface</li>
 

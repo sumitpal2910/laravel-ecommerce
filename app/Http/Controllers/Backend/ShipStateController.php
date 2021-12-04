@@ -112,5 +112,4 @@ class ShipStateController extends Controller
         return  redirect()->back()->with($notification);
     }
 
- 
 }

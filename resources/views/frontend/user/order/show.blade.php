@@ -128,13 +128,15 @@
                                         $product = $item->product;
                                     @endphp
                                     <tr>
-                                        <td style="padding-left:10px;"><img width="50px" src="{{ url($product->thumbnail) }}" alt=""></td>
+                                        <td style="padding-left:10px;"><img width="50px"
+                                                src="{{ url($product->thumbnail) }}" alt=""></td>
                                         <td style="padding-left:10px;"><strong>{{ $product->name_en }}</strong></td>
                                         <td style="padding-left:10px;"><strong>{{ $product->code }}</strong></td>
                                         <td style="padding-left:10px;"><strong>{{ $item->color ?? '...' }}</strong></td>
                                         <td style="padding-left:10px;"><strong>{{ $item->size ?? '...' }}</strong></td>
                                         <td style="padding-left:10px;"><strong>{{ $item->qty }}</strong></td>
-                                        <td style="padding-left:10px;"><strong>${{ $item->price }} (${{ $item->price * $item->qty }})</strong>
+                                        <td style="padding-left:10px;"><strong>${{ $item->price }}
+                                                (${{ $item->price * $item->qty }})</strong>
                                         </td>
                                     </tr>
                                 @endforeach
@@ -143,6 +145,14 @@
                     </div>
                 </div>
             </div>
+
+            @if ($order->status === "delivered")
+                
+            <div class="form-group">
+                <textarea name="return_reason" id="" cols="30" rows="5" class="form-control" placeholder="Return reason"
+                required></textarea>
+            </div>
+            @endif
         </div>
     </div>
 

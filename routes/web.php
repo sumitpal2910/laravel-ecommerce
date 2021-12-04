@@ -9,6 +9,7 @@ use App\Http\Controllers\Backend\ProductController;
 use App\Http\Controllers\Backend\SliderController;
 use App\Http\Controllers\Backend\SubCategoryController;
 use App\Http\Controllers\Backend\CouponController;
+use App\Http\Controllers\Backend\OrderController as BackendOrderController;
 use App\Http\Controllers\Backend\ShipDistrictController;
 use App\Http\Controllers\Backend\ShipStateController;
 
@@ -47,7 +48,7 @@ use Laravel\Jetstream\Rules\Role;
 
 /**
  * ---------------------------------------------------
- *  ----         USER       ---- 
+ *  ----         USER       ----
  * ---------------------------------------------------
  */
 // Login
@@ -65,7 +66,7 @@ Route::middleware(['auth:sanctum,admin', 'verified'])->get('/admin/dashboard', f
 Route::get('/admin/logout', [AdminController::class, 'destroy'])->name('admin.logout');
 
 
-//   ----         PROFILE       ---- 
+//   ----         PROFILE       ----
 // Show
 Route::get('/admin/profile', [AdminProfileController::class, 'adminProfile'])->name('admin.profile');
 
@@ -76,7 +77,7 @@ Route::get('/admin/profile/edit', [AdminProfileController::class, 'adminProfileE
 Route::post('/admin/profile/edit', [AdminProfileController::class, 'adminProfileUpdate'])->name('admin.profile.update');
 
 
-//  ----         PASSWORD        ---- 
+//  ----         PASSWORD        ----
 // Change Password
 Route::get("/admin/change/password", [AdminProfileController::class, 'adminChangePassword'])->name('admin.change.password');
 
@@ -84,10 +85,12 @@ Route::get("/admin/change/password", [AdminProfileController::class, 'adminChang
 Route::post("/update/change/password", [AdminProfileController::class, 'adminUpdateChangePassword'])->name('update.change.password');
 
 
-
+Route::get('info', function () {
+    return phpinfo();
+});
 /**
  * ---------------------------------------------------
- *  ----         BRANDS        ---- 
+ *  ----         BRANDS        ----
  * ---------------------------------------------------
  */
 Route::prefix('brand')->group(function () {
@@ -110,7 +113,7 @@ Route::prefix('brand')->group(function () {
 
 /**
  * ---------------------------------------------------
- *  ----         CATEGORY        ---- 
+ *  ----         CATEGORY        ----
  * ---------------------------------------------------
  */
 Route::prefix('category')->group(function () {
@@ -128,6 +131,7 @@ Route::prefix('category')->group(function () {
 
     // Delete Category
     Route::delete("/delete/{id}", [CategoryController::class, 'deleteCategory'])->name('category.delete');
+
 
 
     // ---- SUB CATEGORY ----
@@ -177,14 +181,14 @@ Route::prefix('category')->group(function () {
 
 /**
  * ---------------------------------------------------
- *  ----         PRODUCT       ---- 
+ *  ----         PRODUCT       ----
  * ---------------------------------------------------
  */
 Route::prefix('product')->group(function () {
     // view all Product
     Route::get('/view', [ProductController::class, 'viewProduct'])->name('all.product');
 
-    // Add Product Page 
+    // Add Product Page
     Route::get('/add', [ProductController::class, 'addProduct'])->name('product.add');
 
     // Add new Product
@@ -218,7 +222,7 @@ Route::prefix('product')->group(function () {
 
 /**
  * ---------------------------------------------------
- *  ----         SLIDER       ---- 
+ *  ----         SLIDER       ----
  * ---------------------------------------------------
  */
 Route::prefix('slider')->group(function () {
@@ -244,7 +248,7 @@ Route::prefix('slider')->group(function () {
 
 /**
  * ---------------------------------------------------
- *  ----         COUPON       ---- 
+ *  ----         COUPON       ----
  * ---------------------------------------------------
  */
 Route::prefix('coupon')->name('coupon.')->group(function () {
@@ -267,45 +271,45 @@ Route::prefix('coupon')->name('coupon.')->group(function () {
 
 /**
  * ---------------------------------------------------
- *  ----         SHIPPING       ---- 
+ *  ----         SHIPPING       ----
  * ---------------------------------------------------
  */
 Route::prefix('shipping')->name('ship.')->group(function () {
 
     // ========== DIVISION ===========
     Route::prefix('state')->name('state.')->group(function () {
-        // View all 
+        // View all
         Route::get('/', [ShipStateController::class, 'index'])->name('index');
 
-        // Add new 
+        // Add new
         Route::post("store", [ShipStateController::class, 'store'])->name('store');
 
-        // Edit 
+        // Edit
         Route::get("edit/{id}", [ShipStateController::class, 'edit'])->name('edit');
 
-        // Update 
+        // Update
         Route::post("update/{id}", [ShipStateController::class, 'update'])->name('update');
 
-        // Delete 
+        // Delete
         Route::delete("delete/{id}", [ShipStateController::class, 'delete'])->name('delete');
     });
 
 
     // ========== DISTRICT ===========
     Route::prefix('dist')->name('dist.')->group(function () {
-        // View all 
+        // View all
         Route::get('/', [ShipDistrictController::class, 'index'])->name('index');
 
-        // Add new 
+        // Add new
         Route::post("store", [ShipDistrictController::class, 'store'])->name('store');
 
-        // Edit 
+        // Edit
         Route::get("edit/{id}", [ShipDistrictController::class, 'edit'])->name('edit');
 
-        // Update 
+        // Update
         Route::post("update/{id}", [ShipDistrictController::class, 'update'])->name('update');
 
-        // Delete 
+        // Delete
         Route::delete("delete/{id}", [ShipDistrictController::class, 'delete'])->name('delete');
 
         // Get District data according to state
@@ -313,6 +317,42 @@ Route::prefix('shipping')->name('ship.')->group(function () {
     });
 });
 
+/**
+ * ---------------------------------------------------
+ *  ----         ORDERS      ----
+ * ---------------------------------------------------
+ */
+Route::prefix("order")->name("order.")->group(function () {
+    // Show Order
+    Route::get("show/{id}", [BackendOrderController::class, 'show'])->name("show");
+
+    // Pending Order
+    Route::get("pending", [BackendOrderController::class, "pending"])->name("pending");
+
+    // Confirmed Order
+    Route::get("confirmed", [BackendOrderController::class, "confirmed"])->name("confirmed");
+
+    // Processing Order
+    Route::get("processing", [BackendOrderController::class, "processing"])->name("processing");
+
+    // Picked Order
+    Route::get("picked", [BackendOrderController::class, "picked"])->name("picked");
+
+    // Shipped Order
+    Route::get("shipped", [BackendOrderController::class, "shipped"])->name("shipped");
+
+    // Delivered Order
+    Route::get("delivered", [BackendOrderController::class, "delivered"])->name("delivered");
+
+    // Cancel Order
+    Route::get("cancel", [BackendOrderController::class, "cancel"])->name("cancel");
+
+    // Update Order Status
+    Route::get('status/update/{id}/{status}', [BackendOrderController::class, 'updateStatus'])->name('updateStatus');
+
+    // Download order invoice
+    Route::get('invoice/{id}', [BackendOrderController::class, "invoice"])->name("invoice");
+});
 
 // ====================================================================================================================================================================
 // ====================================================================================================================================================================
@@ -331,7 +371,7 @@ Route::get("/", [IndexController::class, 'index'])->name('index');
 
 /**
  * ---------------------------------------------------
- *  ----         USER       ---- 
+ *  ----         USER       ----
  * ---------------------------------------------------
  */
 Route::middleware(['auth:sanctum,web', 'verified'])->get('/dashboard', function () {
@@ -340,7 +380,7 @@ Route::middleware(['auth:sanctum,web', 'verified'])->get('/dashboard', function 
 })->name('dashboard');
 
 
-//    ----         PROFILE       ---- 
+//    ----         PROFILE       ----
 Route::prefix("user")->name("user.")->group(function () {
     // Logout
     Route::get("logout", [IndexController::class, 'userLogout'])->name('logout');
@@ -353,7 +393,7 @@ Route::prefix("user")->name("user.")->group(function () {
 });
 
 
-//   ----         PASSWORD       ---- 
+//   ----         PASSWORD       ----
 // Change Password
 Route::get("/user/change/password", [IndexController::class, 'userChangePassword'])->name('change.password');
 
@@ -363,7 +403,7 @@ Route::post("/user/password/update", [IndexController::class, 'userPasswordUpdat
 
 /**
  * ---------------------------------------------------
- *  ----         LANGUAGE       ---- 
+ *  ----         LANGUAGE       ----
  * ---------------------------------------------------
  */
 Route::prefix('language')->name('language.')->group(function () {
@@ -377,7 +417,7 @@ Route::prefix('language')->name('language.')->group(function () {
 
 /**
  * ---------------------------------------------------
- *  ----         PRODUCT       ---- 
+ *  ----         PRODUCT       ----
  * ---------------------------------------------------
  */
 Route::prefix('product')->name('product.')->group(function () {
@@ -399,7 +439,7 @@ Route::prefix('product')->name('product.')->group(function () {
 
 /**
  * ---------------------------------------------------
- *  ----         CART       ---- 
+ *  ----         CART       ----
  * ---------------------------------------------------
  */
 Route::prefix('cart')->name('cart.')->group(function () {
@@ -410,10 +450,10 @@ Route::prefix('cart')->name('cart.')->group(function () {
     // Add to cart using ajax
     Route::post('store', [CartController::class, 'addToCart']);
 
-    // Get mini Cart data using ajax 
+    // Get mini Cart data using ajax
     Route::get('get-product', [CartController::class, 'getCartProduct']);
 
-    // Delete mini Cart data using ajax 
+    // Delete mini Cart data using ajax
     Route::post('delete', [CartController::class, 'deleteCart']);
 
     // Increament Quantity using ajax
@@ -437,7 +477,7 @@ Route::prefix('cart')->name('cart.')->group(function () {
 
 /**
  * ---------------------------------------------------
- *  ----         CHECKOUT       ---- 
+ *  ----         CHECKOUT       ----
  * ---------------------------------------------------
  */
 Route::prefix("checkout")->name("checkout.")->group(function () {
@@ -453,7 +493,7 @@ Route::prefix("checkout")->name("checkout.")->group(function () {
 
 /**
  * ---------------------------------------------------
- *  ----         STRIPE       ---- 
+ *  ----         STRIPE       ----
  * ---------------------------------------------------
  */
 Route::prefix("payment")->name("payment.")->group(function () {
@@ -466,7 +506,7 @@ Route::prefix("payment")->name("payment.")->group(function () {
 
 /**
  * ---------------------------------------------------
- *  ----         WISHLIST       ---- 
+ *  ----         WISHLIST       ----
  * ---------------------------------------------------
  */
 Route::prefix('wishlist')->name('wishlist.')->group(function () {
@@ -486,7 +526,7 @@ Route::prefix('wishlist')->name('wishlist.')->group(function () {
 
 /**
  * ---------------------------------------------------
- *  ----         ORDER       ---- 
+ *  ----         ORDER       ----
  * ---------------------------------------------------
  */
 Route::prefix("user/order")->name("user.order.")->group(function () {

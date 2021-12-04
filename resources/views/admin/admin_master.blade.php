@@ -103,10 +103,9 @@
     <script src="{{ asset('backend/js/config/data-table.js') }}"></script>
 
     <!-- =============== PAGES ====================== -->
-    <!-- Sub District -->
-    <script src="{{ asset('backend/js/custom/pages/ship/sub-district.js') }}" defer></script>
-    <!-- Block -->
-    <script src="{{ asset('backend/js/custom/pages/ship/block.js') }}" defer></script>
+    <!-- Order  -->
+    <script src="{{ asset('backend/js/custom/pages/order.js') }}" defer></script>
+
 
     <!-- Toastr Notification -->
     <script>
@@ -114,20 +113,20 @@
 
             @if (Session::has('message'))
                 let type = "{{ Session::get('alert-type', 'info') }}";
-            
+
                 switch (type) {
                 case 'info':
                 toastr.info("{{ Session::get('message') }}");
                 break;
-            
+
                 case 'success':
                 toastr.success(" {{ session('message') }}");
                 break;
-            
+
                 case 'warning':
                 toastr.warning("{{ Session::get('message') }}");
                 break;
-            
+
                 case 'error':
                 toastr.error("{{ Session::get('message') }}");
                 break;

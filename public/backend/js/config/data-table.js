@@ -65,17 +65,17 @@ $(function() {
 	});
 
 	/**
-     * Shipping Sub District Table
+     * Coupon Table
      */
-	$('#shipSubDistrictTable').DataTable({
+	$('#couponTable').DataTable({
 		ordering: false
 	});
 
 	/**
-     * Shipping Block Table
+     * Pending Order Table
      */
-	$('#shipBlockTable').DataTable({
-		ordering: false
+	$('#pendingOrderTable').DataTable({
+		ordering: true
 	});
 
 	$('#example2').DataTable({
