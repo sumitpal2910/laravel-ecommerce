@@ -48,7 +48,7 @@ use Laravel\Jetstream\Rules\Role;
 
 /**
  * ---------------------------------------------------
- *  ----         USER       ----
+ *  ----         ADMIN      ----
  * ---------------------------------------------------
  */
 // Login
@@ -536,6 +536,9 @@ Route::prefix("user/order")->name("user.order.")->group(function () {
     // Show
     Route::get("show/{id}", [OrderController::class, 'show'])->name("show");
 
-    // Show
+    // Invoice
     Route::get("invoice/{id}", [OrderController::class, 'invoice'])->name("invoice");
+
+    // Return order
+    Route::post('return/{id}', [OrderController::class, 'return'])->name('return');
 });

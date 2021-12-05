@@ -34,10 +34,11 @@
                                         <td style="padding-left:10px;"><strong>{{ $order->payment_type }}</strong></td>
                                         <td style="padding-left:10px;"><strong>{{ $order->invoice_no }}</strong></td>
                                         <td style="padding-left:10px;">
-                                            @if ($order->status === 'pending')
-                                                <x-f-badge class="danger" message="Pending" />
+                                            @if ($order->return_date)
+                                                <x-f-badge class="primary" message="return" />
+                                            @else
+                                                <x-f-badge class="primary" :message="$order->status" />
                                             @endif
-
                                         </td>
                                         <td style="padding-left:10px;">
                                             <a href="{{ route('user.order.show', ['id' => $order->id]) }}" title="View"
