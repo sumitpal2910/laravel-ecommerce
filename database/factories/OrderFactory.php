@@ -24,7 +24,8 @@ class OrderFactory extends Factory
         $date = $this->faker->dateTimeBetween("-6 months");
         $year = $date->format("Y");
         $month = $date->format("m");
-        $status = ['pending', 'confirmed', 'processing', 'picked', 'shipped', 'delivered'];
+        $date = $date->format('Y-m-d');
+        $status = ['pending', 'confirmed', 'processing', 'picked', 'shipped', 'delivered', 'cancel'];
         return [
             "pincode" => rand(100000, 999999),
             "address" => $this->faker->streetAddress(),

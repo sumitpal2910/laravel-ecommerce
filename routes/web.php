@@ -10,6 +10,7 @@ use App\Http\Controllers\Backend\SliderController;
 use App\Http\Controllers\Backend\SubCategoryController;
 use App\Http\Controllers\Backend\CouponController;
 use App\Http\Controllers\Backend\OrderController as BackendOrderController;
+use App\Http\Controllers\Backend\ReportController;
 use App\Http\Controllers\Backend\ShipDistrictController;
 use App\Http\Controllers\Backend\ShipStateController;
 
@@ -66,16 +67,24 @@ Route::middleware(['auth:sanctum,admin', 'verified'])->get('/admin/dashboard', f
 Route::get('/admin/logout', [AdminController::class, 'destroy'])->name('admin.logout');
 
 
-//   ----         PROFILE       ----
-// Show
-Route::get('/admin/profile', [AdminProfileController::class, 'adminProfile'])->name('admin.profile');
+/**
+ * ---------------------------------------------------
+ *  ----         ADMIN PROFILE        ----
+ * ---------------------------------------------------
+ */
+Route::prefix('admin')->name('admin.')->group(function () {
+    // Show
+    Route::get('profile', [AdminProfileController::class, 'adminProfile'])->name('profile');
 
-// Edit
-Route::get('/admin/profile/edit', [AdminProfileController::class, 'adminProfileEdit'])->name('admin.profile.edit');
+    // Edit
+    Route::get('profile/edit', [AdminProfileController::class, 'adminProfileEdit'])->name('profile.edit');
 
-// Update
-Route::post('/admin/profile/edit', [AdminProfileController::class, 'adminProfileUpdate'])->name('admin.profile.update');
+    // Update
+    Route::post('profile/edit', [AdminProfileController::class, 'adminProfileUpdate'])->name('profile.update');
 
+    // Show all users
+    Route::get('users', [AdminProfileController::class, 'users'])->name('users');
+});
 
 //  ----         PASSWORD        ----
 // Change Password
@@ -354,6 +363,25 @@ Route::prefix("order")->name("order.")->group(function () {
     Route::get('invoice/{id}', [BackendOrderController::class, "invoice"])->name("invoice");
 });
 
+/**
+ * ---------------------------------------------------
+ *  ----         REPORTS      ----
+ * ---------------------------------------------------
+ */
+Route::prefix('report')->name('report.')->group(function () {
+    // show report
+    Route::get('/', [ReportController::class, 'index'])->name('index');
+
+    // get report by date
+    Route::post('date', [ReportController::class, 'date'])->name('date');
+
+    // get report by month
+    Route::post('month', [ReportController::class, 'month'])->name('month');
+
+    // get report by year
+    Route::post('year', [ReportController::class, 'year'])->name('year');
+});
+
 // ====================================================================================================================================================================
 // ====================================================================================================================================================================
 
@@ -541,4 +569,10 @@ Route::prefix("user/order")->name("user.order.")->group(function () {
 
     // Return order
     Route::post('return/{id}', [OrderController::class, 'return'])->name('return');
+
+    // Show all return order
+    Route::get('return', [OrderController::class, 'showReturnOrder'])->name('return.list');
+
+    // Show all return order
+    Route::get('cancel', [OrderController::class, 'showCancelOrder'])->name('cancel.list');
 });

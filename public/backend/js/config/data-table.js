@@ -78,6 +78,13 @@ $(function() {
 		ordering: true
 	});
 
+	/**
+     * Admin User Table
+     */
+	$('#usersTable').DataTable({
+		ordering: true
+	});
+
 	$('#example2').DataTable({
 		paging: true,
 		lengthChange: false,

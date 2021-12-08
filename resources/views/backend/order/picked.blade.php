@@ -30,7 +30,9 @@
 
                     <div class="box">
                         <div class="box-header with-border">
-                            <h3 class="box-title">All Picked Orders</h3>
+                            <h3 class="box-title"> Picked Orders
+                                <x-badge :message="count($orders)" />
+                            </h3>
                         </div>
                         <!-- /.box-header -->
                         <div class="box-body">
@@ -61,7 +63,8 @@
                                                     <a href="{{ route('order.show', ['id' => $order->id]) }}"
                                                         title="Show " class="btn btn-info"> <i class="fa fa-eye"></i>
                                                     </a>
-                                                    <a target="_blank" href="{{ route('order.invoice', ['id' => $order->id]) }}"
+                                                    <a target="_blank"
+                                                        href="{{ route('order.invoice', ['id' => $order->id]) }}"
                                                         title="Invoice Download" class="btn btn-primary"> <i
                                                             class="fa fa-download"></i>
                                                     </a>

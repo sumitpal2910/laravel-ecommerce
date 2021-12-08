@@ -90,6 +90,7 @@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" defer>
     </script>
 
+
     <!-- Sweet Alert 2 -->
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
@@ -105,6 +106,7 @@
     <!-- =============== PAGES ====================== -->
     <!-- Order  -->
     <script src="{{ asset('backend/js/custom/pages/order.js') }}" defer></script>
+    <script src="{{ asset('backend/js/custom/pages/report.js') }}" defer></script>
 
 
     <!-- Toastr Notification -->
@@ -113,20 +115,20 @@
 
             @if (Session::has('message'))
                 let type = "{{ Session::get('alert-type', 'info') }}";
-
+            
                 switch (type) {
                 case 'info':
                 toastr.info("{{ Session::get('message') }}");
                 break;
-
+            
                 case 'success':
                 toastr.success(" {{ session('message') }}");
                 break;
-
+            
                 case 'warning':
                 toastr.warning("{{ Session::get('message') }}");
                 break;
-
+            
                 case 'error':
                 toastr.error("{{ Session::get('message') }}");
                 break;
@@ -135,35 +137,7 @@
         })
     </script>
 
-    <!-- Sweet Alert  -->
-    <script>
-        $(function() {
-            $(document).on('click', '#delete', function(event) {
-                event.preventDefault();
 
-                let form = $(this).parent().children('#deleteForm');
-
-                Swal.fire({
-                    title: 'Are you sure?',
-                    text: "You won't be able to revert this!",
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                    confirmButtonText: 'Yes, delete it!'
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        form.submit();
-                        Swal.fire(
-                            'Deleted!',
-                            'Your file has been deleted.',
-                            'success'
-                        )
-                    }
-                });
-            });
-        });
-    </script>
 
 
 

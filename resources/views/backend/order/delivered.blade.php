@@ -30,7 +30,9 @@
 
                     <div class="box">
                         <div class="box-header with-border">
-                            <h3 class="box-title">All Delivered Orders</h3>
+                            <h3 class="box-title"> Delivered Orders
+                                <x-badge :message="count($orders)" />
+                            </h3>
                         </div>
                         <!-- /.box-header -->
                         <div class="box-body">

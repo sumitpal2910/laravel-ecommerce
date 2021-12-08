@@ -30,7 +30,9 @@
 
                     <div class="box">
                         <div class="box-header with-border">
-                            <h3 class="box-title">All Pending Orders</h3>
+                            <h3 class="box-title">Pending Orders
+                                <x-badge :message="count($orders)" />
+                            </h3>
                         </div>
                         <!-- /.box-header -->
                         <div class="box-body">

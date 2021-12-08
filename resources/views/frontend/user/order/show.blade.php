@@ -93,7 +93,13 @@
                                 <tr>
                                     <th>Order</th>
                                     <th>
-                                        <x-f-badge class="primary" :message="$order->status" />
+                                        @if ($order->return_date)
+                                            <x-f-badge class="primary" :message="$order->status" />
+                                            <br>
+                                            <span class="badge badge-pill-warning">Return requested</span>
+                                        @else
+                                            <x-f-badge class="primary" :message="$order->status" />
+                                        @endif
                                     </th>
                                 </tr>
 
@@ -144,7 +150,7 @@
                 </div>
             </div>
 
-            @if ($order->status === 'delivered')
+            @if ($order->status === 'delivered' && !$order->return_reason)
                 <form action="{{ route('user.order.return', ['id' => $order->id]) }}" method="post">
                     @csrf
                     <div class="form-group">

@@ -82,4 +82,28 @@ class OrderController extends Controller
         # return to order page
         return redirect()->route('user.order.index')->with($notification);
     }
+
+    /**
+     * Show all return order
+     */
+    public function showReturnOrder()
+    {
+        # get all return order
+        $orders = Order::where('return_reason', '!=', null)->where('user_id', Auth::id())->latest()->get();
+
+        # show order page
+        return view("frontend.user.order.return", compact("orders"));
+    }
+
+    /**
+     * Show all return order
+     */
+    public function showCancelOrder()
+    {
+        # get all return order
+        $orders = Order::where('status', 'cancel')->where('user_id', Auth::id())->latest()->get();
+
+        # show order page
+        return view("frontend.user.order.cancel", compact("orders"));
+    }
 }

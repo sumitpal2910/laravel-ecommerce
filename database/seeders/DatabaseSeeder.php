@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\File;
 
 class DatabaseSeeder extends Seeder
 {
@@ -19,6 +20,9 @@ class DatabaseSeeder extends Seeder
         if ($this->command->confirm('Do you want to refresh the database?', true)) {
             $this->command->call('migrate:refresh');
             $this->command->info('Database was refreshed');
+
+            File::cleanDirectory('public/upload/products/thumbnail');
+            File::cleanDirectory('public/upload/brands');
         }
 
         $this->call([

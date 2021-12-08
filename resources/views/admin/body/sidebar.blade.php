@@ -179,6 +179,37 @@ $route = Route::current()->getName();
                 </ul>
             </li>
 
+            <!-- Reports -->
+            <li class="treeview {{ $prefix === '/report' ? 'active' : '' }}">
+                <a href="#">
+                    <i class="fa fa-tag"></i>
+                    <span>Reports</span>
+                    <span class="pull-right-container">
+                        <i class="fa fa-angle-right pull-right"></i>
+                    </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li class="{{ $route === 'report.index' ? 'active' : '' }}">
+                        <a href="{{ route('report.index') }}"><i class="ti-more"></i>All Report</a>
+                    </li>
+                </ul>
+            </li>
+
+            <!-- Users -->
+            <li class="treeview {{ $prefix === '/admin/users' ? 'active' : '' }}">
+                <a href="#">
+                    <i class="fa fa-tag"></i>
+                    <span>All Users</span>
+                    <span class="pull-right-container">
+                        <i class="fa fa-angle-right pull-right"></i>
+                    </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li class="{{ $route === 'admin.users' ? 'active' : '' }}">
+                        <a href="{{ route('admin.users') }}"><i class="ti-more"></i>Users</a>
+                    </li>
+                </ul>
+            </li>
 
             <li class="header nav-small-cap">User Interface</li>
 

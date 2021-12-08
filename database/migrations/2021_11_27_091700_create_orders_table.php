@@ -34,7 +34,7 @@ class CreateOrdersTable extends Migration
             $table->decimal("amount", 8, 2);
             $table->string("order_number");
             $table->string("invoice_no");
-            $table->string("order_date");
+            $table->date("order_date");
             $table->string("order_month");
             $table->string("order_year");
             $table->string("confirmed_date")->nullable();
