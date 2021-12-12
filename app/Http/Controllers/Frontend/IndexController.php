@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Models\Blog\BlogPost;
 use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Product;
@@ -59,6 +60,9 @@ class IndexController extends Controller
         # get brand with products
         $skipBrand0 = Brand::with('products')->skip(1)->first();
 
+        # get all blogs
+        $blogPosts = BlogPost::latest()->limit(5)->get();
+
         # show index page
         return view('frontend.index', compact(
             'categories',
@@ -69,7 +73,8 @@ class IndexController extends Controller
             'specialDeals',
             'skipCategory0',
             'skipCategory1',
-            'skipBrand0'
+            'skipBrand0',
+            'blogPosts',
         ));
     }
 

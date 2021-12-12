@@ -23,6 +23,7 @@ class DatabaseSeeder extends Seeder
 
             File::cleanDirectory('public/upload/products/thumbnail');
             File::cleanDirectory('public/upload/brands');
+            File::cleanDirectory('public/upload/blogs');
         }
 
         $this->call([
@@ -36,6 +37,8 @@ class DatabaseSeeder extends Seeder
             ProductTableSeeder::class,
             OrderTableSeeder::class,
             OrderItemTableSeeder::class,
+            BlogPostCategoryTableSeeder::class,
+            BlogPostTableSeeder::class,
         ]);
     }
 }

@@ -211,8 +211,34 @@ $route = Route::current()->getName();
                 </ul>
             </li>
 
-            <li class="header nav-small-cap">User Interface</li>
+            <li class="header nav-small-cap">Blog Posts</li>
 
+            <!-- Blog Category -->
+            <li class="{{ $route === 'admin.blog.cat.index' ? 'active' : '' }}">
+                <a href="{{ route('admin.blog.cat.index') }}">
+                    <i data-feather="pie-chart"></i>
+                    <span>Post Category</span>
+                </a>
+            </li>
+
+            <!-- Blog Post -->
+            <li class="treeview {{ $prefix === '/admin/blog' ? 'active' : '' }}">
+                <a href="#">
+                    <i class="fa fa-tag"></i>
+                    <span>Posts</span>
+                    <span class="pull-right-container">
+                        <i class="fa fa-angle-right pull-right"></i>
+                    </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li class="{{ $route === 'admin.blog.create' ? 'active' : '' }}">
+                        <a href="{{ route('admin.blog.create') }}"><i class="ti-more"></i>Add Post</a>
+                    </li>
+                    <li class="{{ $route === 'admin.blog.index' ? 'active' : '' }}">
+                        <a href="{{ route('admin.blog.index') }}"><i class="ti-more"></i>Manage Post</a>
+                    </li>
+                </ul>
+            </li>
             <li class="treeview">
                 <a href="#">
                     <i data-feather="grid"></i>

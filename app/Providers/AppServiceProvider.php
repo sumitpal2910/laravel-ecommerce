@@ -6,6 +6,7 @@ namespace App\Providers;
 use App\View\Components\Backend\Badge;
 use App\View\Components\Backend\Error;
 use App\View\Components\Frontend\Badge as FrontendBadge;
+use App\View\Components\Frontend\Blog\Category as BlogCategory;
 // Frontend
 use App\View\Components\Frontend\Error as FrontendError;
 use App\View\Components\Frontend\Sidebar\HotDeals;
@@ -82,7 +83,8 @@ class AppServiceProvider extends ServiceProvider
         Blade::component('sidebar-testimonial', Testimonial::class);
 
 
-
+        // ========= BLOG ===========
+        Blade::component('blog-category', BlogCategory::class);
 
         /**
          * ===================================================================

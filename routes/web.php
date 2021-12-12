@@ -3,6 +3,8 @@
 // Backend
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Backend\AdminProfileController;
+use App\Http\Controllers\Backend\Blog\BlogPostCategoryController;
+use App\Http\Controllers\Backend\Blog\BlogPostController;
 use App\Http\Controllers\Backend\BrandController;
 use App\Http\Controllers\Backend\CategoryController;
 use App\Http\Controllers\Backend\ProductController;
@@ -13,7 +15,7 @@ use App\Http\Controllers\Backend\OrderController as BackendOrderController;
 use App\Http\Controllers\Backend\ReportController;
 use App\Http\Controllers\Backend\ShipDistrictController;
 use App\Http\Controllers\Backend\ShipStateController;
-
+use App\Http\Controllers\Frontend\BlogPostController as FrontendBlogPostController;
 // Frontend
 use App\Http\Controllers\Frontend\CartController;
 use App\Http\Controllers\Frontend\CheckoutController;
@@ -97,6 +99,7 @@ Route::post("/update/change/password", [AdminProfileController::class, 'adminUpd
 Route::get('info', function () {
     return phpinfo();
 });
+
 /**
  * ---------------------------------------------------
  *  ----         BRANDS        ----
@@ -382,6 +385,50 @@ Route::prefix('report')->name('report.')->group(function () {
     Route::post('year', [ReportController::class, 'year'])->name('year');
 });
 
+/**
+ * ---------------------------------------------------
+ *  ----         BLOG POSTS      ----
+ * ---------------------------------------------------
+ */
+Route::prefix('admin/blog')->name('admin.blog.')->group(function () {
+
+    // Index
+    Route::get('/', [BlogPostController::class, 'index'])->name('index');
+
+    // Create
+    Route::get('create', [BlogPostController::class, 'create'])->name('create');
+
+    // store
+    Route::post('store', [BlogPostController::class, 'store'])->name('store');
+
+    // Edit
+    Route::get('{id}/edit', [BlogPostController::class, 'edit'])->name('edit');
+
+    // Update
+    Route::put('update/{id}', [BlogPostController::class, 'update'])->name('update');
+
+    // Delete
+    Route::delete('{id}/delete', [BlogPostController::class, 'delete'])->name('delete');
+
+    // Category
+    Route::prefix('category')->name('cat.')->group(function () {
+        // Index
+        Route::get('/', [BlogPostCategoryController::class, 'index'])->name('index');
+
+        // store
+        Route::post('store', [BlogPostCategoryController::class, 'store'])->name('store');
+
+        // Edit
+        Route::get('{id}/edit', [BlogPostCategoryController::class, 'edit'])->name('edit');
+
+        // Update
+        Route::put('update/{id}', [BlogPostCategoryController::class, 'update'])->name('update');
+
+        // Delete
+        Route::delete('{id}/delete', [BlogPostCategoryController::class, 'delete'])->name('delete');
+    });
+});
+
 // ====================================================================================================================================================================
 // ====================================================================================================================================================================
 
@@ -551,7 +598,6 @@ Route::prefix('wishlist')->name('wishlist.')->group(function () {
     Route::post('delete', [WishlistController::class, 'removeWishlist']);
 });
 
-
 /**
  * ---------------------------------------------------
  *  ----         ORDER       ----
@@ -575,4 +621,20 @@ Route::prefix("user/order")->name("user.order.")->group(function () {
 
     // Show all return order
     Route::get('cancel', [OrderController::class, 'showCancelOrder'])->name('cancel.list');
+});
+
+/**
+ * ---------------------------------------------------
+ *  ----         BLOG       ----
+ * ---------------------------------------------------
+ */
+Route::prefix('blog')->name('blog.')->group(function () {
+    // Index
+    Route::get('/', [FrontendBlogPostController::class, 'index'])->name('index');
+
+    // Show
+    Route::get('show/{id}/{slug}', [FrontendBlogPostController::class, 'show'])->name('show');
+
+    // show by category
+    Route::get('category/{id}/{slug}', [FrontendBlogPostController::class, 'category'])->name('category');
 });

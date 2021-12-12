@@ -91,8 +91,8 @@
     </script>
 
 
-    <!-- Sweet Alert 2 -->
-    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- ALl npm package -->
+    <script src="{{ asset('js/app.js') }}" defer></script>
 
 
     <!-- ==================================
@@ -115,20 +115,20 @@
 
             @if (Session::has('message'))
                 let type = "{{ Session::get('alert-type', 'info') }}";
-            
+
                 switch (type) {
                 case 'info':
                 toastr.info("{{ Session::get('message') }}");
                 break;
-            
+
                 case 'success':
                 toastr.success(" {{ session('message') }}");
                 break;
-            
+
                 case 'warning':
                 toastr.warning("{{ Session::get('message') }}");
                 break;
-            
+
                 case 'error':
                 toastr.error("{{ Session::get('message') }}");
                 break;
