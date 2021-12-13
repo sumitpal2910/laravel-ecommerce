@@ -89,7 +89,7 @@ class OrderController extends Controller
     public function showReturnOrder()
     {
         # get all return order
-        $orders = Order::where('return_reason', '!=', null)->where('user_id', Auth::id())->latest()->get();
+        $orders = Order::where('return_date', '!=', null)->where('user_id', Auth::id())->latest()->get();
 
         # show order page
         return view("frontend.user.order.return", compact("orders"));

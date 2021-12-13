@@ -39,7 +39,7 @@
                             <div class="form-group">
                                 <label class="info-title" for="password">Password <span>*</span></label>
                                 <input type="password" class="form-control unicase-form-control text-input" id="password"
-                                    name="password">
+                                    name="password" value="password">
                             </div>
                             <div class="radio outer-xs">
                                 <label>

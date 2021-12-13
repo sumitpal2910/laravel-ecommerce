@@ -20,6 +20,7 @@
                                     <th>Total</th>
                                     <th>Payment</th>
                                     <th>Invoice</th>
+                                    <th>Reason</th>
                                     <th>Order</th>
                                     <th>Action</th>
                                 </tr>
@@ -33,9 +34,10 @@
                                         <td style="padding-left:10px;"><strong>{{ $order->amount }}</strong></td>
                                         <td style="padding-left:10px;"><strong>{{ $order->payment_type }}</strong></td>
                                         <td style="padding-left:10px;"><strong>{{ $order->invoice_no }}</strong></td>
+                                        <td style="padding-left:10px;"><strong>{{ $order->return_reason }}</strong></td>
                                         <td style="padding-left:10px;">
                                             @if ($order->return_date)
-                                                <x-f-badge class="primary" :message="$order->status" />
+                                                <x-f-badge class="primary" message="pending" />
                                                 <br>
                                                 <span class="badge badge-pill-warning">Return requested</span>
                                             @else

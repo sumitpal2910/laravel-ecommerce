@@ -84,6 +84,12 @@ $(function () {
     $("#usersTable").DataTable({
         ordering: true,
     });
+    /**
+     * Review Table
+     */
+    $("#reviewTable").DataTable({
+        ordering: true,
+    });
 
     /**
      * ---------------------------------

@@ -41,6 +41,7 @@ class DatabaseSeeder extends Seeder
             BlogPostTableSeeder::class,
             SiteSettingTableSeeder::class,
             SeoTableSeeder::class,
+            ReviewTableSeeder::class,
         ]);
     }
 }

@@ -93,7 +93,7 @@
                                 <tr>
                                     <th>Order</th>
                                     <th>
-                                        @if ($order->return_date)
+                                        @if ($order->return_order)
                                             <x-f-badge class="primary" :message="$order->status" />
                                             <br>
                                             <span class="badge badge-pill-warning">Return requested</span>

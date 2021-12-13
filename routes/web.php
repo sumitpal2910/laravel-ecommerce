@@ -13,6 +13,8 @@ use App\Http\Controllers\Backend\SubCategoryController;
 use App\Http\Controllers\Backend\CouponController;
 use App\Http\Controllers\Backend\OrderController as BackendOrderController;
 use App\Http\Controllers\Backend\ReportController;
+use App\Http\Controllers\Backend\ReturnController;
+use App\Http\Controllers\Backend\ReviewController as BackendReviewController;
 use App\Http\Controllers\Backend\ShipDistrictController;
 use App\Http\Controllers\Backend\ShipStateController;
 use App\Http\Controllers\Backend\Setting\SiteSettingController;
@@ -27,6 +29,7 @@ use App\Http\Controllers\Frontend\LanguageController;
 use App\Http\Controllers\Frontend\ProductController as FrontendProductController;
 use App\Http\Controllers\User\OrderController;
 use App\Http\Controllers\User\PaymentController;
+use App\Http\Controllers\User\ReviewController;
 use App\Http\Controllers\User\WishlistController;
 
 use Illuminate\Support\Facades\Auth;
@@ -458,6 +461,37 @@ Route::prefix('setting')->name('setting.')->group(function () {
     });
 });
 
+
+/**
+ * ---------------------------------------------------
+ *  ----         RETURN     ----
+ * ---------------------------------------------------
+ */
+Route::prefix('admin/return')->name('admin.return.')->group(function () {
+    // Index
+    Route::get('/', [ReturnController::class, 'index'])->name('index');
+
+    // Request
+    Route::get('request/', [ReturnController::class, 'request'])->name('request');
+
+    // Approve
+    Route::post('approve/{id}', [ReturnController::class, 'approve'])->name('approve');
+});
+
+/**
+ * ---------------------------------------------------
+ *  ----         REVIEW       ----
+ * ---------------------------------------------------
+ */
+Route::prefix('admin/review')->name('admin.review.')->group(function () {
+    // Pending
+    Route::get('pending', [BackendReviewController::class, 'pending'])->name('pending');
+
+    // Published
+    Route::get('published', [BackendReviewController::class, 'published'])->name('published');
+
+    Route::post('update/{id}', [BackendReviewController::class, 'update'])->name('update');
+});
 // ====================================================================================================================================================================
 // ====================================================================================================================================================================
 
@@ -666,4 +700,14 @@ Route::prefix('blog')->name('blog.')->group(function () {
 
     // show by category
     Route::get('category/{id}/{slug}', [FrontendBlogPostController::class, 'category'])->name('category');
+});
+
+/**
+ * ---------------------------------------------------
+ *  ----         REVIEW       ----
+ * ---------------------------------------------------
+ */
+Route::prefix('review')->name('review.')->group(function () {
+    // Store
+    Route::post('store', [ReviewController::class, 'store'])->name('store');
 });

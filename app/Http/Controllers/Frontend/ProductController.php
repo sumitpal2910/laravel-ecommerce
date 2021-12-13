@@ -14,7 +14,9 @@ class ProductController extends Controller
     public function productDetails($id, $slug)
     {
         # get product by id
-        $product = Product::with('multiImg')->findOrFail($id);
+        $product = Product::with(['multiImg', 'review' => function ($query) {
+            return $query->with('user')->latest()->limit(5);
+        }])->findOrFail($id);
 
         # get related products
         $relatedProducts = Product::where([

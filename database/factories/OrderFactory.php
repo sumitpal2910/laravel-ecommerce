@@ -26,6 +26,7 @@ class OrderFactory extends Factory
         $month = $date->format("m");
         $date = $date->format('Y-m-d');
         $status = ['pending', 'confirmed', 'processing', 'picked', 'shipped', 'delivered', 'cancel'];
+
         return [
             "pincode" => rand(100000, 999999),
             "address" => $this->faker->streetAddress(),
@@ -39,7 +40,7 @@ class OrderFactory extends Factory
             "order_year" => $year,
             "order_month" => $month,
             "amount" => $this->faker->numberBetween(100, 10000),
-            "status" => $status[rand(0, 5)],
+            "status" => $$status[rand(0, 5)],
             "created_at" => $date,
         ];
     }
