@@ -1,17 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
+@php
+$seo = App\Models\Seo::find(1);
+@endphp
 
 <head>
     <!-- Meta -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <meta name="description" content="">
+    <meta name="description" content="{{ $seo->description }}">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <meta name="author" content="">
-    <meta name="keywords" content="MediaCenter, Template, eCommerce">
+    <meta name="author" content="{{ $seo->author }}">
+    <meta name="keywords" content="{{ $seo->keyword }}">
     <meta name="robots" content="all">
     <meta name="session-language" content="{{ session()->get('language') }}">
     <title> @yield('title') | Laravel Ecommerce</title>
+    <script>
+        {{ $seo->google_analytics }}
+    </script>
 
     <!-- =============================== CSS ============================================= -->
 
@@ -128,20 +134,20 @@
 
             @if (Session::has('message'))
                 let type = "{{ Session::get('alert-type', 'info') }}";
-            
+
                 switch (type) {
                 case 'info':
                 toastr.info("{{ Session::get('message') }}");
                 break;
-            
+
                 case 'success':
                 toastr.success(" {{ session('message') }}");
                 break;
-            
+
                 case 'warning':
                 toastr.warning("{{ Session::get('message') }}");
                 break;
-            
+
                 case 'error':
                 toastr.error("{{ Session::get('message') }}");
                 break;

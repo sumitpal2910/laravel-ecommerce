@@ -15,8 +15,11 @@ use App\Http\Controllers\Backend\OrderController as BackendOrderController;
 use App\Http\Controllers\Backend\ReportController;
 use App\Http\Controllers\Backend\ShipDistrictController;
 use App\Http\Controllers\Backend\ShipStateController;
-use App\Http\Controllers\Frontend\BlogPostController as FrontendBlogPostController;
+use App\Http\Controllers\Backend\Setting\SiteSettingController;
+use App\Http\Controllers\Backend\Setting\SeoController;
+
 // Frontend
+use App\Http\Controllers\Frontend\BlogPostController as FrontendBlogPostController;
 use App\Http\Controllers\Frontend\CartController;
 use App\Http\Controllers\Frontend\CheckoutController;
 use App\Http\Controllers\Frontend\IndexController;
@@ -426,6 +429,32 @@ Route::prefix('admin/blog')->name('admin.blog.')->group(function () {
 
         // Delete
         Route::delete('{id}/delete', [BlogPostCategoryController::class, 'delete'])->name('delete');
+    });
+});
+
+/**
+ * ---------------------------------------------------
+ *  ----         SETTING      ----
+ * ---------------------------------------------------
+ */
+Route::prefix('setting')->name('setting.')->group(function () {
+
+    // Site
+    Route::prefix('site')->name('site.')->group(function () {
+        // Index
+        Route::get('/', [SiteSettingController::class, 'index'])->name('index');
+
+        // Update
+        Route::put('update/{id}', [SiteSettingController::class, 'update'])->name('update');
+    });
+
+    // Seo
+    Route::prefix('seo')->name('seo.')->group(function () {
+        // Index
+        Route::get('/', [SeoController::class, 'index'])->name('index');
+
+        // Update
+        Route::put('update/{id}', [SeoController::class, 'update'])->name('update');
     });
 });
 

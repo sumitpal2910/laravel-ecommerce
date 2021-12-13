@@ -39,6 +39,8 @@ class DatabaseSeeder extends Seeder
             OrderItemTableSeeder::class,
             BlogPostCategoryTableSeeder::class,
             BlogPostTableSeeder::class,
+            SiteSettingTableSeeder::class,
+            SeoTableSeeder::class,
         ]);
     }
 }

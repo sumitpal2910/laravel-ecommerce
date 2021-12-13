@@ -211,31 +211,44 @@ $route = Route::current()->getName();
                 </ul>
             </li>
 
-            <li class="header nav-small-cap">Blog Posts</li>
-
-            <!-- Blog Category -->
-            <li class="{{ $route === 'admin.blog.cat.index' ? 'active' : '' }}">
-                <a href="{{ route('admin.blog.cat.index') }}">
-                    <i data-feather="pie-chart"></i>
-                    <span>Post Category</span>
-                </a>
-            </li>
-
             <!-- Blog Post -->
             <li class="treeview {{ $prefix === '/admin/blog' ? 'active' : '' }}">
                 <a href="#">
                     <i class="fa fa-tag"></i>
-                    <span>Posts</span>
+                    <span>Blog Post</span>
                     <span class="pull-right-container">
                         <i class="fa fa-angle-right pull-right"></i>
                     </span>
                 </a>
                 <ul class="treeview-menu">
+                    <li class="{{ $route === 'admin.blog.cat.index' ? 'active' : '' }}">
+                        <a href="{{ route('admin.blog.cat.index') }}"><i class="ti-more"></i>
+                            Blog Category</a>
+                    </li>
                     <li class="{{ $route === 'admin.blog.create' ? 'active' : '' }}">
                         <a href="{{ route('admin.blog.create') }}"><i class="ti-more"></i>Add Post</a>
                     </li>
                     <li class="{{ $route === 'admin.blog.index' ? 'active' : '' }}">
                         <a href="{{ route('admin.blog.index') }}"><i class="ti-more"></i>Manage Post</a>
+                    </li>
+                </ul>
+            </li>
+
+            <!-- Setting -->
+            <li class="treeview {{ $prefix === '/setting' ? 'active' : '' }}">
+                <a href="#">
+                    <i class="fa fa-tag"></i>
+                    <span> Setting</span>
+                    <span class="pull-right-container">
+                        <i class="fa fa-angle-right pull-right"></i>
+                    </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li class="{{ $route === 'setting.site.index' ? 'active' : '' }}">
+                        <a href="{{ route('setting.site.index') }}"><i class="ti-more"></i>Site Setting</a>
+                    </li>
+                    <li class="{{ $route === 'setting.seo.index' ? 'active' : '' }}">
+                        <a href="{{ route('setting.seo.index') }}"><i class="ti-more"></i>Seo Setting</a>
                     </li>
                 </ul>
             </li>
