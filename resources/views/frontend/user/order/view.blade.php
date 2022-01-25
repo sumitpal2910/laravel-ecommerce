@@ -20,6 +20,7 @@
                                     <th>Total</th>
                                     <th>Payment</th>
                                     <th>Invoice</th>
+                                    <th>Order Number</th>
                                     <th>Order</th>
                                     <th>Action</th>
                                 </tr>
@@ -33,11 +34,15 @@
                                         <td style="padding-left:10px;"><strong>{{ $order->amount }}</strong></td>
                                         <td style="padding-left:10px;"><strong>{{ $order->payment_type }}</strong></td>
                                         <td style="padding-left:10px;"><strong>{{ $order->invoice_no }}</strong></td>
+                                        <td style="padding-left:10px;"><strong>{{ $order->order_number }}</strong></td>
                                         <td style="padding-left:10px;">
-                                            @if ($order->status === 'pending')
-                                                <x-f-badge class="danger" message="Pending" />
+                                            @if ($order->return_date)
+                                                <x-f-badge class="primary" :message="$order->status" />
+                                                <br>
+                                                <span class="badge badge-pill-warning">Return requested</span>
+                                            @else
+                                                <x-f-badge class="primary" :message="$order->status" />
                                             @endif
-
                                         </td>
                                         <td style="padding-left:10px;">
                                             <a href="{{ route('user.order.show', ['id' => $order->id]) }}" title="View"

@@ -3,11 +3,13 @@
 # tags english
 $tags_en = App\Models\Product::groupBy('tags_en')
     ->select('tags_en')
+    ->limit(10)
     ->get();
 
 # tags hindi
 $tags_hin = App\Models\Product::groupBy('tags_hin')
     ->select('tags_hin')
+    ->limit(10)
     ->get();
 @endphp
 

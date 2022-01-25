@@ -1,69 +1,70 @@
-$(function() {
-	'use strict';
+$(function () {
+    "use strict";
 
-	/**
-    * Brand Table
-    */
-	$('#brandTable').DataTable({
-		ordering: false
-	});
+    /**
+     * Brand Table
+     */
+    $("#brandTable").DataTable({
+        ordering: false,
+    });
 
-	/**
+    /**
      * Category Table
      */
-	$('#categoryTable').DataTable({
-		ordering: false
-	});
+    $("#categoryTable").DataTable({
+        ordering: false,
+    });
 
-	/**
+    /**
      * Sub Category Table
      */
-	$('#subCategoryTable').DataTable({
-		ordering: false
-	});
+    $("#subCategoryTable").DataTable({
+        ordering: false,
+    });
 
-	/**
+    /**
      * Sub Sub Category Table
      */
-	$('#subSubCategoryTable').DataTable({
-		ordering: false
-	});
+    $("#subSubCategoryTable").DataTable({
+        ordering: false,
+    });
 
-	/**
+    /**
      * Product Table
      */
-	$('#productTable').DataTable({
-		ordering: false
-	});
+    $("#productTable").DataTable({
+        ordering: false,
+    });
 
-	/**
+    /**
      * Slider Table
      */
-	$('#sliderTable').DataTable({
-		ordering: false
-	});
+    $("#sliderTable").DataTable({
+        ordering: false,
+    });
 
-	/**
+    /**
      * Coupon Table
      */
-	$('#couponTable').DataTable({
-		ordering: false
-	});
+    $("#couponTable").DataTable({
+        ordering: false,
+    });
 
-	/**
+    /**
      * Shipping State Table
      */
-	$('#shipStateTable').DataTable({
-		ordering: true
-	});
+    $("#shipStateTable").DataTable({
+        ordering: true,
+    });
 
-	/**
+    /**
      * Shipping District Table
      */
-	$('#shipDistrictTable').DataTable({
-		ordering: true
-	});
+    $("#shipDistrictTable").DataTable({
+        ordering: true,
+    });
 
+<<<<<<< HEAD
 	/**
      * Coupon Table
      */
@@ -77,13 +78,54 @@ $(function() {
 	$('#pendingOrderTable').DataTable({
 		ordering: true
 	});
+=======
+    /**
+     * Coupon Table
+     */
+    $("#couponTable").DataTable({
+        ordering: false,
+    });
 
-	$('#example2').DataTable({
-		paging: true,
-		lengthChange: false,
-		searching: false,
-		ordering: true,
-		info: true,
-		autoWidth: false
-	});
+    /**
+     * Pending Order Table
+     */
+    $("#pendingOrderTable").DataTable({
+        ordering: true,
+    });
+>>>>>>> 554f03b3f5d3736d4c17543c52f74ceb4331dd3d
+
+    /**
+     * Admin User Table
+     */
+    $("#usersTable").DataTable({
+        ordering: true,
+    });
+    /**
+     * Review Table
+     */
+    $("#reviewTable").DataTable({
+        ordering: true,
+    });
+
+    /**
+     * ---------------------------------
+     *      BLOG
+     * ---------------------------------
+     */
+
+    /**
+     * Blog Category Table
+     */
+    $("#blogPostCategoryTable").DataTable({
+        ordering: true,
+    });
+
+    $("#example2").DataTable({
+        paging: true,
+        lengthChange: false,
+        searching: false,
+        ordering: true,
+        info: true,
+        autoWidth: false,
+    });
 });

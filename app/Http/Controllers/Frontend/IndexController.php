@@ -3,11 +3,13 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Models\Blog\BlogPost;
 use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\Slider;
 use App\Models\User;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -17,6 +19,7 @@ class IndexController extends Controller
     public function __construct()
     {
         $this->middleware(['auth', 'user'])->only(['userLogout', 'userProfile', 'userProfileStore', 'userChangePassword', 'userPasswordUpdate']);
+        Session::put('language', 'hindi');
     }
 
     /**
@@ -33,7 +36,7 @@ class IndexController extends Controller
         $sliders = Slider::where('status', 1)->orderBy('id', 'desc')->limit(3)->get();
 
         # get products
-        $products = Product::where('status', 1)->orderBy('id', 'desc')->limit(6)->get();
+        $products = Product::where("status", 1)->limit(6)->get();
 
         # get featured products
         $featured = Product::where('status', 1)->where('featured', 1)->orderBy('id', 'desc')->limit(6)->get();
@@ -57,6 +60,9 @@ class IndexController extends Controller
         # get brand with products
         $skipBrand0 = Brand::with('products')->skip(1)->first();
 
+        # get all blogs
+        $blogPosts = BlogPost::latest()->limit(5)->get();
+
         # show index page
         return view('frontend.index', compact(
             'categories',
@@ -67,7 +73,8 @@ class IndexController extends Controller
             'specialDeals',
             'skipCategory0',
             'skipCategory1',
-            'skipBrand0'
+            'skipBrand0',
+            'blogPosts',
         ));
     }
 
@@ -165,6 +172,4 @@ class IndexController extends Controller
             return redirect()->back();
         }
     }
-
-    
 }

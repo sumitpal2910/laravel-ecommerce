@@ -30,7 +30,13 @@
 
                     <div class="box">
                         <div class="box-header with-border">
+<<<<<<< HEAD
                             <h3 class="box-title">All Confirmed Orders</h3>
+=======
+                            <h3 class="box-title"> Confirmed Orders
+                                <x-badge :message="count($orders)" />
+                            </h3>
+>>>>>>> 554f03b3f5d3736d4c17543c52f74ceb4331dd3d
                         </div>
                         <!-- /.box-header -->
                         <div class="box-body">
@@ -61,6 +67,14 @@
                                                     <a href="{{ route('order.show', ['id' => $order->id]) }}"
                                                         title="Show " class="btn btn-info"> <i class="fa fa-eye"></i>
                                                     </a>
+<<<<<<< HEAD
+=======
+                                                    <a target="_blank"
+                                                        href="{{ route('order.invoice', ['id' => $order->id]) }}"
+                                                        title="Invoice Download" class="btn btn-primary"> <i
+                                                            class="fa fa-download"></i>
+                                                    </a>
+>>>>>>> 554f03b3f5d3736d4c17543c52f74ceb4331dd3d
                                                 </td>
                                             </tr>
                                         @endforeach

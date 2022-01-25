@@ -1,5 +1,6 @@
 <header class="header-style-1">
 
+
     <!-- ============================================== TOP MENU ============================================== -->
     <div class="top-bar animate-dropdown">
         <div class="container">
@@ -78,13 +79,16 @@
     </div>
     <!-- /.header-top -->
     <!-- ============================================== TOP MENU : END ============================================== -->
+    @php
+        $setting = App\Models\SiteSetting::find(1);
+    @endphp
     <div class="main-header">
         <div class="container">
             <div class="row">
                 <div class="col-xs-12 col-sm-12 col-md-3 logo-holder">
                     <!-- ============================================================= LOGO ============================================================= -->
                     <div class="logo"> <a href="{{ route('index') }}">
-                            <img src="{{ asset('frontend/assets/images/logo.png') }}" alt="logo">
+                            <img src="{{ asset($setting->logo) }}" alt="logo">
                         </a> </div>
                     <!-- /.logo -->
                     <!-- ============================================================= LOGO : END ============================================================= -->
@@ -269,6 +273,8 @@
 
 
                                 <li class="dropdown  navbar-right special-menu"> <a href="#">Todays offer</a> </li>
+                                <li class="dropdown  navbar-right special-menu"> <a
+                                        href="{{ route('blog.index') }}">Blog</a> </li>
                             </ul>
                             <!-- /.navbar-nav -->
                             <div class="clearfix"></div>

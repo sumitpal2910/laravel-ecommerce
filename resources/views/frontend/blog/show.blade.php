@@ -38,10 +38,18 @@
                             </p>
                             <div class="social-media">
                                 <span>share post:</span>
+<<<<<<< HEAD
 
                                 <!-- Go to www.addthis.com/dashboard to customize your tools -->
                                 <div class="addthis_inline_share_toolbox_3a23"></div>
 
+=======
+                                <a href="#"><i class="fa fa-facebook"></i></a>
+                                <a href="#"><i class="fa fa-twitter"></i></a>
+                                <a href="#"><i class="fa fa-linkedin"></i></a>
+                                <a href=""><i class="fa fa-rss"></i></a>
+                                <a href="" class="hidden-xs"><i class="fa fa-pinterest"></i></a>
+>>>>>>> 554f03b3f5d3736d4c17543c52f74ceb4331dd3d
                             </div>
                         </div>
                         <div class="blog-post-author-details wow fadeInUp">

@@ -29,6 +29,7 @@ class ProductFactory extends Factory
         $descp = $this->faker->text(1000);
         $sprice = rand(0, 3000);
         $dprice = rand(0, 1000) >= $sprice ? null : rand(0, 1000);
+        $img = $this->faker->image("public/upload/products/thumbnail", 1000, 970, null, false);
 
         return [
             'name_en' => $name,
@@ -36,10 +37,12 @@ class ProductFactory extends Factory
             'slug_en' => str_replace(' ', '-', strtolower($name)),
             'slug_hin' => str_replace(' ', '-', strtolower($name)),
             'qty' => rand(0, 200),
+            "code" => uniqid(),
             'tags_en' => $tags,
             'tags_hin' => $tags,
             'size_en' => $size,
             'size_hin' => $size,
+            "thumbnail" =>"upload/products/thumbnail/". $img,
             'color_en' => $color,
             'color_hin' => $color,
             'selling_price' => $sprice,
@@ -52,6 +55,7 @@ class ProductFactory extends Factory
             'featured' => rand(0, 1),
             'special_offer' => rand(0, 1),
             'special_deals' => rand(0, 1),
+            "status" => 1,
             'created_at' => $this->faker->dateTimeBetween("-3 months")
         ];
     }

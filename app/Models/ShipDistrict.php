@@ -30,7 +30,7 @@ class ShipDistrict extends Model
      */
     public function state()
     {
-        return $this->belongsTo(ShipState::class);
+        return $this->belongsTo(ShipState::class, "state_id", 'id');
     }
 
     /**

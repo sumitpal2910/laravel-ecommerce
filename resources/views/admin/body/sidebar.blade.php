@@ -144,6 +144,7 @@ $route = Route::current()->getName();
                 </ul>
             </li>
 
+<<<<<<< HEAD
             <!-- Shipping Area -->
             <li class="treeview {{ $prefix === '/order' ? 'active' : '' }}">
                 <a href="#">
@@ -174,25 +175,159 @@ $route = Route::current()->getName();
             <li class="header nav-small-cap">User Interface</li>
 
             <li class="treeview">
+=======
+            <!-- Orders -->
+            <li class="treeview {{ $prefix === '/order' ? 'active' : '' }}">
+>>>>>>> 554f03b3f5d3736d4c17543c52f74ceb4331dd3d
                 <a href="#">
-                    <i data-feather="grid"></i>
-                    <span>Components</span>
+                    <i class="fa fa-tag"></i>
+                    <span>Orders</span>
                     <span class="pull-right-container">
                         <i class="fa fa-angle-right pull-right"></i>
                     </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="components_alerts.html"><i class="ti-more"></i>Alerts</a></li>
-                    <li><a href="components_badges.html"><i class="ti-more"></i>Badge</a></li>
-                    <li><a href="components_buttons.html"><i class="ti-more"></i>Buttons</a></li>
-                    <li><a href="components_sliders.html"><i class="ti-more"></i>Sliders</a></li>
-                    <li><a href="components_dropdown.html"><i class="ti-more"></i>Dropdown</a></li>
-                    <li><a href="components_modals.html"><i class="ti-more"></i>Modal</a></li>
-                    <li><a href="components_nestable.html"><i class="ti-more"></i>Nestable</a></li>
-                    <li><a href="components_progress_bars.html"><i class="ti-more"></i>Progress Bars</a>
+                    <li class="{{ $route === 'order.pending' ? 'active' : '' }}">
+                        <a href="{{ route('order.pending') }}"><i class="ti-more"></i>Pending Order</a>
+                    </li>
+                    <li class="{{ $route === 'order.confirmed' ? 'active' : '' }}">
+                        <a href="{{ route('order.confirmed') }}"><i class="ti-more"></i>Confirmed Order</a>
+                    </li>
+                    <li class="{{ $route === 'order.processing' ? 'active' : '' }}">
+                        <a href="{{ route('order.processing') }}"><i class="ti-more"></i>Processing Order</a>
+                    </li>
+                    <li class="{{ $route === 'order.picked' ? 'active' : '' }}">
+                        <a href="{{ route('order.picked') }}"><i class="ti-more"></i>Picked Order</a>
+                    </li>
+                    <li class="{{ $route === 'order.shipped' ? 'active' : '' }}">
+                        <a href="{{ route('order.shipped') }}"><i class="ti-more"></i>Shipped Order</a>
+                    </li>
+                    <li class="{{ $route === 'order.delivered' ? 'active' : '' }}">
+                        <a href="{{ route('order.delivered') }}"><i class="ti-more"></i>Delivered Order</a>
+                    </li>
+                    <li class="{{ $route === 'order.cancel' ? 'active' : '' }}">
+                        <a href="{{ route('order.cancel') }}"><i class="ti-more"></i>Cancel Order</a>
+                    </li>
+
+                </ul>
+            </li>
+
+            <!-- Orders -->
+            <li class="treeview {{ $prefix === '/admin/return' ? 'active' : '' }}">
+                <a href="#">
+                    <i class="fa fa-tag"></i>
+                    <span>Return</span>
+                    <span class="pull-right-container">
+                        <i class="fa fa-angle-right pull-right"></i>
+                    </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li class="{{ $route === 'admin.return.request' ? 'active' : '' }}">
+                        <a href="{{ route('admin.return.request') }}"><i class="ti-more"></i>Return
+                            Request</a>
+                    </li>
+                    <li class="{{ $route === 'admin.return.index' ? 'active' : '' }}">
+                        <a href="{{ route('admin.return.index') }}"><i class="ti-more"></i>All Request</a>
                     </li>
                 </ul>
             </li>
+
+            <!-- Reports -->
+            <li class="treeview {{ $prefix === '/report' ? 'active' : '' }}">
+                <a href="#">
+                    <i class="fa fa-tag"></i>
+                    <span>Reports</span>
+                    <span class="pull-right-container">
+                        <i class="fa fa-angle-right pull-right"></i>
+                    </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li class="{{ $route === 'report.index' ? 'active' : '' }}">
+                        <a href="{{ route('report.index') }}"><i class="ti-more"></i>All Report</a>
+                    </li>
+                </ul>
+            </li>
+
+            <!-- Users -->
+            <li class="treeview {{ $prefix === '/admin/users' ? 'active' : '' }}">
+                <a href="#">
+                    <i class="fa fa-tag"></i>
+                    <span>All Users</span>
+                    <span class="pull-right-container">
+                        <i class="fa fa-angle-right pull-right"></i>
+                    </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li class="{{ $route === 'admin.users' ? 'active' : '' }}">
+                        <a href="{{ route('admin.users') }}"><i class="ti-more"></i>Users</a>
+                    </li>
+                </ul>
+            </li>
+
+            <!-- Blog Post -->
+            <li class="treeview {{ $prefix === '/admin/blog' ? 'active' : '' }}">
+                <a href="#">
+                    <i class="fa fa-tag"></i>
+                    <span>Blog Post</span>
+                    <span class="pull-right-container">
+                        <i class="fa fa-angle-right pull-right"></i>
+                    </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li class="{{ $route === 'admin.blog.cat.index' ? 'active' : '' }}">
+                        <a href="{{ route('admin.blog.cat.index') }}"><i class="ti-more"></i>
+                            Blog Category</a>
+                    </li>
+                    <li class="{{ $route === 'admin.blog.create' ? 'active' : '' }}">
+                        <a href="{{ route('admin.blog.create') }}"><i class="ti-more"></i>Add Post</a>
+                    </li>
+                    <li class="{{ $route === 'admin.blog.index' ? 'active' : '' }}">
+                        <a href="{{ route('admin.blog.index') }}"><i class="ti-more"></i>Manage Post</a>
+                    </li>
+                </ul>
+            </li>
+
+            <!-- Review -->
+            <li class="treeview {{ $prefix === '/admin/review' ? 'active' : '' }}">
+                <a href="#">
+                    <i class="fa fa-tag"></i>
+                    <span>Review</span>
+                    <span class="pull-right-container">
+                        <i class="fa fa-angle-right pull-right"></i>
+                    </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li class="{{ $route === 'admin.review.pending' ? 'active' : '' }}">
+                        <a href="{{ route('admin.review.pending') }}"><i class="ti-more"></i> Pending
+                            Review</a>
+                    </li>
+                    <li class="{{ $route === 'admin.review.published' ? 'active' : '' }}">
+                        <a href="{{ route('admin.review.published') }}"><i class="ti-more"></i> Published
+                            Review</a>
+                    </li>
+
+                </ul>
+            </li>
+
+            <!-- Setting -->
+            <li class="treeview {{ $prefix === '/setting' ? 'active' : '' }}">
+                <a href="#">
+                    <i class="fa fa-tag"></i>
+                    <span> Setting</span>
+                    <span class="pull-right-container">
+                        <i class="fa fa-angle-right pull-right"></i>
+                    </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li class="{{ $route === 'setting.site.index' ? 'active' : '' }}">
+                        <a href="{{ route('setting.site.index') }}"><i class="ti-more"></i>Site Setting</a>
+                    </li>
+                    <li class="{{ $route === 'setting.seo.index' ? 'active' : '' }}">
+                        <a href="{{ route('setting.seo.index') }}"><i class="ti-more"></i>Seo Setting</a>
+                    </li>
+                </ul>
+            </li>
+
         </ul>
     </section>
 

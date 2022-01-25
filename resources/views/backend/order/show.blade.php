@@ -92,7 +92,14 @@
                                 </tr>
                                 <tr>
                                     <th>Invoice</th>
+<<<<<<< HEAD
                                     <th class="text-primary">{{ $order->invoice_no }}</th>
+=======
+                                    <th class="text-primary">
+                                        <a href="{{ route('order.invoice', ['id' => $order->id]) }}">{{ $order->invoice_no }}
+                                        </a>
+                                    </th>
+>>>>>>> 554f03b3f5d3736d4c17543c52f74ceb4331dd3d
                                 </tr>
                                 <tr>
                                     <th>Total</th>
@@ -104,6 +111,43 @@
                                         <x-badge class="primary" :message="$order->status" />
                                     </th>
                                 </tr>
+<<<<<<< HEAD
+=======
+                                <tr>
+                                    <th></th>
+                                    <th>
+                                        @switch(" ".$order->status )
+                                            @case(" pending")
+                                                <a id="updateStatus"
+                                                    href="{{ route('order.updateStatus', ['id' => $order->id, 'status' => 'confirmed']) }}"
+                                                    class="btn btn-success btn-block">Confirmed Order</a>
+                                            @break
+                                            @case(" confirmed")
+                                                <a id="updateStatus"
+                                                    href="{{ route('order.updateStatus', ['id' => $order->id, 'status' => 'processing']) }}"
+                                                    class="btn btn-success btn-block">Processing Order</a>
+                                            @break
+                                            @case(" processing")
+                                                <a id="updateStatus"
+                                                    href="{{ route('order.updateStatus', ['id' => $order->id, 'status' => 'picked']) }}"
+                                                    class="btn btn-success btn-block">Picked Order</a>
+                                            @break
+                                            @case(" picked")
+                                                <a id="updateStatus"
+                                                    href="{{ route('order.updateStatus', ['id' => $order->id, 'status' => 'shipped']) }}"
+                                                    class="btn btn-success btn-block">Shipped Order</a>
+                                            @break
+                                            @case(" shipped")
+                                                <a id="updateStatus"
+                                                    href="{{ route('order.updateStatus', ['id' => $order->id, 'status' => 'delivered']) }}"
+                                                    class="btn btn-success btn-block">Delivered Order</a>
+                                            @break
+
+                                        @endswitch
+
+                                    </th>
+                                </tr>
+>>>>>>> 554f03b3f5d3736d4c17543c52f74ceb4331dd3d
 
 
                             </table>

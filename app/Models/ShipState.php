@@ -29,7 +29,7 @@ class ShipState extends Model
      */
     public function district()
     {
-        return $this->hasMany(ShipDistrict::class);
+        return $this->hasMany(ShipDistrict::class, "state_id", 'id');
     }
 
     /**

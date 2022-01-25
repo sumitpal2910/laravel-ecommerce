@@ -30,7 +30,9 @@
 
                     <div class="box">
                         <div class="box-header with-border">
-                            <h3 class="box-title">All District</h3>
+                            <h3 class="box-title">District
+                                <x-badge :message="count($districts)" />
+                            </h3>
                         </div>
                         <!-- /.box-header -->
                         <div class="box-body">

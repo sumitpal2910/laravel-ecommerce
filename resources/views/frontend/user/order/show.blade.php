@@ -88,13 +88,17 @@
                                 </tr>
                                 <tr>
                                     <th>Total</th>
-                                    <th>{{ $order->amount }}</th>
+                                    <th>${{ $order->amount }}</th>
                                 </tr>
                                 <tr>
                                     <th>Order</th>
                                     <th>
-                                        @if ($order->status === 'pending')
-                                            <x-f-badge class="danger" message="Pending" />
+                                        @if ($order->return_order)
+                                            <x-f-badge class="primary" :message="$order->status" />
+                                            <br>
+                                            <span class="badge badge-pill-warning">Return requested</span>
+                                        @else
+                                            <x-f-badge class="primary" :message="$order->status" />
                                         @endif
                                     </th>
                                 </tr>
@@ -146,12 +150,26 @@
                 </div>
             </div>
 
+<<<<<<< HEAD
             @if ($order->status === "delivered")
                 
             <div class="form-group">
                 <textarea name="return_reason" id="" cols="30" rows="5" class="form-control" placeholder="Return reason"
                 required></textarea>
             </div>
+=======
+            @if ($order->status === 'delivered' && !$order->return_reason)
+                <form action="{{ route('user.order.return', ['id' => $order->id]) }}" method="post">
+                    @csrf
+                    <div class="form-group">
+                        <textarea name="return_reason" id="" cols="30" rows="5" class="form-control"
+                            placeholder="Return reason" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary">Return</button>
+                    </div>
+                </form>
+>>>>>>> 554f03b3f5d3736d4c17543c52f74ceb4331dd3d
             @endif
         </div>
     </div>

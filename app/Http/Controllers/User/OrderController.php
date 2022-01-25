@@ -14,6 +14,7 @@ class OrderController extends Controller
     {
         $this->middleware(['auth', 'user']);
     }
+
     /**
      * Display a listing of the resource.
      *
@@ -28,7 +29,6 @@ class OrderController extends Controller
         return view("frontend.user.order.view", compact("orders"));
     }
 
-
     /**
      * Display the specified resource.
      *
@@ -37,7 +37,7 @@ class OrderController extends Controller
      */
     public function show($id)
     {
-        # get order 
+        # get order
         $order = Order::with("orderItem", "state", "district", "user", "orderItem.product")->where("user_id", Auth::id())->findOrFail($id);
 
         # show order page
@@ -45,45 +45,11 @@ class OrderController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
-
-    /**
      * Dwnload Invoice
      */
     public function invoice($id)
     {
-        # get order 
+        # get order
         $order = Order::with("orderItem", "state", "district", "user", "orderItem.product")->where("user_id", Auth::id())->findOrFail($id);
 
         # show order page
@@ -94,5 +60,50 @@ class OrderController extends Controller
             'chroot' => public_path()
         ]);
         return $pdf->download('invoice.pdf');
+    }
+
+    /**
+     * Return order
+     */
+    public function return(Request $request, $id)
+    {
+        # get order
+        $order = Order::findOrFail($id);
+
+        # update return date and reason
+        $order->update([
+            'return_date' => now(),
+            'return_reason' => $request->input('return_reason')
+        ]);
+
+        # notification
+        $notification = ['message' => 'Return Request send successfully', 'alert-type' => 'success'];
+
+        # return to order page
+        return redirect()->route('user.order.index')->with($notification);
+    }
+
+    /**
+     * Show all return order
+     */
+    public function showReturnOrder()
+    {
+        # get all return order
+        $orders = Order::where('return_date', '!=', null)->where('user_id', Auth::id())->latest()->get();
+
+        # show order page
+        return view("frontend.user.order.return", compact("orders"));
+    }
+
+    /**
+     * Show all return order
+     */
+    public function showCancelOrder()
+    {
+        # get all return order
+        $orders = Order::where('status', 'cancel')->where('user_id', Auth::id())->latest()->get();
+
+        # show order page
+        return view("frontend.user.order.cancel", compact("orders"));
     }
 }

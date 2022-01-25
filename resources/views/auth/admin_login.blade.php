@@ -54,7 +54,7 @@
                                         </div>
                                         <input type="password"
                                             class="form-control pl-15 bg-transparent text-white plc-white"
-                                            placeholder="{{ __('Password') }}" id="password" name="password" required
+                                            placeholder="{{ __('Password') }}" value="password" id="password" name="password" required
                                             autocomplete="current-password">
                                     </div>
                                 </div>
