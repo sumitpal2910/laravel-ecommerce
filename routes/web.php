@@ -9,6 +9,7 @@ use App\Http\Controllers\Backend\ProductController;
 use App\Http\Controllers\Backend\SliderController;
 use App\Http\Controllers\Backend\SubCategoryController;
 use App\Http\Controllers\Backend\CouponController;
+use App\Http\Controllers\Backend\OrderController as BackendOrderController;
 use App\Http\Controllers\Backend\ShipDistrictController;
 use App\Http\Controllers\Backend\ShipStateController;
 
@@ -313,6 +314,27 @@ Route::prefix('shipping')->name('ship.')->group(function () {
     });
 });
 
+/**
+ * ---------------------------------------------------
+ *  ----         SHIPPING       ---- 
+ * ---------------------------------------------------
+ */
+Route::prefix("order")->name("order.")->group(function () {
+    // Show Order
+    Route::get("show/{id}", [BackendOrderController::class, 'show'])->name("show");
+
+    // Pending Order
+    Route::get("pending", [BackendOrderController::class, "pending"])->name("pending");
+
+    // Confirmed Order
+    Route::get("confirmed", [BackendOrderController::class, "confirmed"])->name("confirmed");
+
+    // Processing Order
+    Route::get("processing", [BackendOrderController::class, "processing"])->name("processing");
+
+    // Picked Order
+    Route::get("picked", [BackendOrderController::class, "picked"])->name("picked");
+});
 
 // ====================================================================================================================================================================
 // ====================================================================================================================================================================
