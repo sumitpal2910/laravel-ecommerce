@@ -16,6 +16,30 @@ class Product extends Model
      */
     protected $guarded = [];
 
+
+    /**
+     * ---------------------------------------
+     * ---      Scope       ---
+     * ---------------------------------------
+     */
+
+    /**
+     * Total Stock
+     */
+    public function scopeTotalStock()
+    {
+        $result = 0;
+        $stocks = $this->stocks()->get();
+
+        foreach ($stocks as $stock) {
+            if ($stock->type == 1) {
+                $result += $stock->qty;
+            } else {
+                $result -= $stock->qty;
+            }
+        }
+        return $result;
+    }
     /**
      * -------------------------------------------------
      *  ----    Relation    ----
@@ -25,11 +49,12 @@ class Product extends Model
     /**
      * Multipal images
      */
-    public function multiImg()
+    public function gallery()
     {
-        return $this->hasMany('App\Models\MultiImg');
+        return $this->hasMany('App\Models\Gallery', 'product_id', 'id')->orderBy('ordering', 'asc');
     }
 
+   
     /**
      * Category
      */
@@ -84,5 +109,13 @@ class Product extends Model
     public function review()
     {
         return $this->hasMany(Review::class);
+    }
+
+    /**
+     * Stock
+     */
+    public function stocks()
+    {
+        return $this->hasMany(Stock::class);
     }
 }

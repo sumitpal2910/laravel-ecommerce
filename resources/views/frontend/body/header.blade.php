@@ -28,17 +28,17 @@
                             </a>
                         </li>
                         @guest
-                            <li>
-                                <a href="{{ route('login') }}"><i class="icon fa fa-lock"></i>
-                                    @if (session()->get('language') === 'hindi') लॉग इन/रजिस्टर @else  Login/Register @endif
-                                </a>
-                            </li>
+                        <li>
+                            <a href="{{ route('login') }}"><i class="icon fa fa-lock"></i>
+                                @if (session()->get('language') === 'hindi') लॉग इन/रजिस्टर @else Login/Register @endif
+                            </a>
+                        </li>
                         @else
-                            <li>
-                                <a href="{{ route('dashboard') }}"><i class="icon fa fa-user"></i>
-                                    {{ Auth::user()->name }}
-                                </a>
-                            </li>
+                        <li>
+                            <a href="{{ route('dashboard') }}"><i class="icon fa fa-user"></i>
+                                {{ Auth::user()->name }}
+                            </a>
+                        </li>
                         @endguest
                     </ul>
                 </div>
@@ -61,9 +61,9 @@
                                 </span><b class="caret"></b></a>
                             <ul class="dropdown-menu">
                                 @if (session()->get('language') === 'hindi')
-                                    <li><a href="{{ route('language.english') }}">English</a></li>
+                                <li><a href="{{ route('language.english') }}">English</a></li>
                                 @else
-                                    <li><a href="{{ route('language.hindi') }}">हिंदी</a> </li>
+                                <li><a href="{{ route('language.hindi') }}">हिंदी</a> </li>
                                 @endif
                             </ul>
                         </li>
@@ -80,7 +80,7 @@
     <!-- /.header-top -->
     <!-- ============================================== TOP MENU : END ============================================== -->
     @php
-        $setting = App\Models\SiteSetting::find(1);
+    $setting = App\Models\SiteSetting::find(1);
     @endphp
     <div class="main-header">
         <div class="container">
@@ -88,7 +88,7 @@
                 <div class="col-xs-12 col-sm-12 col-md-3 logo-holder">
                     <!-- ============================================================= LOGO ============================================================= -->
                     <div class="logo"> <a href="{{ route('index') }}">
-                            <img src="{{ asset($setting->logo) }}" alt="logo">
+                            <img src="{{ asset(($setting) && ($setting->logo) ? $setting->logo : '') }}" alt="logo">
                         </a> </div>
                     <!-- /.logo -->
                     <!-- ============================================================= LOGO : END ============================================================= -->
@@ -141,8 +141,7 @@
                                 <div class="total-price-basket">
                                     <span class="lbl">cart -</span>
                                     <span class="total-price">
-                                        <span class="sign">$</span><span class="value"
-                                            id="miniCartTotal">0</span>
+                                        <span class="sign">$</span><span class="value" id="miniCartTotal">0</span>
                                     </span>
                                 </div>
                             </div>
@@ -193,9 +192,9 @@
 
                 <!-- Get all category, sub category and sub sub category-->
                 @php
-                    $categories = App\Models\Category::with(['subCategory', 'subCategory.subSubCategory'])
-                        ->orderBy('name_en', 'asc')
-                        ->get();
+                $categories = App\Models\Category::with(['subCategory', 'subCategory.subSubCategory'])
+                ->orderBy('name_en', 'asc')
+                ->get();
                 @endphp
 
                 <div class="nav-bg-class">
@@ -211,64 +210,64 @@
                                 <!-- Categories-->
                                 @foreach ($categories as $category)
 
-                                    <li class="dropdown yamm mega-menu"> <a href="{{ route('index') }}"
-                                            data-hover="dropdown" class="dropdown-toggle" data-toggle="dropdown">
-                                            @if (session()->get('language') === 'hindi')
-                                                {{ $category->name_hin }}
-                                            @else
-                                                {{ $category->name_en }}
-                                            @endif
-                                        </a>
-                                        <ul class="dropdown-menu container">
-                                            <li>
-                                                <div class="yamm-content ">
-                                                    <div class="row">
+                                <li class="dropdown yamm mega-menu"> <a href="{{ route('index') }}"
+                                        data-hover="dropdown" class="dropdown-toggle" data-toggle="dropdown">
+                                        @if (session()->get('language') === 'hindi')
+                                        {{ $category->name_hin }}
+                                        @else
+                                        {{ $category->name_en }}
+                                        @endif
+                                    </a>
+                                    <ul class="dropdown-menu container">
+                                        <li>
+                                            <div class="yamm-content ">
+                                                <div class="row">
 
-                                                        <!-- Sub Categories-->
-                                                        @foreach ($category->subCategory as $subCategory)
+                                                    <!-- Sub Categories-->
+                                                    @foreach ($category->subCategory as $subCategory)
 
-                                                            <div class="col-xs-12 col-sm-6 col-md-2 col-menu">
-                                                                <h2 class="title">
-                                                                    <a
-                                                                        href="{{ route('product.subCategory', ['subcat' => $subCategory->id, 'slug' => $subCategory->slug_en]) }}">
-                                                                        @if (session()->get('language') === 'hindi')
-                                                                            {{ $subCategory->name_hin }}
-                                                                        @else
-                                                                            {{ $subCategory->name_en }}
-                                                                        @endif
-                                                                    </a>
-                                                                </h2>
-                                                                <ul class="links">
+                                                    <div class="col-xs-12 col-sm-6 col-md-2 col-menu">
+                                                        <h2 class="title">
+                                                            <a
+                                                                href="{{ route('product.subCategory', ['subcat' => $subCategory->id, 'slug' => $subCategory->slug_en]) }}">
+                                                                @if (session()->get('language') === 'hindi')
+                                                                {{ $subCategory->name_hin }}
+                                                                @else
+                                                                {{ $subCategory->name_en }}
+                                                                @endif
+                                                            </a>
+                                                        </h2>
+                                                        <ul class="links">
 
-                                                                    <!-- Sub Sub Categories-->
-                                                                    @foreach ($subCategory->subSubCategory as $subSub)
+                                                            <!-- Sub Sub Categories-->
+                                                            @foreach ($subCategory->subSubCategory as $subSub)
 
-                                                                        <li> <a
-                                                                                href="{{ route('product.subSubCategory', ['sub_subcat' => $subSub->id, 'slug' => $subSub->slug_en]) }}">
-                                                                                @if (session()->get('language') === 'hindi')
-                                                                                    {{ $subSub->name_hin }}
-                                                                                @else
-                                                                                    {{ $subSub->name_en }}
-                                                                                @endif
-                                                                            </a>
-                                                                        </li>
-                                                                    @endforeach
-                                                                </ul>
-                                                            </div>
-                                                            <!-- /.col -->
-                                                        @endforeach
-
-                                                        <div class="col-xs-12 col-sm-6 col-md-4 col-menu banner-image">
-                                                            <img class="img-responsive"
-                                                                src="{{ asset('frontend/assets/images/banners/top-menu-banner.jpg') }}"
-                                                                alt="">
-                                                        </div>
-                                                        <!-- /.yamm-content -->
+                                                            <li> <a
+                                                                    href="{{ route('product.subSubCategory', ['sub_subcat' => $subSub->id, 'slug' => $subSub->slug_en]) }}">
+                                                                    @if (session()->get('language') === 'hindi')
+                                                                    {{ $subSub->name_hin }}
+                                                                    @else
+                                                                    {{ $subSub->name_en }}
+                                                                    @endif
+                                                                </a>
+                                                            </li>
+                                                            @endforeach
+                                                        </ul>
                                                     </div>
+                                                    <!-- /.col -->
+                                                    @endforeach
+
+                                                    <div class="col-xs-12 col-sm-6 col-md-4 col-menu banner-image">
+                                                        <img class="img-responsive"
+                                                            src="{{ asset('frontend/assets/images/banners/top-menu-banner.jpg') }}"
+                                                            alt="">
+                                                    </div>
+                                                    <!-- /.yamm-content -->
                                                 </div>
-                                            </li>
-                                        </ul>
-                                    </li>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </li>
                                 @endforeach
 
 

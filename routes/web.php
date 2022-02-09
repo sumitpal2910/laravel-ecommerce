@@ -11,18 +11,19 @@ use App\Http\Controllers\Backend\ProductController;
 use App\Http\Controllers\Backend\SliderController;
 use App\Http\Controllers\Backend\SubCategoryController;
 use App\Http\Controllers\Backend\CouponController;
+use App\Http\Controllers\Backend\FolderController;
 use App\Http\Controllers\Backend\OrderController as BackendOrderController;
-<<<<<<< HEAD
-=======
+use App\Http\Controllers\Backend\GalleryController;
 use App\Http\Controllers\Backend\ReportController;
 use App\Http\Controllers\Backend\ReturnController;
 use App\Http\Controllers\Backend\ReviewController as BackendReviewController;
->>>>>>> 554f03b3f5d3736d4c17543c52f74ceb4331dd3d
+
 use App\Http\Controllers\Backend\ShipDistrictController;
 use App\Http\Controllers\Backend\ShipStateController;
 use App\Http\Controllers\Backend\Setting\SiteSettingController;
 use App\Http\Controllers\Backend\Setting\SeoController;
-
+use App\Http\Controllers\Backend\StockController;
+use App\Http\Controllers\Backend\VideoController;
 // Frontend
 use App\Http\Controllers\Frontend\BlogPostController as FrontendBlogPostController;
 use App\Http\Controllers\Frontend\CartController;
@@ -238,8 +239,71 @@ Route::prefix('product')->group(function () {
 
     // Delete Product
     Route::delete("/delete/{id}", [ProductController::class, 'deleteProduct'])->name('product.delete');
+
+    # Re order product
+    Route::post('re-order', [ProductController::class, 'reOrder'])->name('re-order');
+
+    Route::name('product.gallery.')->group(function () {
+        Route::prefix('{product}/gallery')->group(function () {
+
+            # show all images
+            Route::get('/', [GalleryController::class, 'index'])->name('index');
+
+            # get all images
+            Route::get('image', [GalleryController::class, 'showImage'])->name('image.show');
+
+            # store images
+            Route::post('image', [GalleryController::class, 'storeImage'])->name('image.store');
+
+            # get all videos
+            Route::get('video', [GalleryController::class, 'showVideo'])->name('video.show');
+
+            # store videos
+            Route::post('video', [GalleryController::class, 'storeVideo'])->name('video.store');
+
+            # re-order image
+            Route::post('re-order', [GalleryController::class, 'reOrder'])->name('re-order');
+
+            # delete multiple
+            Route::delete('delete-multiple', [GalleryController::class, 'deleteMultiple'])->name('delete-multiple');
+        });
+
+        # update Descripton
+        Route::match(['PUT', "PATCH"], 'gallery/{gallery}/description', [GalleryController::class, 'description'])
+            ->name('description.update');
+
+        # chnage favorite
+        Route::match(['PUT', "PATCH"], 'gallery/{gallery}/favorite', [GalleryController::class, 'favorite'])
+            ->name('favorite.update');
+
+        # delete gallery
+        Route::delete('gallery/{gallery}', [GalleryController::class, 'destroy'])->name('destroy');
+
+        # change gallery status
+        Route::match(['PUT', "PATCH"], 'gallery/{gallery}/update-status', [GalleryController::class, 'updateStatus'])
+            ->name('status.update');
+    });
 });
 
+
+/**
+ * Folder
+ */
+Route::prefix('folder')->name('folder.')->group(function () {
+    # show all folder in json
+    Route::get('/', [FolderController::class, 'index'])->name('index');
+
+    # create new folder
+    Route::post('/', [FolderController::class, 'store'])->name('store');
+});
+
+
+/**
+ * Stock
+ */
+Route::prefix('admin')->name('admin.')->group(function () {
+    Route::resource('stock', StockController::class)->only(['store', 'update', 'destroy']);
+});
 
 /**
  * ---------------------------------------------------
@@ -340,32 +404,14 @@ Route::prefix('shipping')->name('ship.')->group(function () {
 
 /**
  * ---------------------------------------------------
-<<<<<<< HEAD
- *  ----         SHIPPING       ---- 
-=======
+
  *  ----         ORDERS      ----
->>>>>>> 554f03b3f5d3736d4c17543c52f74ceb4331dd3d
+
  * ---------------------------------------------------
  */
 Route::prefix("order")->name("order.")->group(function () {
     // Show Order
     Route::get("show/{id}", [BackendOrderController::class, 'show'])->name("show");
-<<<<<<< HEAD
-
-    // Pending Order
-    Route::get("pending", [BackendOrderController::class, "pending"])->name("pending");
-
-    // Confirmed Order
-    Route::get("confirmed", [BackendOrderController::class, "confirmed"])->name("confirmed");
-
-    // Processing Order
-    Route::get("processing", [BackendOrderController::class, "processing"])->name("processing");
-
-    // Picked Order
-    Route::get("picked", [BackendOrderController::class, "picked"])->name("picked");
-});
-=======
->>>>>>> 554f03b3f5d3736d4c17543c52f74ceb4331dd3d
 
     // Pending Order
     Route::get("pending", [BackendOrderController::class, "pending"])->name("pending");

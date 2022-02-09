@@ -64,7 +64,7 @@ $(function () {
         ordering: true,
     });
 
-<<<<<<< HEAD
+
 	/**
      * Coupon Table
      */
@@ -78,7 +78,7 @@ $(function () {
 	$('#pendingOrderTable').DataTable({
 		ordering: true
 	});
-=======
+
     /**
      * Coupon Table
      */
@@ -92,7 +92,7 @@ $(function () {
     $("#pendingOrderTable").DataTable({
         ordering: true,
     });
->>>>>>> 554f03b3f5d3736d4c17543c52f74ceb4331dd3d
+
 
     /**
      * Admin User Table

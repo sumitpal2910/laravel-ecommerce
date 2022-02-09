@@ -144,7 +144,7 @@ $route = Route::current()->getName();
                 </ul>
             </li>
 
-<<<<<<< HEAD
+
             <!-- Shipping Area -->
             <li class="treeview {{ $prefix === '/order' ? 'active' : '' }}">
                 <a href="#">
@@ -175,10 +175,8 @@ $route = Route::current()->getName();
             <li class="header nav-small-cap">User Interface</li>
 
             <li class="treeview">
-=======
             <!-- Orders -->
             <li class="treeview {{ $prefix === '/order' ? 'active' : '' }}">
->>>>>>> 554f03b3f5d3736d4c17543c52f74ceb4331dd3d
                 <a href="#">
                     <i class="fa fa-tag"></i>
                     <span>Orders</span>

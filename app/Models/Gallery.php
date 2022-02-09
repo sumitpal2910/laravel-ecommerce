@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class MultiImg extends Model
+class Gallery extends Model
 {
     use HasFactory;
 
@@ -16,6 +16,15 @@ class MultiImg extends Model
      * @var string[]
      */
     protected $guarded = [];
+
+
+    /**
+     * -------------------------------------------------
+     *  ----    Scope    ----
+     * -------------------------------------------------
+     */
+
+
 
     /**
      * -------------------------------------------------

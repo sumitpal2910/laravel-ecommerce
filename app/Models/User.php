@@ -100,4 +100,12 @@ class User extends Authenticatable
     {
         return $this->hasMany(Review::class);
     }
+
+    /**
+     * Folders
+     */
+    public function folders()
+    {
+        return $this->hasMany(Folder::class, 'user_id', 'id');
+    }
 }

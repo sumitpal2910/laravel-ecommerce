@@ -8,10 +8,11 @@ use Illuminate\Http\Request;
 
 use App\Models\Brand;
 use App\Models\Category;
-use App\Models\MultiImg;
 use App\Models\SubCategory;
 use App\Models\SubSubCategory;
 use App\Models\Product;
+use App\Models\Gallery;
+use Illuminate\Support\Facades\Auth;
 use Intervention\Image\Facades\Image;
 
 class ProductController extends Controller
@@ -37,7 +38,7 @@ class ProductController extends Controller
     }
 
     /**
-     * Store Product 
+     * Store Product
      */
     public function storeProduct(ProductRequest $request)
     {
@@ -67,22 +68,22 @@ class ProductController extends Controller
         $product = Product::create($validate);
 
 
-        // Store Multipal Images
-        if ($request->file('multiImg')) {
-            $images = $request->file('multiImg');
-            foreach ($images as $key => $image) {
-                // store image
-                $name_gen = hexdec(uniqid()) . "." . $image->getClientOriginalExtension();
-                $imageUrl = "upload/products/multi-img/" . $name_gen;
-                Image::make($image)->resize(917, 1000)->save($imageUrl);
-
-                // insert to database
-                MultiImg::create([
-                    'product_id' => $product->id,
-                    'photo_name' => $imageUrl
-                ]);
-            }
-        }
+        //        // Store Multipal Images
+        //        if ($request->file('multiImg')) {
+        //            $images = $request->file('multiImg');
+        //            foreach ($images as $key => $image) {
+        //                // store image
+        //                $name_gen = hexdec(uniqid()) . "." . $image->getClientOriginalExtension();
+        //                $imageUrl = "upload/products/multi-img/" . $name_gen;
+        //                Image::make($image)->resize(917, 1000)->save($imageUrl);
+        //
+        //                // insert to database
+        //                MultiImg::create([
+        //                    'product_id' => $product->id,
+        //                    'photo_name' => $imageUrl
+        //                ]);
+        //            }
+        //        }
 
         // Notification
         $notification = [
@@ -95,7 +96,7 @@ class ProductController extends Controller
     }
 
     /**
-     * Store Product 
+     * Store Product
      */
     public function storeProductImg(Request $request)
     {
@@ -111,7 +112,7 @@ class ProductController extends Controller
                 Image::make($image)->resize(917, 1000)->save($imageUrl);
 
                 // insert to database
-                MultiImg::create([
+                Gallery::create([
                     'product_id' => $product_id,
                     'photo_name' => $imageUrl
                 ]);
@@ -129,19 +130,19 @@ class ProductController extends Controller
     }
 
     /**
-     * view All Products 
+     * view All Products
      */
     public function viewProduct()
     {
         // get all products
-        $products = Product::latest()->get();
+        $products = Product::with('stocks')->orderBy('ordering', 'asc')->get();
 
         // view product page
         return view('backend.product.product_view', compact('products'));
     }
 
     /**
-     * show edit Product page 
+     * show edit Product page
      */
     public function editProduct($id)
     {
@@ -203,7 +204,7 @@ class ProductController extends Controller
         // loop over images
         foreach ($images as $id => $img) {
             // get the image
-            $oldImg = MultiImg::findOrFail($id);
+            $oldImg = Gallery::findOrFail($id);
 
             // delete the image
             if ($oldImg->photo_name) unlink($oldImg->photo_name);
@@ -246,7 +247,7 @@ class ProductController extends Controller
             // unlink image
             if ($oldImg) unlink($oldImg);
 
-            // save new image 
+            // save new image
             $nameGen = hexdec(uniqid()) . "." . $thumb->getClientOriginalExtension();
             $fileUrl = "upload/products/thumbnail/" . $nameGen;
             Image::make($thumb)->resize(917, 1000)->save($fileUrl);
@@ -296,8 +297,8 @@ class ProductController extends Controller
      */
     public function deleteProductImg($id)
     {
-        // get image 
-        $image = MultiImg::findOrFail($id);
+        // get image
+        $image = Gallery::findOrFail($id);
 
         // unlink image
         if ($image->photo_name) unlink($image->photo_name);
@@ -346,5 +347,24 @@ class ProductController extends Controller
 
         // redirect to back
         return redirect()->back()->with($notification);
+    }
+
+    /**
+     * Re Order
+     */
+    public function reOrder(Request $request)
+    {
+        # get ids
+        $productId = $request->input('productId');
+
+        # get products
+        $products = Product::whereIn('id', $productId)->orderBy('ordering', 'asc')->get();
+        foreach ($productId as $key => $id) {
+            $product = $products->find($id);
+            $product->ordering = $key + 1;
+            $product->save();
+        }
+
+        return response()->json(['status' => 1, 'message' => 'Product re ordered']);
     }
 }

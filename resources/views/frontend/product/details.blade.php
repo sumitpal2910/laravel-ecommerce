@@ -72,7 +72,7 @@
                                                     data-echo="{{ url($product->thumbnail) }}" />
                                             </a>
                                         </div><!-- /.single-product-gallery-item -->
-                                        @foreach ($product->multiImg as $img)
+                                        @foreach ($product->images as $img)
                                             <div class="single-product-gallery-item" id="slide-{{ $img->id }}">
                                                 <a data-lightbox="image-1" data-title="Gallery"
                                                     href="{{ url($img->photo_name) }}">
@@ -97,7 +97,7 @@
                                                         data-echo="{{ url($product->thumbnail) }}" />
                                                 </a>
                                             </div>
-                                            @foreach ($product->multiImg as $img)
+                                            @foreach ($product->images as $img)
                                                 <div class="item">
                                                     <a class="horizontal-thumb " data-target="#owl-single-product"
                                                         data-slide="1" href="#slide-{{ $img->id }}">

@@ -1,0 +1,28 @@
+.pdropzone {
+    height: 70vh;
+    max-height: 250px;
+    cursor: pointer;
+}
+
+.img-button-div {
+    position: absolute;
+}
+
+.fill-red {
+    color: #f00;
+}
+
+.img-hide-text {
+    background: #f00;
+    width: 100%;
+    text-align: center;
+    position: absolute;
+    bottom: 15%;
+}
+
+.modal-content {
+    background: #1d223a !important;
+    transition-duration: 3s, 5s;
+}
+
+

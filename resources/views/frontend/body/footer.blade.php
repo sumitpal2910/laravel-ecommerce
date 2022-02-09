@@ -1,6 +1,6 @@
 <footer id="footer" class="footer color-bg">
     @php
-        $setting = App\Models\SiteSetting::find(1);
+    $setting = App\Models\SiteSetting::find(1);
     @endphp
     <div class="footer-bottom">
         <div class="container">
@@ -17,21 +17,25 @@
                                 <div class="pull-left"> <span class="icon fa-stack fa-lg"> <i
                                             class="fa fa-map-marker fa-stack-1x fa-inverse"></i> </span> </div>
                                 <div class="media-body">
-                                    <p>{{ $setting->company_name }}, {{ $setting->company_address }}</p>
+                                    <p>{{($setting) && ($setting->company_name) ? $setting->company_name : ''}},
+                                        {{($setting) && ($setting->company_address) ? $setting->company_address : '' }}
+                                    </p>
                                 </div>
                             </li>
                             <li class="media">
                                 <div class="pull-left"> <span class="icon fa-stack fa-lg"> <i
                                             class="fa fa-mobile fa-stack-1x fa-inverse"></i> </span> </div>
                                 <div class="media-body">
-                                    <p>{{ $setting->phone }}<br>
-                                        {{ $setting->alt_phone }}</p>
+                                    <p>{{($setting)&& ($setting->phone) ? $setting->phone :'' }}<br>
+                                        {{ ($setting)&& ($setting->alt_phone) ? $setting->alt_phone :'' }}
+                                    </p>
                                 </div>
                             </li>
                             <li class="media">
                                 <div class="pull-left"> <span class="icon fa-stack fa-lg"> <i
                                             class="fa fa-envelope fa-stack-1x fa-inverse"></i> </span> </div>
-                                <div class="media-body"> <span><a href="#">{{ $setting->email }}</a></span>
+                                <div class="media-body"> <span><a
+                                            href="#">{{($setting) &&($setting->email)? $setting->email:'' }}</a></span>
                                 </div>
                             </li>
                         </ul>
@@ -103,22 +107,24 @@
         <div class="container">
             <div class="col-xs-12 col-sm-6 no-padding social">
                 <ul class="link">
-                    <li class="fb pull-left"><a target="_blank" rel="nofollow" href="{{ $setting->facebook }}"
+                    <li class="fb pull-left"><a target="_blank" rel="nofollow"
+                            href="{{($setting) && ($setting->facebook) ?  $setting->facebook :''}}"
                             title="Facebook"></a>
                     </li>
-                    <li class="tw pull-left"><a target="_blank" rel="nofollow" href="{{ $setting->twitter }}"
-                            title="Twitter"></a>
+                    <li class="tw pull-left"><a target="_blank" rel="nofollow"
+                            href="{{ ($setting) && ($setting->twitter) ? $setting->twitter:'' }}" title="Twitter"></a>
                     </li>
                     <li class="googleplus pull-left"><a target="_blank" rel="nofollow" href="#" title="GooglePlus"></a>
                     </li>
                     <li class="rss pull-left"><a target="_blank" rel="nofollow" href="#" title="RSS"></a></li>
                     <li class="pintrest pull-left"><a target="_blank" rel="nofollow" href="#" title="PInterest"></a>
                     </li>
-                    <li class="linkedin pull-left"><a target="_blank" rel="nofollow" href="{{ $setting->linkedin }}"
+                    <li class="linkedin pull-left"><a target="_blank" rel="nofollow"
+                            href="{{ ($setting) && ($setting->linkedin) ? $setting->linkedin:'' }}"
                             title="Linkedin"></a>
                     </li>
-                    <li class="youtube pull-left"><a target="_blank" rel="nofollow" href="{{ $setting->youtube }}"
-                            title="Youtube"></a>
+                    <li class="youtube pull-left"><a target="_blank" rel="nofollow"
+                            href="{{ ($setting) && ($setting->youtube) ? $setting->youtube:'' }}" title="Youtube"></a>
                     </li>
                 </ul>
             </div>

@@ -5,6 +5,8 @@ namespace App\Providers;
 // Backend
 use App\View\Components\Backend\Badge;
 use App\View\Components\Backend\Error;
+use App\View\Components\Backend\GalleryLink;
+use App\View\Components\Backend\GalleryModal;
 use App\View\Components\Frontend\Badge as FrontendBadge;
 use App\View\Components\Frontend\Blog\Category as BlogCategory;
 // Frontend
@@ -31,7 +33,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        // 
+        //
     }
 
     /**
@@ -97,5 +99,9 @@ class AppServiceProvider extends ServiceProvider
 
         # error
         Blade::component('error', Error::class);
+
+        Blade::component('gallery-link', GalleryLink::class);
+
+        Blade::component('gallery-modal', GalleryModal::class);
     }
 }
